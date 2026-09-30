@@ -1,0 +1,26 @@
+{
+	"name": "ziploggerhq/wordpress-plugin-dev",
+	"description": "Development tooling for the ZipLogger plugin. Not shipped: the plugin itself has no Composer dependencies.",
+	"type": "project",
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=7.4"
+	},
+	"require-dev": {
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"phpunit/phpunit": "^9.6",
+		"wp-coding-standards/wpcs": "^3.1",
+		"yoast/phpunit-polyfills": "^2.0"
+	},
+	"config": {
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"test": "phpunit",
+		"lint": "phpcs --standard=phpcs.xml.dist plugin/ziplogger"
+	}
+}

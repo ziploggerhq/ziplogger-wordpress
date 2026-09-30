@@ -1,0 +1,110 @@
+# End-to-end stack: a real WordPress (Apache + PHP), MariaDB, WP-CLI and a local ZipLogger receiver.
+#
+#   docker compose -f docker-compose.e2e.yml up -d
+#   node tests/e2e/e2e.mjs                       # drives everything; see tests/e2e/README.md
+#   docker compose -f docker-compose.e2e.yml down -v
+#
+# The site answers on http://localhost:8088 from the host and on http://wordpress from inside the
+# network (WP-CLI, the receiver, the browser-test container). WP_HOME follows the Host header so both work.
+name: ziplogger-e2e
+
+# WordPress reads WORDPRESS_CONFIG_EXTRA at run time (wp-config.php evals it), so every container that loads
+# WordPress - including WP-CLI - needs the same environment.
+x-wp-env: &wp-env
+  WORDPRESS_DB_HOST: db
+  WORDPRESS_DB_USER: wp
+  WORDPRESS_DB_PASSWORD: wp
+  WORDPRESS_DB_NAME: wordpress
+  WORDPRESS_CONFIG_EXTRA: |
+    $$zl_host = isset($$_SERVER['HTTP_HOST']) ? $$_SERVER['HTTP_HOST'] : 'wordpress';
+    define('WP_HOME', 'http://' . $$zl_host);
+    define('WP_SITEURL', 'http://' . $$zl_host);
+    define('WP_ENVIRONMENT_TYPE', 'staging');
+    if (!defined('WP_DEBUG')) { define('WP_DEBUG', true); }
+    if (!defined('WP_DEBUG_LOG')) { define('WP_DEBUG_LOG', false); }
+    if (!defined('WP_DEBUG_DISPLAY')) { define('WP_DEBUG_DISPLAY', false); }
+    define('ZIPLOGGER_ALLOW_INSECURE_ENDPOINT', true);
+
+services:
+  db:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wp
+      MARIADB_PASSWORD: wp
+    tmpfs:
+      - /var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+
+  wordpress:
+    image: wordpress:${WP_IMAGE_TAG:-latest}
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *wp-env
+    ports:
+      - "8088:80"
+    volumes:
+      - wpdata:/var/www/html
+      - ./tests/e2e/fixtures:/var/www/html/wp-content/mu-plugins:ro
+    networks:
+      default:
+        aliases:
+          - wordpress
+
+  wpcli:
+    image: wordpress:cli
+    user: "33:33"
+    profiles: ["tools"]
+    depends_on:
+      - wordpress
+    environment:
+      <<: *wp-env
+    volumes:
+      - wpdata:/var/www/html
+      - ./dist:/dist:ro
+      - ./plugin:/plugin-src:ro
+    working_dir: /var/www/html
+
+  # A real Chromium (Microsoft's official Playwright image; the tag matches the pinned library version).
+  # Driven by tests/e2e/m3-browser.test.mjs, one scenario per `run`.
+  browser:
+    image: mcr.microsoft.com/playwright:v1.63.0-noble
+    profiles: ["tools"]
+    working_dir: /e2e/browser
+    environment:
+      SITE: http://wordpress
+    volumes:
+      - ./tests/e2e/browser:/e2e/browser
+      - pwmodules:/e2e/browser/node_modules
+    depends_on:
+      - wordpress
+      - mock
+
+  mock:
+    image: node:22-alpine
+    working_dir: /app
+    command: ["node", "mock-ziplogger.mjs"]
+    environment:
+      PORT: "5081"
+    volumes:
+      - ./tests/e2e/mock-ziplogger.mjs:/app/mock-ziplogger.mjs:ro
+      - ./tests/e2e/mock-read-model.mjs:/app/mock-read-model.mjs:ro
+    ports:
+      - "5081:5081"
+    networks:
+      default:
+        aliases:
+          # A second name for the same receiver: it plays "a third-party site" in the propagation tests
+          # (the trace-header allowlist accepts only dotted host names).
+          - thirdparty.example.org
+
+volumes:
+  wpdata:
+  pwmodules:

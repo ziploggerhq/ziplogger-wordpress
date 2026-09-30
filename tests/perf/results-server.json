@@ -1,0 +1,493 @@
+{
+  "generated": "2026-09-30T03:48:54.129Z",
+  "rounds": 250,
+  "warmupRounds": 12,
+  "page": "/?zl_perf=1&zl_cfg=<id>",
+  "order": "interleaved, shuffled every round (seeded)",
+  "configs": [
+    {
+      "id": "inactive",
+      "label": "Plugin deactivated (WordPress + WooCommerce only)",
+      "phpMs": {
+        "n": 250,
+        "median": 102.16,
+        "p95": 143,
+        "mean": 106.78,
+        "min": 92.07,
+        "max": 162.7
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 115.76069999998435,
+        "p95": 156.19670000000042,
+        "mean": 118.29,
+        "min": 96.46590000001015,
+        "max": 174.84369999999763
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 53,
+        "mean": 53,
+        "min": 53,
+        "max": 53
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13231080,
+        "p95": 13231080,
+        "mean": 13230738.24,
+        "min": 13230120,
+        "max": 13231080
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "idle",
+      "label": "Plugin active, collection off",
+      "phpMs": {
+        "n": 250,
+        "median": 103,
+        "p95": 143.06,
+        "mean": 107.43,
+        "min": 93.36,
+        "max": 162.5
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 116.06830000004265,
+        "p95": 154.6822000000102,
+        "mean": 119.22,
+        "min": 98.57099999999627,
+        "max": 181.35379999999714
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 53,
+        "mean": 53,
+        "min": 53,
+        "max": 53
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13337560,
+        "p95": 13337560,
+        "mean": 13337222.08,
+        "min": 13336600,
+        "max": 13337560
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "logs",
+      "label": "Server logs on (PHP error collector, plugin/theme and update collectors)",
+      "phpMs": {
+        "n": 250,
+        "median": 103.57,
+        "p95": 141.94,
+        "mean": 107.33,
+        "min": 92.93,
+        "max": 183.12
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 114.82829999999376,
+        "p95": 158.13830000002054,
+        "mean": 119.27,
+        "min": 97.52780000001076,
+        "max": 202.5519000000204
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 53,
+        "mean": 53,
+        "min": 53,
+        "max": 53
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13393856,
+        "p95": 13393856,
+        "mean": 13393548.8,
+        "min": 13392896,
+        "max": 13393856
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "browser",
+      "label": "Logs + browser monitoring",
+      "phpMs": {
+        "n": 250,
+        "median": 103.12,
+        "p95": 141.57,
+        "mean": 107.79,
+        "min": 93.31,
+        "max": 172.21
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 115.20309999998426,
+        "p95": 156.55920000000333,
+        "mean": 118.75,
+        "min": 99.00229999999283,
+        "max": 189.0451999999932
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 53,
+        "mean": 53,
+        "min": 53,
+        "max": 53
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13395872,
+        "p95": 13395872,
+        "mean": 13395560.96,
+        "min": 13394912,
+        "max": 13395872
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "analytics",
+      "label": "Logs + analytics",
+      "phpMs": {
+        "n": 250,
+        "median": 103.59,
+        "p95": 144.1,
+        "mean": 107.72,
+        "min": 91.69,
+        "max": 177.51
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 115.71400000000722,
+        "p95": 157.3917000000074,
+        "mean": 119.27,
+        "min": 97.93469999998342,
+        "max": 182.90039999998407
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 53,
+        "mean": 53,
+        "min": 53,
+        "max": 53
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13395888,
+        "p95": 13395888,
+        "mean": 13395596.16,
+        "min": 13394928,
+        "max": 13395888
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "replay",
+      "label": "Logs + session replay",
+      "phpMs": {
+        "n": 250,
+        "median": 103.3,
+        "p95": 141.9,
+        "mean": 106.91,
+        "min": 91.97,
+        "max": 188.32
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 115.26319999998668,
+        "p95": 153.40080000000307,
+        "mean": 118.92,
+        "min": 97.4204000000027,
+        "max": 199.05950000000303
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 53,
+        "mean": 53,
+        "min": 53,
+        "max": 53
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13395960,
+        "p95": 13395960,
+        "mean": 13395668.16,
+        "min": 13395000,
+        "max": 13395960
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "tracing10",
+      "label": "Logs + tracing, server spans sampled at 10%",
+      "phpMs": {
+        "n": 250,
+        "median": 103.4,
+        "p95": 140.29,
+        "mean": 109.44,
+        "min": 91.75,
+        "max": 499.2
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 116.27790000004461,
+        "p95": 154.80490000001737,
+        "mean": 120.98,
+        "min": 97.44129999997676,
+        "max": 504.85249999997905
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 57,
+        "mean": 53.37,
+        "min": 53,
+        "max": 57
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13397608,
+        "p95": 13397608,
+        "mean": 13397281.6,
+        "min": 13396648,
+        "max": 13397608
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "tracing100",
+      "label": "Logs + tracing, server spans sampled at 100%",
+      "phpMs": {
+        "n": 250,
+        "median": 104.91,
+        "p95": 146.82,
+        "mean": 109.68,
+        "min": 92.02,
+        "max": 197.22
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 116.92359999998007,
+        "p95": 158.6424999999872,
+        "mean": 121.46,
+        "min": 95.75050000002375,
+        "max": 211.72610000002896
+      },
+      "queries": {
+        "n": 250,
+        "median": 57,
+        "p95": 57,
+        "mean": 57,
+        "min": 57,
+        "max": 57
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13397608,
+        "p95": 13397608,
+        "mean": 13397289.28,
+        "min": 13396648,
+        "max": 13397608
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "woo",
+      "label": "Logs + WooCommerce events",
+      "phpMs": {
+        "n": 250,
+        "median": 103.87,
+        "p95": 142.78,
+        "mean": 108.32,
+        "min": 93.31,
+        "max": 180.55
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 117.15499999996973,
+        "p95": 153.97969999999623,
+        "mean": 120.54,
+        "min": 97.37850000002072,
+        "max": 190.6926000000094
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 53,
+        "mean": 53,
+        "min": 53,
+        "max": 53
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13393856,
+        "p95": 13393856,
+        "mean": 13393529.6,
+        "min": 13392896,
+        "max": 13393856
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "all",
+      "label": "All modules on (tracing at 10%)",
+      "phpMs": {
+        "n": 250,
+        "median": 103.73,
+        "p95": 143.1,
+        "mean": 108.52,
+        "min": 93.28,
+        "max": 179.08
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 116.48680000001332,
+        "p95": 157.56520000001183,
+        "mean": 120.12,
+        "min": 99.58950000000186,
+        "max": 191.2548999999999
+      },
+      "queries": {
+        "n": 250,
+        "median": 53,
+        "p95": 57,
+        "mean": 53.5,
+        "min": 53,
+        "max": 57
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13399296,
+        "p95": 13399296,
+        "mean": 13398946.56,
+        "min": 13398336,
+        "max": 13399296
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    },
+    {
+      "id": "logs-warning",
+      "label": "Logs on, and this request itself logs one warning",
+      "phpMs": {
+        "n": 250,
+        "median": 104.82,
+        "p95": 142.01,
+        "mean": 108.96,
+        "min": 92.75,
+        "max": 201.48
+      },
+      "wallMs": {
+        "n": 250,
+        "median": 117.58070000002044,
+        "p95": 154.29490000000806,
+        "mean": 120.64,
+        "min": 96.02009999996517,
+        "max": 221.6533000000054
+      },
+      "queries": {
+        "n": 250,
+        "median": 56,
+        "p95": 56,
+        "mean": 56,
+        "min": 56,
+        "max": 56
+      },
+      "peakUsedBytes": {
+        "n": 250,
+        "median": 13400240,
+        "p95": 13400240,
+        "mean": 13399921.28,
+        "min": 13399280,
+        "max": 13400240
+      },
+      "peakAllocatedBytes": {
+        "n": 250,
+        "median": 14680064,
+        "p95": 14680064,
+        "mean": 14680064,
+        "min": 14680064,
+        "max": 14680064
+      }
+    }
+  ]
+}

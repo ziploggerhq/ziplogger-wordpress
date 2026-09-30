@@ -1,0 +1,19 @@
+# Secret scanning for this repository (gitleaks: `gitleaks detect --source .`).
+#
+# The repository contains NO real credential. The values allowed below are synthetic: placeholders that the
+# automated tests use as API keys. The redaction tests' sample "secrets" (provider-shaped tokens) are assembled at
+# run time, so no provider-shaped token appears in a source file. Values are allowed by pattern, not by folder, so a
+# real key committed anywhere would still be found.
+title = "ZipLogger plugin"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic test values"
+regexes = [
+  '''abcd1234efgh5678''',
+  '''abcdefgh12345678''',
+  '''anon_0123456789abcdef0123.sess_abcdef01234567890123''',
+  '''zk_[A-Za-z0-9_]*(test|const|env|public|private|read_only|workspace|distinct|e2e|placeholder|wrong|AbCdEf)[A-Za-z0-9_]*''',
+]

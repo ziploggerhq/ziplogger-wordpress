@@ -1,0 +1,364 @@
+{
+  "generated": "2026-09-30T04:21:46.017Z",
+  "rounds": 30,
+  "warmupRounds": 2,
+  "page": "/ (configuration selected by the zl_cfg cookie)",
+  "order": "interleaved, shuffled every round (seeded)",
+  "configs": [
+    {
+      "id": "inactive",
+      "label": "Plugin deactivated",
+      "domContentLoadedMs": {
+        "median": 166.6,
+        "p90": 188.1,
+        "min": 147.8,
+        "max": 199.3
+      },
+      "loadMs": {
+        "median": 167.3,
+        "p90": 188.4,
+        "min": 157.7,
+        "max": 199.5
+      },
+      "scriptMs": {
+        "median": 28.72,
+        "p90": 31.65,
+        "min": 25.13,
+        "max": 34.71
+      },
+      "taskMs": {
+        "median": 93.28,
+        "p90": 100.82,
+        "min": 77.56,
+        "max": 107.22
+      },
+      "jsHeapMB": {
+        "median": 2.67,
+        "p90": 2.69,
+        "min": 2.65,
+        "max": 2.73
+      },
+      "longTaskMs": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      },
+      "pluginEncodedBytes": 0,
+      "pluginDecodedBytes": 0,
+      "pluginResources": [],
+      "requestsToZipLogger": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    {
+      "id": "idle",
+      "label": "Plugin active, every browser module off",
+      "domContentLoadedMs": {
+        "median": 169.8,
+        "p90": 200.6,
+        "min": 146.8,
+        "max": 237.2
+      },
+      "loadMs": {
+        "median": 170.1,
+        "p90": 200.7,
+        "min": 155.7,
+        "max": 237.4
+      },
+      "scriptMs": {
+        "median": 29.17,
+        "p90": 34.2,
+        "min": 26.45,
+        "max": 43.61
+      },
+      "taskMs": {
+        "median": 94.38,
+        "p90": 116.39,
+        "min": 79.97,
+        "max": 124.36
+      },
+      "jsHeapMB": {
+        "median": 2.67,
+        "p90": 2.69,
+        "min": 2.64,
+        "max": 2.69
+      },
+      "longTaskMs": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      },
+      "pluginEncodedBytes": 0,
+      "pluginDecodedBytes": 0,
+      "pluginResources": [],
+      "requestsToZipLogger": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    {
+      "id": "browser",
+      "label": "Browser monitoring (errors, requests, timing, Core Web Vitals at 100%)",
+      "domContentLoadedMs": {
+        "median": 177,
+        "p90": 218.5,
+        "min": 157.9,
+        "max": 291.4
+      },
+      "loadMs": {
+        "median": 181.2,
+        "p90": 218.9,
+        "min": 166.5,
+        "max": 291.7
+      },
+      "scriptMs": {
+        "median": 37.47,
+        "p90": 45.84,
+        "min": 34.32,
+        "max": 54.74
+      },
+      "taskMs": {
+        "median": 101.88,
+        "p90": 130.91,
+        "min": 86.99,
+        "max": 135.69
+      },
+      "jsHeapMB": {
+        "median": 3,
+        "p90": 3.02,
+        "min": 2.99,
+        "max": 3.02
+      },
+      "longTaskMs": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      },
+      "pluginEncodedBytes": 22792,
+      "pluginDecodedBytes": 65684,
+      "pluginResources": [
+        "ziplogger.min.js"
+      ],
+      "requestsToZipLogger": {
+        "median": 1,
+        "p90": 1,
+        "min": 1,
+        "max": 1
+      }
+    },
+    {
+      "id": "analytics",
+      "label": "Analytics (consented, page views + SPA)",
+      "domContentLoadedMs": {
+        "median": 181,
+        "p90": 218,
+        "min": 151.7,
+        "max": 245.2
+      },
+      "loadMs": {
+        "median": 181.1,
+        "p90": 218.2,
+        "min": 160.4,
+        "max": 245.5
+      },
+      "scriptMs": {
+        "median": 35.22,
+        "p90": 42.12,
+        "min": 32.71,
+        "max": 45.24
+      },
+      "taskMs": {
+        "median": 106.57,
+        "p90": 126.3,
+        "min": 90.6,
+        "max": 165.36
+      },
+      "jsHeapMB": {
+        "median": 2.95,
+        "p90": 2.97,
+        "min": 2.92,
+        "max": 2.97
+      },
+      "longTaskMs": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 79
+      },
+      "pluginEncodedBytes": 22792,
+      "pluginDecodedBytes": 65684,
+      "pluginResources": [
+        "ziplogger.min.js"
+      ],
+      "requestsToZipLogger": {
+        "median": 1,
+        "p90": 1,
+        "min": 1,
+        "max": 1
+      }
+    },
+    {
+      "id": "tracing",
+      "label": "Browser tracing (100%)",
+      "domContentLoadedMs": {
+        "median": 180.7,
+        "p90": 212.5,
+        "min": 154.1,
+        "max": 218.6
+      },
+      "loadMs": {
+        "median": 180.8,
+        "p90": 212.7,
+        "min": 163.1,
+        "max": 219.8
+      },
+      "scriptMs": {
+        "median": 35.22,
+        "p90": 39.81,
+        "min": 32.97,
+        "max": 46.44
+      },
+      "taskMs": {
+        "median": 99.91,
+        "p90": 112.05,
+        "min": 86.58,
+        "max": 131.3
+      },
+      "jsHeapMB": {
+        "median": 2.9,
+        "p90": 2.91,
+        "min": 2.88,
+        "max": 2.92
+      },
+      "longTaskMs": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      },
+      "pluginEncodedBytes": 22792,
+      "pluginDecodedBytes": 65684,
+      "pluginResources": [
+        "ziplogger.min.js"
+      ],
+      "requestsToZipLogger": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    {
+      "id": "replay",
+      "label": "Session replay (consented, sampled at 100%: recorder loaded and recording)",
+      "domContentLoadedMs": {
+        "median": 175.3,
+        "p90": 196.9,
+        "min": 148.2,
+        "max": 260.8
+      },
+      "loadMs": {
+        "median": 177.4,
+        "p90": 197,
+        "min": 157.6,
+        "max": 261
+      },
+      "scriptMs": {
+        "median": 35.13,
+        "p90": 38.9,
+        "min": 32.13,
+        "max": 42.62
+      },
+      "taskMs": {
+        "median": 142.05,
+        "p90": 158.38,
+        "min": 128.4,
+        "max": 170.96
+      },
+      "jsHeapMB": {
+        "median": 5.76,
+        "p90": 5.81,
+        "min": 5.7,
+        "max": 5.84
+      },
+      "longTaskMs": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      },
+      "pluginEncodedBytes": 45792,
+      "pluginDecodedBytes": 140458,
+      "pluginResources": [
+        "ziplogger.min.js",
+        "ziplogger-recorder.min.js"
+      ],
+      "requestsToZipLogger": {
+        "median": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2
+      }
+    },
+    {
+      "id": "all",
+      "label": "Everything on and consented (replay at 100%)",
+      "domContentLoadedMs": {
+        "median": 177.9,
+        "p90": 205.2,
+        "min": 153.8,
+        "max": 208.2
+      },
+      "loadMs": {
+        "median": 178.2,
+        "p90": 205.5,
+        "min": 162.8,
+        "max": 208.8
+      },
+      "scriptMs": {
+        "median": 38.52,
+        "p90": 45.3,
+        "min": 36.25,
+        "max": 46.06
+      },
+      "taskMs": {
+        "median": 150.55,
+        "p90": 168.98,
+        "min": 138.31,
+        "max": 181.17
+      },
+      "jsHeapMB": {
+        "median": 6.01,
+        "p90": 6.08,
+        "min": 5.95,
+        "max": 6.08
+      },
+      "longTaskMs": {
+        "median": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0
+      },
+      "pluginEncodedBytes": 45792,
+      "pluginDecodedBytes": 140458,
+      "pluginResources": [
+        "ziplogger.min.js",
+        "ziplogger-recorder.min.js"
+      ],
+      "requestsToZipLogger": {
+        "median": 4,
+        "p90": 4,
+        "min": 4,
+        "max": 4
+      }
+    }
+  ]
+}

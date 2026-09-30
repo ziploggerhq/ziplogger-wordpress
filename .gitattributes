@@ -1,0 +1,4 @@
+# Same bytes on every platform, so that the shipped files and their hashes can be reproduced anywhere.
+* text=auto eol=lf
+*.png binary
+*.zip binary

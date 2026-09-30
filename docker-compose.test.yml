@@ -1,0 +1,47 @@
+# Automated tests. Pick a matrix cell with environment variables:
+#
+#   PHP_VERSION=7.4 WP_VERSION=6.0    docker compose -f docker-compose.test.yml run --rm phpunit
+#   PHP_VERSION=8.3 WP_VERSION=latest docker compose -f docker-compose.test.yml run --rm phpunit
+#   ... add  -e WP_MULTISITE=1  for the multisite run.
+#   WooCommerce tests (they skip when WooCommerce is absent):
+#   WC_VERSION=11.1.2 WC_TAG=-wc11.1.2 docker compose -f docker-compose.test.yml run --rm phpunit vendor/bin/phpunit -c phpunit.xml.dist
+#
+# The plugin source is mounted read-only; nothing is written to your working tree.
+services:
+  db:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: wp_tests
+    tmpfs:
+      - /var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+
+  phpunit:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.test
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.3}
+        WP_VERSION: ${WP_VERSION:-latest}
+        WC_VERSION: ${WC_VERSION:-}
+    image: ziplogger-ci:php${PHP_VERSION:-8.3}-wp${WP_VERSION:-latest}${WC_TAG:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      WP_TESTS_DB_HOST: db
+      WP_TESTS_DB_NAME: wp_tests
+      WP_TESTS_DB_USER: root
+      WP_TESTS_DB_PASSWORD: root
+      WP_MULTISITE: ${WP_MULTISITE:-0}
+    volumes:
+      - ./plugin/ziplogger:/plugin/ziplogger:ro
+      - ./tests:/opt/ci/tests:ro
+      - ./phpunit.xml.dist:/opt/ci/phpunit.xml.dist:ro
+      - ./phpunit-wp-consent-api.xml.dist:/opt/ci/phpunit-wp-consent-api.xml.dist:ro
+      - ./phpcs.xml.dist:/opt/ci/phpcs.xml.dist:ro

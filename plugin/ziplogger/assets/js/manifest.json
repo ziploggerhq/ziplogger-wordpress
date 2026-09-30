@@ -1,0 +1,49 @@
+{
+  "generator": "ziplogger-wordpress-frontend",
+  "bundles": {
+    "ziplogger.min.js": {
+      "bytes": 65684,
+      "sha256": "821780214f8d0f3fe85ee4501a217a1591d2c65edee37d8f74c7539ba9df7a50",
+      "source": "src/entry.js"
+    },
+    "ziplogger-recorder.min.js": {
+      "bytes": 74774,
+      "sha256": "5a1fe19020bd56ecd7c7c276425bb6eda082cd99608e9400a8f17c1e2959f1f4",
+      "source": "src/recorder-entry.js"
+    }
+  },
+  "dependencies": {
+    "@ziplogger/browser": "0.6.0",
+    "@rrweb/record": "2.1.6",
+    "web-vitals": "6.2.2"
+  },
+  "tools": {
+    "esbuild": "0.28.2"
+  },
+  "packages": [
+    {
+      "name": "@rrweb/record",
+      "version": "2.1.6",
+      "license": "MIT",
+      "bundles": [
+        "ziplogger-recorder.min.js"
+      ]
+    },
+    {
+      "name": "@ziplogger/browser",
+      "version": "0.6.0",
+      "license": "MIT",
+      "bundles": [
+        "ziplogger.min.js"
+      ]
+    },
+    {
+      "name": "web-vitals",
+      "version": "6.2.2",
+      "license": "Apache-2.0",
+      "bundles": [
+        "ziplogger.min.js"
+      ]
+    }
+  ]
+}

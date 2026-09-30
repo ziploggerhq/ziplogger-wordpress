@@ -1,0 +1,10 @@
+{
+	"name": "ziplogger-wordpress-e2e-browser",
+	"private": true,
+	"type": "module",
+	"description": "Real-browser scenarios for the ZipLogger WordPress plugin. Runs inside the pinned Playwright image (see docker-compose.e2e.yml).",
+	"dependencies": {
+		"playwright": "1.63.0",
+		"axe-core": "4.13.0"
+	}
+}

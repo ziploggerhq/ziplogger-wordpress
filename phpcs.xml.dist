@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ruleset name="ZipLogger">
+	<description>WordPress coding standards, security sniffs and PHP compatibility for the plugin source.</description>
+
+	<file>plugin/ziplogger</file>
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<!-- WordPress-Extra includes the security sniffs (escaping, nonces, prepared SQL, sanitization). -->
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Docs"/>
+
+	<config name="text_domain" value="ziplogger"/>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="ziplogger"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="ziplogger"/>
+				<element value="ZipLogger"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- The minimum versions declared in the plugin header. -->
+	<config name="testVersion" value="7.4-"/>
+	<config name="minimum_wp_version" value="6.0"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Deliberate, documented deviations. -->
+	<!-- Namespaced classes use Snake_Case names in class-*.php files, which is what the autoloader expects. -->
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>*/includes/*</exclude-pattern>
+	</rule>
+	<!-- Several classes are intentionally final utility holders. -->
+	<rule ref="Universal.Files.SeparateFunctionsFromOO.Mixed">
+		<exclude-pattern>*/uninstall.php</exclude-pattern>
+	</rule>
+	<!-- Error handling is this plugin's job: the handlers are the point, not a debugging leftover. -->
+	<rule ref="WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler">
+		<exclude-pattern>*/collectors/class-php-errors.php</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace">
+		<exclude-pattern>*/collectors/class-php-errors.php</exclude-pattern>
+	</rule>
+</ruleset>

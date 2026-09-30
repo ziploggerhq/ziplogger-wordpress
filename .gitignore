@@ -1,0 +1,11 @@
+# Build output and dependencies; all reproducible from source (see docs/BUILD.md).
+dist/
+vendor/
+node_modules/
+.phpunit.result.cache
+.artifacts/
+tests/e2e/.out/
+# Test output written by the browser scenarios (screenshots).
+tests/e2e/browser/out/
+tests/e2e/browser/node_modules/
+tests/perf/*.tmp

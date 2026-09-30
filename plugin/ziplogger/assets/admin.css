@@ -1,0 +1,191 @@
+/* ZipLogger settings screen. Logical properties throughout so the layout mirrors correctly in RTL. */
+
+.ziplogger-wrap .ziplogger-status {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	margin-block: 16px;
+	padding: 12px 16px;
+	border: 1px solid #c3c4c7;
+	border-inline-start-width: 4px;
+	background: #fff;
+	max-inline-size: 60em;
+}
+
+.ziplogger-wrap .ziplogger-status .dashicons {
+	flex: none;
+	inline-size: 24px;
+	block-size: 24px;
+	font-size: 24px;
+}
+
+.ziplogger-wrap .ziplogger-status p {
+	margin: 4px 0 0;
+}
+
+.ziplogger-status--healthy,
+.ziplogger-status--ready {
+	border-inline-start-color: #00a32a;
+}
+
+.ziplogger-status--waiting,
+.ziplogger-status--off {
+	border-inline-start-color: #72aee6;
+}
+
+.ziplogger-status--failing,
+.ziplogger-status--overdue,
+.ziplogger-status--unconfigured {
+	border-inline-start-color: #dba617;
+}
+
+.ziplogger-status--blocked,
+.ziplogger-status--broken {
+	border-inline-start-color: #d63638;
+}
+
+.ziplogger-wrap .ziplogger-disclosure {
+	max-inline-size: 60em;
+	padding-block: 4px 12px;
+	padding-inline: 16px;
+}
+
+.ziplogger-wrap .ziplogger-disclosure h2 {
+	margin-block-start: 8px;
+}
+
+.ziplogger-wrap .ziplogger-health {
+	max-inline-size: 60em;
+}
+
+/* Long words (paths, class names, URLs) wrap instead of widening the screen. */
+.ziplogger-wrap td,
+.ziplogger-wrap th {
+	overflow-wrap: anywhere;
+}
+
+/* A wide table scrolls inside its own box, not the whole page; the box is focusable for keyboard users. */
+.ziplogger-wrap .ziplogger-scroll {
+	max-inline-size: 100%;
+	overflow-x: auto;
+}
+
+.ziplogger-wrap .ziplogger-health th {
+	inline-size: 14em;
+	font-weight: 600;
+}
+
+.ziplogger-wrap .ziplogger-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.ziplogger-wrap .ziplogger-actions form {
+	margin: 0;
+}
+
+.ziplogger-wrap .ziplogger-error {
+	color: #b32d2e;
+}
+
+.ziplogger-wrap .ziplogger-advanced summary {
+	cursor: pointer;
+}
+
+.ziplogger-wrap code {
+	unicode-bidi: plaintext;
+}
+
+.ziplogger-wrap .ziplogger-open {
+	margin-block-start: 24px;
+}
+
+@media (max-width: 782px) {
+	.ziplogger-wrap .ziplogger-health th {
+		inline-size: auto;
+	}
+}
+
+/* Tabs and module screens. */
+.ziplogger-wrap .ziplogger-tabs {
+	margin-block-end: 16px;
+}
+
+.ziplogger-wrap .ziplogger-panel {
+	max-inline-size: 70em;
+}
+
+.ziplogger-wrap .ziplogger-effects {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 6px 16px;
+	margin-block: 12px 20px;
+	padding: 12px 16px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	max-inline-size: 60em;
+}
+
+.ziplogger-wrap .ziplogger-effects dt {
+	font-weight: 600;
+}
+
+.ziplogger-wrap .ziplogger-effects dd {
+	margin: 0;
+}
+
+.ziplogger-wrap .ziplogger-requirements {
+	margin-block: 4px 16px;
+	padding: 0;
+	list-style: none;
+}
+
+.ziplogger-wrap .ziplogger-requirements .dashicons-yes-alt {
+	color: #007017;
+}
+
+.ziplogger-wrap .ziplogger-requirements .dashicons-dismiss,
+.ziplogger-wrap .ziplogger-requirements .dashicons-warning {
+	color: #b32d2e;
+}
+
+.ziplogger-wrap .ziplogger-modules .dashicons-yes-alt {
+	color: #007017;
+}
+
+.ziplogger-wrap .ziplogger-modules .dashicons-warning {
+	color: #996800;
+}
+
+.ziplogger-status--held {
+	border-inline-start-color: #dba617;
+}
+
+.ziplogger-wrap pre.ziplogger-code {
+	max-inline-size: 60em;
+	padding: 12px 16px;
+	overflow-x: auto;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	direction: ltr;
+	text-align: start;
+}
+
+@media (max-width: 782px) {
+	.ziplogger-wrap .ziplogger-effects {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Dashboard panels */
+.ziplogger-live { background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; padding: 4px 16px 8px; margin: 12px 0; max-width: 860px; }
+.ziplogger-live h3 { margin: 12px 0 8px; }
+.ziplogger-live-table th, .ziplogger-live-table td { vertical-align: top; }
+.ziplogger-live-body[aria-busy="true"] { opacity: .6; }
+.ziplogger-spark { margin: 8px 0; color: #2271b1; }
+.ziplogger-spark svg { display: block; max-width: 100%; height: auto; background: #f6f7f7; border-radius: 2px; }
+.ziplogger-spark figcaption { margin-top: 4px; }
+.ziplogger-traces { margin: 4px 0 12px 18px; list-style: disc; }
+.ziplogger-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 8px 0; padding: 0; list-style: none; }
+html[dir="rtl"] .ziplogger-traces { margin: 4px 18px 12px 0; }

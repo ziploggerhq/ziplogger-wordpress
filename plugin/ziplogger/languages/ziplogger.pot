@@ -1,0 +1,2329 @@
+# Copyright (C) 2026 ZipLogger
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ZipLogger: Error Monitoring & Session Replay 1.0.0\n"
+"Report-Msgid-Bugs-To: https://ziplogger.ai/\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-30T08:48:35+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ziplogger\n"
+
+#. Plugin Name of the plugin
+#: ziplogger.php
+msgid "ZipLogger: Error Monitoring & Session Replay"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: ziplogger.php
+msgid "https://ziplogger.ai/"
+msgstr ""
+
+#. Description of the plugin
+#: ziplogger.php
+msgid "Server and browser error monitoring, analytics, masked session replay, tracing and WooCommerce events for ZipLogger. Nothing is sent until you add a key and switch a module on."
+msgstr ""
+
+#. Author of the plugin
+#: ziplogger.php
+#: includes/admin/class-settings-page.php:83
+#: includes/admin/class-settings-page.php:84
+#: includes/admin/class-settings-page.php:574
+msgid "ZipLogger"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:59
+#: includes/admin/class-module-specs.php:68
+#: includes/admin/class-settings-page.php:47
+#: includes/admin/tabs/class-privacy.php:35
+msgid "Browser monitoring"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:60
+msgid "Reports JavaScript errors, unhandled promise rejections, failing network requests and (optionally) page performance from your visitors' browsers straight to ZipLogger, using the browser key. Nothing passes through your server."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:61
+msgid "Error message and a sanitized stack trace, the page path (never the query string or fragment), the plugin version and a random per-page-view id. For requests: host, method, status and duration only. For performance: timings and Core Web Vitals numbers. No cookies are set and nothing is stored in the browser; identifiers live in memory for one page view. URLs, emails, tokens and IP-like values in messages are masked in the browser before sending."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:62
+msgid "One script (about 23 KB compressed, measured at build time; see assets/js/manifest.json), loaded once and cached. Data is sent in batches only when something is reported. Sampling below limits how many page views report performance."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:63
+msgid "Each report is one log entry in ZipLogger and counts toward your ingest volume. Errors are capped per page view."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:69
+msgid "Load the monitoring script and report to ZipLogger"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:74
+msgid "JavaScript errors"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:75
+msgid "Report uncaught errors and unhandled promise rejections"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:80
+msgid "Error sampling"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:84
+msgid "Share of page views that report errors. 100 reports every error."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:89
+msgid "Errors per page view"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:92
+msgid "A page stuck in an error loop reports at most this many distinct errors."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:97
+msgid "Failed requests"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:98
+msgid "Report fetch and XMLHttpRequest calls that fail or return a server error"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:103
+msgid "Slow requests"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:104
+msgid "Report a sample of slow fetch and XMLHttpRequest calls"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:109
+#: includes/admin/tabs/class-logs.php:78
+msgid "Slow request threshold"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:118
+msgid "Navigation timing"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:119
+msgid "Report page-load timings (DNS, connection, server response, load)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:124
+#: includes/admin/tabs/class-module.php:77
+msgid "Core Web Vitals"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:125
+msgid "Report LCP, INP, CLS, FCP and TTFB (Google's web-vitals library)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:130
+msgid "Performance sampling"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:134
+msgid "Share of page views that report timings, vitals and slow requests. The choice is made once per page view."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:147
+#: includes/admin/class-module-specs.php:156
+msgid "Product analytics"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:148
+msgid "Sends page views and the interactions you choose to ZipLogger as product-analytics events, and exposes a small JavaScript API for your own events."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:149
+msgid "Event name, page path (no query string), timestamp, a random anonymous visitor id and a random session id. Nothing else is read from the page: not text, not form values, not every click. With \"identify\" on, logged-in users also get an opaque keyed hash of their WordPress user id - never an email address or username."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:150
+msgid "Small batches sent from the browser while the visitor browses, and when the page is hidden."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:151
+msgid "Each event counts toward your ZipLogger event allowance. The visitor id is kept in your visitors' browser storage (localStorage) once the analytics consent policy allows it."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:157
+msgid "Send analytics events to ZipLogger"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:162
+msgid "Page views"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:163
+msgid "Send an event when a page is viewed"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:168
+msgid "Client-side navigation"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:169
+msgid "Also count page changes made without a reload (History API)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:174
+msgid "Interaction events"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:175
+msgid "Track clicks on the elements listed below and on elements with a data-ziplogger-event attribute"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:180
+msgid "Tracked elements"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:182
+msgid "One CSS selector per line (up to 20). Only clicks on a matching element are tracked; the event carries the selector, never the element's text or values. Give an element data-ziplogger-event=\"name\" to name the event yourself."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:187
+msgid "Identify logged-in users"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:188
+msgid "Link a signed-in user's events with a pseudonymous id (a keyed hash, not their email or username)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:193
+#: includes/admin/class-module-specs.php:225
+#: includes/admin/class-module-specs.php:320
+msgid "Sampling"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:197
+msgid "Share of visitor sessions that send analytics. 100 tracks everyone."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:210
+#: includes/admin/class-module-specs.php:219
+#: includes/admin/class-settings-page.php:49
+#: includes/admin/tabs/class-privacy.php:37
+#: includes/admin/tabs/class-privacy.php:59
+msgid "Session replay"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:211
+msgid "Records a sample of visitor sessions with ZipLogger's official replay recorder so you can watch what happened before an error. It is separate from every other module and off until you switch it on here."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:212
+msgid "A recording of the page as the visitor sees it: structure, clicks, scrolling and typing activity. All input values are masked and this cannot be turned off; password and payment fields are never recorded. By default all text is masked too. WordPress admin, login, account, cart, checkout and payment pages are never recorded, and you can add more exclusions. Cross-origin iframes (for example payment card fields hosted by your payment provider) cannot be recorded by any browser-side tool."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:213
+msgid "The recorder script (about 23 KB compressed, measured at build time) is downloaded only for sessions that are sampled in, consented and on an eligible page. Recordings upload in compressed chunks every few seconds."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:214
+msgid "Replay is metered separately in ZipLogger (sessions and stored bytes). The limits below cap one session's length and size."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:220
+msgid "Record sampled sessions"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:229
+msgid "Share of sessions recorded, decided once per session."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:234
+msgid "Mask all text"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:235
+msgid "Replace all text on the page with placeholder characters in the recording (recommended)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:236
+msgid "Turn this off only if every page you record shows public content. Input values stay masked either way."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:241
+msgid "Additionally mask"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:243
+msgid "CSS selectors (one per line) whose text is masked. Elements with data-ziplogger-mask are always masked."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:248
+msgid "Block completely"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:250
+msgid "CSS selectors (one per line) that are replaced by an empty box. Elements with data-ziplogger-ignore are always blocked."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:255
+msgid "Never record these pages"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:257
+msgid "URL paths starting with \"/\" (one per line, * matches anything). Added to the built-in exclusions, which cannot be removed: wp-admin, login, registration, password reset, my account, cart, checkout, order pay and order received."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:262
+msgid "Never record users with these roles"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:263
+msgid "Logged-in users holding any of these roles are not recorded."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:268
+msgid "Longest recording"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:269
+msgid "minutes"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:276
+msgid "Largest recording"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:280
+msgid "Uncompressed size after which a session stops recording."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:293
+msgid "Distributed tracing"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:294
+msgid "Records how long WordPress takes to answer requests, and the outbound HTTP calls it makes while doing so, as OpenTelemetry traces in ZipLogger. Requests that already carry a trace context from the browser are joined to it."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:295
+msgid "For a sampled request: method, a route template (for example \"single\" or \"/wc/v3/orders/(?P<id>)\"), response status, duration, the WordPress request type (front end, admin, REST, AJAX, cron) and a count of database queries. For outbound calls: host, method, status and duration - never the path or query string. The URL path of your own pages is added only if you switch that on below."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:296
+msgid "Spans are queued locally and sent by the same background job as logs. The trace header is added to outbound requests only for the hosts you list below, never to other third parties."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:297
+msgid "Spans share your ZipLogger ingest volume with logs. Sampling controls how many requests produce a trace; the local queue keeps at most half of its capacity for spans."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:302
+#: includes/admin/class-settings-page.php:50
+#: includes/admin/tabs/class-privacy.php:38
+msgid "Tracing"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:303
+msgid "Send traces to ZipLogger"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:308
+msgid "Request spans"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:309
+msgid "One span per sampled WordPress request"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:314
+msgid "Outbound calls"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:315
+msgid "A child span for each outbound wp_remote_*() call in a sampled request"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:324
+msgid "Share of requests that start a new trace. A request that arrives with a trace context follows the caller's sampling decision instead."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:329
+msgid "Send trace headers to"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:331
+msgid "Host names (one per line) that receive a W3C traceparent header on outbound requests. Empty means none. Only traceparent is sent, never baggage or cookies."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:336
+msgid "Service name"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:338
+msgid "How this site appears in ZipLogger traces. Defaults to the site label."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:343
+msgid "URL path"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:344
+msgid "Also record the request path (no query string)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:345
+msgid "Paths can contain personal data such as member slugs. Off by default; the route template is always recorded."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:350
+msgid "Database query count"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:351
+msgid "Record how many queries WordPress ran (free: read from the database class, nothing is measured)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:356
+msgid "Database timing (experimental)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:357
+msgid "On sampled requests only, also measure total query time"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:358
+msgid "Uses WordPress's query log on sampled requests, which has a real cost: it keeps every query in memory. Covers queries made through $wpdb after this plugin loads; earlier queries and direct database connections are not covered. Query text is never recorded."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:363
+msgid "Browser to server"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:364
+msgid "Trace this site's own fetch/XHR calls in the browser and link them to the server request"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:365
+msgid "Adds a traceparent header to same-site requests (WordPress AJAX, REST, WooCommerce Store API). Spans are sent from the browser with the browser key. Page-load requests are not linked, because pages may be cached and must not contain a trace id."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:378
+#: includes/admin/class-settings-page.php:51
+#: includes/admin/tabs/class-privacy.php:39
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:379
+msgid "Tracks the shopping journey and the business outcomes that matter. Interactions (product views, cart changes, checkout) come from the browser; order, payment and refund outcomes come from your server, so they keep working when analytics scripts are blocked."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:380
+msgid "Currency, amounts (in the currency's smallest unit), quantities and product ids or SKUs (your choice), plus an opaque order reference - a keyed hash, never the order number, order key or order id. Never sent: names, addresses, email addresses, phone numbers, order notes, payment details or custom order fields."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:381
+msgid "Server events are queued locally and sent by the background job. Browser events are sent by the analytics script, subject to your consent settings."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:382
+msgid "Each event counts toward your ZipLogger event allowance. Every event has a deterministic id, so repeated hooks, retries and page reloads never create duplicates."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:387
+msgid "WooCommerce events"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:388
+msgid "Send WooCommerce events to ZipLogger"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:393
+msgid "Product views"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:394
+msgid "A product page was viewed (browser)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:399
+msgid "Cart"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:400
+msgid "Product added to or removed from the cart (browser)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:405
+msgid "Checkout"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:406
+msgid "Checkout started (browser)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:411
+msgid "Orders"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:412
+msgid "An order was created (server)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:417
+msgid "Payments"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:418
+msgid "A payment was confirmed, or failed (server; the thank-you page is never treated as proof of payment)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:423
+msgid "Order status"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:424
+msgid "An order changed status (server)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:429
+#: includes/admin/tabs/class-module.php:98
+#: includes/admin/tabs/class-module.php:143
+msgid "Refunds"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:430
+msgid "An order was refunded, in full or in part (server)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:435
+msgid "Product identifier"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:437
+msgid "Product id"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:438
+msgid "SKU"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:439
+msgid "None (quantities and amounts only)"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:441
+msgid "What identifies a product in events. SKUs are sent as-is, so use ids if your SKUs contain anything private."
+msgstr ""
+
+#: includes/admin/class-module-specs.php:446
+msgid "Line items"
+msgstr ""
+
+#: includes/admin/class-module-specs.php:447
+msgid "Include a short list of items (identifier, quantity, price) in order and refund events"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:44
+msgid "Overview"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:45
+msgid "Connection"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:46
+#: includes/admin/tabs/class-logs.php:29
+#: includes/admin/tabs/class-privacy.php:34
+msgid "Server logs"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:48
+#: includes/admin/tabs/class-privacy.php:36
+msgid "Analytics"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:52
+msgid "Privacy and consent"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:53
+#: includes/admin/tabs/class-diagnostics.php:38
+msgid "Diagnostics"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:112
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:139
+msgid "Sorry, you are not allowed to manage ZipLogger."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:183
+msgid "Collection is on, but there is no server API key yet, so nothing can be delivered. Events wait in the local queue."
+msgstr ""
+
+#. translators: 1: module name, 2: what is missing.
+#: includes/admin/class-settings-page.php:219
+#, php-format
+msgid "%1$s was not switched on: %2$s"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:227
+msgid "Unknown settings section."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:235
+#: includes/admin/class-settings-page.php:350
+#: includes/admin/class-settings-page.php:352
+msgid "Settings saved."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:253
+msgid "add a browser API key on the Connection tab first."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:256
+#: includes/admin/class-settings-page.php:266
+msgid "add a server API key on the Connection tab first."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:259
+msgid "browser-to-server tracing needs a browser API key."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:263
+#: includes/class-modules.php:76
+msgid "WooCommerce is not active on this site."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:293
+msgid "server"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:294
+msgid "browser"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:295
+msgid "read"
+msgstr ""
+
+#. translators: %s: server, browser or read.
+#: includes/admin/class-settings-page.php:302
+#, php-format
+msgid "The saved %s key was removed."
+msgstr ""
+
+#. translators: %s: server, browser or read.
+#: includes/admin/class-settings-page.php:310
+#, php-format
+msgid "The %s key was saved."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:312
+msgid "ZipLogger keys normally start with \"zk_\". If sending fails, check that you copied the right key."
+msgstr ""
+
+#. translators: %d: number of events.
+#: includes/admin/class-settings-page.php:334
+#, php-format
+msgid "%d queued item collected for the previous destination will now be sent to the new one, as you chose."
+msgid_plural "%d queued items collected for the previous destination will now be sent to the new one, as you chose."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of events.
+#: includes/admin/class-settings-page.php:339
+#, php-format
+msgid "%d queued item collected for the previous destination was discarded, as you chose."
+msgid_plural "%d queued items collected for the previous destination were discarded, as you chose."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of events.
+#: includes/admin/class-settings-page.php:342
+#, php-format
+msgid "%d queued item was collected for the previous key or endpoint. It is HELD, not sent, because the new key may belong to a different workspace. Choose what to do with it on the Connection tab."
+msgid_plural "%d queued items were collected for the previous key or endpoint. They are HELD, not sent, because the new key may belong to a different workspace. Choose what to do with them on the Connection tab."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-settings-page.php:370
+msgid "Add a server API key first."
+msgstr ""
+
+#. translators: %d: number of events.
+#: includes/admin/class-settings-page.php:374
+#, php-format
+msgid "%d held item will now be sent to the current destination."
+msgid_plural "%d held items will now be sent to the current destination."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of events.
+#: includes/admin/class-settings-page.php:380
+#, php-format
+msgid "%d held item was discarded."
+msgid_plural "%d held items were discarded."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: HTTP status code, 2: number of events accepted.
+#: includes/admin/class-settings-page.php:400
+#, php-format
+msgid "ZipLogger accepted the test event (HTTP %1$d, %2$d event). \"Accepted\" means it was received and queued for indexing; it can take a short while to appear in Search."
+msgid_plural "ZipLogger accepted the test event (HTTP %1$d, %2$d events). \"Accepted\" means it was received and queued for indexing; it can take a short while to appear in Search."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: workspace name.
+#: includes/admin/class-settings-page.php:440
+#, php-format
+msgid "The read key works. It belongs to the workspace \"%s\"."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:441
+msgid "The read key works."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:474
+msgid "Server collection is switched off, so queued items are not being delivered. Turn it on to send them."
+msgstr ""
+
+#. translators: 1: items delivered, 2: items still waiting.
+#: includes/admin/class-settings-page.php:482
+#, php-format
+msgid "Delivered %1$d items. %2$d still waiting."
+msgstr ""
+
+#. translators: %s: error detail
+#: includes/admin/class-settings-page.php:485
+#, php-format
+msgid "Last error: %s"
+msgstr ""
+
+#. translators: %d: number of items.
+#: includes/admin/class-settings-page.php:508
+#, php-format
+msgid "Cleared %d queued item."
+msgid_plural "Cleared %d queued items."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/class-settings-page.php:565
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:577
+msgid "ZipLogger sections"
+msgstr ""
+
+#. translators: 1: date and time, 2: how long ago.
+#: includes/admin/class-settings-page.php:671
+#, php-format
+msgid "%1$s (%2$s ago)"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:30
+msgid "Server collection is off"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:30
+msgid "Nothing from your server is being collected or sent. Add a server API key, then switch server collection on (Server logs tab). Browser and other modules have their own switches."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:31
+msgid "Needs a server API key"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:31
+msgid "Server collection is on, but events cannot be delivered until a server API key is set. They wait in the local queue."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:32
+msgid "Ready"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:32
+msgid "Server collection is on. Use \"Send test event\" to confirm ZipLogger accepts events from this site."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:33
+msgid "Delivering normally"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:33
+msgid "Events are reaching ZipLogger."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:34
+msgid "Events are waiting to be sent"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:34
+msgid "Delivery runs in the background shortly after events are queued."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:35
+msgid "Delivery is failing - retrying"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:35
+msgid "The last attempt failed. Events are kept and retried with increasing delays."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:36
+msgid "Delivery is paused"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:36
+msgid "ZipLogger did not accept this site's credentials or endpoint. Events are kept while you fix it; saving the connection settings or sending a test event retries at once."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:37
+msgid "Queued data is on hold"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:37
+msgid "The API key or endpoint changed while events were waiting. They will not be sent to the new destination until you decide (Connection tab)."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:38
+msgid "The delivery worker is overdue"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:38
+msgid "Events are due to be sent but the background job has not run. See the worker status below."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:39
+msgid "Database tables are missing"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:39
+msgid "Deactivate and reactivate the plugin to recreate them."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:61
+#: includes/admin/tabs/class-common.php:62
+msgid "Delivery by signal"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:63
+msgid "Signal"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:63
+msgid "Waiting"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:63
+msgid "Delivered"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:63
+msgid "Last success"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:63
+msgid "Dropped"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:63
+msgid "Last error"
+msgstr ""
+
+#. translators: %s: number
+#: includes/admin/tabs/class-common.php:83
+#, php-format
+msgid "(%s refused by ZipLogger validation)"
+msgstr ""
+
+#. translators: %s: number
+#: includes/admin/tabs/class-common.php:84
+msgid "None yet"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:86
+msgid "None"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:100
+msgid "WP-Cron is disabled on this site (DISABLE_WP_CRON). Delivery only happens if a system cron runs \"wp cron event run --due-now\" or \"wp ziplogger flush\"."
+msgstr ""
+
+#. translators: %s: how late
+#: includes/admin/tabs/class-common.php:105
+#, php-format
+msgid "Overdue by %s. WP-Cron only runs when someone visits the site, so a quiet site can fall behind. A system cron fixes this - see the plugin documentation."
+msgstr ""
+
+#. translators: %s: how long from now
+#: includes/admin/tabs/class-common.php:115
+#, php-format
+msgid "Waiting before the next attempt (about %s)."
+msgstr ""
+
+#. translators: %s: how long from now
+#: includes/admin/tabs/class-common.php:119
+#, php-format
+msgid "Next run scheduled in about %s."
+msgstr ""
+
+#. translators: %s: how long from now
+#: includes/admin/tabs/class-common.php:119
+msgid "A run is due and will start on the next site visit."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:121
+msgid "Idle. A run is scheduled automatically when items are queued."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:131
+msgid "Queue was full"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:132
+msgid "Per-request limit reached"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:133
+msgid "Too large"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:134
+msgid "Could not be encoded"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:135
+msgid "Older than the retention window"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:136
+msgid "Repeatedly failed delivery"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:137
+msgid "Rejected by ZipLogger"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:138
+msgid "Cleared by an administrator"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:139
+msgid "Local database write failed"
+msgstr ""
+
+#. translators: %s: number of queued items.
+#: includes/admin/tabs/class-common.php:153
+#, php-format
+msgid "%s queued item is on hold."
+msgid_plural "%s queued items are on hold."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of queued items.
+#: includes/admin/tabs/class-common.php:154
+msgid "They were collected for the previous API key or endpoint. A different key can belong to a different workspace, so they are not sent automatically. If the new key belongs to the same workspace (for example you rotated the key), send them; otherwise discard them. They expire on their own after the retention window."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:156
+msgid "Send to the current destination"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:157
+msgid "Discard held items"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:157
+msgid "Discard the held items? They cannot be recovered."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:170
+msgid "Open ZipLogger"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:170
+#: includes/admin/tabs/class-module.php:125
+msgid "(opens in a new tab)"
+msgstr ""
+
+#. translators: %s: the site label, shown in code style.
+#: includes/admin/tabs/class-common.php:173
+#, php-format
+msgid "Then search for events with source %s."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:187
+msgid "Send test event"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:188
+msgid "Deliver queued items now"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:189
+msgid "Clear queue"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:189
+msgid "Delete every queued item that has not been delivered yet? This cannot be undone."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:191
+msgid "These actions use the saved settings, so save any changes first. \"Send test event\" works even while collection is off."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:200
+msgid "Delivery is at-least-once, not exactly-once: a batch retried after a timeout carries the same idempotency key so ZipLogger can recognise it, but a rare duplicate or loss is possible when the site or server dies at the wrong moment. \"Accepted\" means ZipLogger received the event; it can take a short while to be searchable."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:44
+msgid "API keys"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:45
+msgid "Create keys in ZipLogger under Settings, API keys. Use a separate key for each purpose so each can be revoked on its own. Keys are stored in the database and never shown again; to keep one out of the database entirely, define it in wp-config.php (constant names are shown below) or set it as an environment variable."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:50
+msgid "Server key"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:51
+msgid "An ingestion key. PHP uses it to send logs, events and traces. It never appears in a web page."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:56
+msgid "Browser key"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:57
+msgid "A separate ingestion-only key for browser monitoring, analytics, replay and browser tracing. It IS delivered to every visitor's browser, so create it just for this, and never use a key that can read data."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:62
+msgid "Read key (optional)"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:63
+msgid "A key with the read scope, used only on the server to show recent errors and trends in this dashboard. It is never sent to a browser. Without it the dashboard shows local delivery health and links into ZipLogger."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:68
+msgid "Site"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:71
+msgid "Site label"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:73
+msgid "Shown as the \"source\" of every event. Use a different label per site to tell sites apart in ZipLogger. Letters, numbers, dots, dashes and underscores."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:79
+msgid "Environment"
+msgstr ""
+
+#. translators: %s: detected environment type, e.g. production.
+#: includes/admin/tabs/class-connection.php:84
+#, php-format
+msgid "Detect automatically (currently: %s)"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:90
+msgid "Endpoint"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:93
+msgid "The configured endpoint cannot be used:"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:96
+msgid "Set by the ZIPLOGGER_ENDPOINT constant."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:98
+msgid "Advanced: use a different endpoint"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:99
+msgid "Endpoint override"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:101
+msgid "Only needed for a self-hosted ZipLogger. It must be an https:// address on a public host name. Your API keys are sent to this address, so only enter one you trust. Leave empty for the default. The browser key is also delivered to visitors together with this address."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:105
+msgid "If the key or endpoint changes"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:105
+msgid "Queued data when the key or endpoint changes"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:107
+msgid "Hold items already waiting until I decide (recommended)"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:108
+msgid "Send them to the new destination (only if it is the same workspace)"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:109
+msgid "Discard them"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:119
+msgid "A different key can belong to a different workspace. Queued data is never sent to a workspace other than the one it was collected for unless you choose so here or on the held-data notice."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:122
+msgid "Save connection"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:125
+msgid "Check the connection"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:128
+msgid "Read access for this dashboard"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:134
+msgid "Test the read key"
+msgstr ""
+
+#. translators: %s: workspace name.
+#: includes/admin/tabs/class-connection.php:141
+#, php-format
+msgid "Worked; the key belongs to the workspace \"%s\"."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:142
+msgid "Worked."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:143
+msgid "Did not work."
+msgstr ""
+
+#. translators: 1: when, 2: result.
+#: includes/admin/tabs/class-connection.php:144
+#, php-format
+msgid "Last test %1$s: %2$s"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:146
+msgid "The read key is used by this server only, to fetch recent errors and trends into the tabs of this screen. It is never sent to a browser."
+msgstr ""
+
+#. translators: %s: constant name
+#: includes/admin/tabs/class-connection.php:169
+#, php-format
+msgid "Set by the %s constant:"
+msgstr ""
+
+#. translators: %s: variable name
+#: includes/admin/tabs/class-connection.php:169
+#, php-format
+msgid "Set by the %s environment variable:"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:171
+msgid "To change it, edit wp-config.php or the server environment. A key saved in the database is ignored while this is set."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:175
+msgid "A key is saved:"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:177
+msgid "The stored key is not valid."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:179
+msgid "No key saved."
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:185
+msgid "Paste a new key to replace the saved one"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:185
+msgid "Paste a key (zk_...)"
+msgstr ""
+
+#: includes/admin/tabs/class-connection.php:192
+msgid "Remove the saved key"
+msgstr ""
+
+#. translators: %s: constant name
+#: includes/admin/tabs/class-connection.php:196
+#, php-format
+msgid "Or define %s in wp-config.php."
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:39
+msgid "Everything here is local to your site. The downloadable report contains no API keys or personal data."
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:42
+msgid "Plugin version"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:43
+msgid "WordPress"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:44
+msgid "PHP"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:45
+msgid "HTTPS site"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:45
+#: includes/admin/tabs/class-diagnostics.php:47
+#: includes/admin/tabs/class-diagnostics.php:67
+msgid "Yes"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:45
+msgid "No - browser monitoring works on HTTP, but keys travel unencrypted from visitors' browsers"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:46
+msgid "WP-Cron"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:46
+msgid "Disabled (a system cron must run \"wp cron event run --due-now\")"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:46
+msgid "Enabled (runs when the site gets visits)"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:47
+msgid "Persistent object cache"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:47
+#: includes/admin/tabs/class-diagnostics.php:67
+msgid "No"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:49
+msgid "Page cache"
+msgstr ""
+
+#. translators: %s: cache plugin names
+#: includes/admin/tabs/class-diagnostics.php:51
+#, php-format
+msgid "Detected (%s). ZipLogger never writes visitor- or request-specific identifiers into pages, so cached pages are safe; requests answered from the cache do not run PHP and produce no server spans."
+msgstr ""
+
+#. translators: %s: cache plugin names
+#: includes/admin/tabs/class-diagnostics.php:52
+msgid "None detected. If you use a caching service in front of WordPress, requests it answers do not reach PHP and produce no server spans."
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:54
+msgid "Consent evidence"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:54
+msgid "WP Consent API detected"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:54
+msgid "WP Consent API not installed (use the JavaScript API or the ziplogger_has_consent filter)"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:57
+msgid "Credential isolation"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:64
+#: includes/admin/tabs/class-overview.php:35
+msgid "Modules"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:65
+#: includes/admin/tabs/class-overview.php:38
+msgid "Module"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:65
+msgid "Switched on"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:65
+msgid "Running"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:65
+msgid "Blocked by"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:71
+msgid "Delivery"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:75
+#: includes/admin/tabs/class-logs.php:94
+#: includes/admin/tabs/class-overview.php:81
+msgid "Worker (WP-Cron)"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:76
+msgid "Queue size"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:77
+msgid "Items in retry"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:78
+msgid "Leases expired after a crash (recovered automatically)"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:81
+msgid "Report"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:82
+msgid "Download diagnostics (JSON)"
+msgstr ""
+
+#. translators: this is a check result line.
+#: includes/admin/tabs/class-diagnostics.php:120
+msgid "The browser key is different from the server key"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:124
+msgid "The read key is different from the server and browser keys"
+msgstr ""
+
+#: includes/admin/tabs/class-diagnostics.php:128
+msgid "Only the browser key can be delivered to visitors; the server and read keys are never placed in a page or script"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:30
+msgid "Captures PHP warnings, uncaught exceptions and fatal errors without changing how PHP or WordPress report them, plus optional operational events. Events are redacted, stored in a small local queue and delivered in the background; your pages never wait for ZipLogger."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:32
+msgid "Data"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:32
+msgid "Message, severity, time, the site's host name, WordPress and PHP versions, file paths relative to WordPress and a stack trace without function arguments. Never: passwords, keys, cookies, tokens, request or response bodies, query strings, payment details, email addresses, usernames or IP addresses. Redaction reduces exposure but cannot guarantee that a secret typed into an arbitrary message is caught."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:33
+msgid "Traffic"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:33
+msgid "One background job sends batches over HTTPS. Nothing is sent from the request that produced the event."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:34
+msgid "Storage"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:34
+msgid "A bounded queue in your database (events older than 48 hours, or beyond the queue's capacity, are dropped and counted)."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:38
+msgid "Debug - everything, including deprecations"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:39
+msgid "Info - also notices"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:40
+msgid "Warning (recommended) - warnings and worse"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:41
+msgid "Error - errors and fatals only"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:42
+msgid "Fatal - only fatal errors"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:45
+msgid "PHP errors"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:45
+msgid "Warnings, notices (per the minimum severity), uncaught exceptions and fatal errors."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:46
+msgid "Plugin and theme changes"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:46
+msgid "A plugin was activated or deactivated, or the active theme changed. Low volume."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:47
+msgid "Update outcomes"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:47
+msgid "Core, plugin, theme and translation updates that finished, and install-stage failures. Low volume."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:48
+msgid "Failed logins"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:48
+msgid "That a login failed and WordPress's reason code. Never the username, password or IP address. Repeats are collapsed. Can be noisy during an attack, so it is off by default."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:49
+msgid "Outbound HTTP failures"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:49
+msgid "wp_remote_*() requests that fail or return a 5xx status. Only the host name, method and status are kept. Off by default."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:50
+msgid "Slow outbound HTTP requests"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:50
+msgid "wp_remote_*() requests slower than the threshold below. Off by default."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:57
+msgid "Server collection"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:57
+msgid "Collect events and send them to ZipLogger"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:59
+msgid "Minimum severity"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:64
+msgid "Applies to PHP errors and to events logged by code through ziplogger_log(). The operational events below have their own switches and are not affected."
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:66
+msgid "Collectors"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:80
+msgid "seconds"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:83
+msgid "Save server logs settings"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:86
+#: includes/admin/tabs/class-overview.php:31
+msgid "Live from ZipLogger"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:87
+#: includes/admin/tabs/class-overview.php:32
+#: includes/dashboard/class-panels.php:84
+msgid "Recent server errors"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:88
+#: includes/admin/tabs/class-overview.php:33
+msgid "Server errors, last 24 hours"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:90
+msgid "Delivery health"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:93
+msgid "Repeats collapsed"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:96
+msgid "Last test event"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:96
+msgid "accepted"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:96
+msgid "not delivered"
+msgstr ""
+
+#: includes/admin/tabs/class-logs.php:101
+#: includes/admin/tabs/class-overview.php:91
+msgid "Actions"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:44
+msgid "Data collected"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:45
+msgid "Effect on traffic"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:46
+msgid "Effect on storage"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:49
+#: includes/admin/tabs/class-privacy.php:42
+msgid "Consent"
+msgstr ""
+
+#. translators: %s: module name
+#: includes/admin/tabs/class-module.php:57
+#, php-format
+msgid "Save %s settings"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:72
+msgid "Activity"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:75
+#: includes/dashboard/class-panels.php:88
+msgid "Recent JavaScript errors"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:76
+msgid "Failed browser requests, last 24 hours"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:80
+msgid "Server requests"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:81
+#: includes/class-signal.php:91
+msgid "Traces"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:84
+msgid "ZipLogger's read interface exposes logs, request metrics and traces; it has no product-analytics query, so numbers for page views and events are not shown here. Open them in ZipLogger."
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:85
+#: includes/class-signal.php:89
+msgid "Events"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:85
+msgid "Investigate"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:88
+msgid "Recordings are watched in ZipLogger. Open the list of recordings there; a single recording links from a session or an error that knows its session."
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:89
+msgid "Session replays"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:95
+#: includes/admin/tabs/class-module.php:139
+msgid "Orders created"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:96
+msgid "Payments completed"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:97
+#: includes/admin/tabs/class-module.php:141
+msgid "Payment failures"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:140
+msgid "Payments confirmed"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:142
+msgid "Status changes"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:145
+msgid "Order events handed to the delivery queue"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:145
+msgid "Event"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:145
+msgid "Queued for ZipLogger"
+msgstr ""
+
+#. translators: %s: how long ago.
+#: includes/admin/tabs/class-module.php:151
+#, php-format
+msgid "Last order event queued %s."
+msgstr ""
+
+#. translators: %s: how long ago.
+#: includes/admin/tabs/class-module.php:151
+msgid "No order event has been queued yet."
+msgstr ""
+
+#. translators: %s: how long ago.
+#: includes/admin/tabs/class-module.php:151
+msgid "These are counts of events handed to the local delivery queue on this site; whether ZipLogger has received them is shown under Server delivery on the Overview tab."
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:164
+msgid "A browser API key (Connection tab)"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:167
+#: includes/admin/tabs/class-module.php:174
+msgid "A server API key (Connection tab)"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:169
+msgid "A browser API key, for browser-to-server tracing"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:173
+msgid "WooCommerce active on this site"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:177
+msgid "Orders are stored in WooCommerce's high-performance order tables - supported"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:177
+msgid "Orders are stored as WordPress posts - supported"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:183
+msgid "Requirements"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:185
+msgid "(met)"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:185
+msgid "(missing)"
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:204
+msgid "Server-side spans carry no visitor identifiers. Browser-to-server tracing follows the \"browser\" consent policy (Privacy and consent tab)."
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:208
+msgid "Collected without asking, under your current policy. Change this on the Privacy and consent tab."
+msgstr ""
+
+#: includes/admin/tabs/class-module.php:210
+msgid "Collected only after the visitor has consented, according to the Privacy and consent tab. Before consent nothing is collected or queued, and consent given later does not send earlier activity."
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:36
+msgid "Nothing is switched on automatically. Each module has its own tab, its own switch and its own sampling."
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:37
+msgid "Modules and their state"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:38
+msgid "State"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:38
+msgid "What it sends"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:46
+msgid "PHP errors and selected WordPress events, from the server"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:47
+msgid "JavaScript errors, failing requests and page performance, from the browser"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:48
+msgid "Page views, chosen interactions and custom events, from the browser"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:49
+msgid "Masked recordings of sampled sessions, from the browser"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:50
+msgid "Request and outbound-call traces, from the server (and optionally the browser)"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:51
+msgid "Shopping journey, orders, payments and refunds"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:60
+msgid "On"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:63
+msgid "On, but not running"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:66
+msgid "Off"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:78
+msgid "Server delivery"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:83
+msgid "Worker last ran"
+msgstr ""
+
+#: includes/admin/tabs/class-overview.php:86
+msgid "Oldest waiting item"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:30
+msgid "What each feature does with identifiers"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:31
+msgid "ZipLogger itself has no consent or Do-Not-Track handling, so this plugin does it. Nothing here is legal advice: check the settings against the rules that apply to your visitors."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:34
+msgid "None. Server events describe the site, not a visitor."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:34
+msgid "Not consent-gated."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:35
+msgid "Anonymous: a random id that exists only in memory for one page view. No cookies, no storage."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:35
+msgid "Policy \"browser\" below (default: no consent needed)."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:36
+msgid "A random anonymous visitor id in localStorage, a random session id in sessionStorage; with \"identify\", a keyed hash of the WordPress user id."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:36
+msgid "Policy \"analytics\" below (default: consent required)."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:37
+msgid "The same ids as analytics, plus a masked recording of the page."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:37
+msgid "Policy \"replay\" below (default: consent required)."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:38
+msgid "Server spans carry no visitor id. Browser-to-server tracing sends the page-view id in a \"baggage\" header to this site only."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:38
+msgid "Browser part follows policy \"browser\"."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:39
+msgid "Orders use an opaque order reference (a keyed hash). A visitor id is added to an order event only if the visitor had analytics consent at checkout."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:39
+msgid "Policy \"commerce\" below (default: transactional, no consent needed)."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:41
+msgid "Identifiers and consent by feature"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:42
+msgid "Feature"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:42
+msgid "Identifiers it creates or uses"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:54
+msgid "Consent policy"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:55
+msgid "For each category choose whether visitors must consent first. With \"consent required\", nothing is collected, queued or buffered until consent is given, and consent given later does not send earlier activity. When consent is withdrawn, collection and recording stop."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:57
+msgid "Browser monitoring (errors, failing requests, performance)"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:58
+msgid "Analytics (page views, interactions, identify)"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:60
+msgid "WooCommerce server events"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:69
+msgid "No consent needed"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:70
+msgid "Consent required"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:77
+msgid "WP Consent API"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:79
+msgid "Use the WP Consent API (detected) as evidence of consent"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:80
+msgid "Use the WP Consent API when it is installed (not detected now)"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:81
+msgid "Categories map to statistics-anonymous (browser), statistics (analytics, replay) and functional (commerce). The mapping can be changed with the ziplogger_wp_consent_categories filter."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:85
+msgid "Connecting your consent banner"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:86
+msgid "Evidence of consent is read, in this order, from: the ziplogger_has_consent PHP filter, the WP Consent API, and this plugin's own cookie. If your banner is not WP Consent API compatible, call the JavaScript API when the visitor chooses:"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:88
+msgid "Consent banner integration example"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:99
+msgid "Withdrawing consent stops collection and recording at once and blocks uploads of unsent replay data. Events the browser had already handed to its sending queue a moment earlier may still be delivered. Data already sent to ZipLogger is not deleted by withdrawing consent - delete it in ZipLogger."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:101
+msgid "Retention"
+msgstr ""
+
+#. translators: %d: hours.
+#: includes/admin/tabs/class-privacy.php:106
+#, php-format
+msgid "Server events wait in the local queue for at most %d hours; older ones are dropped and counted."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:110
+msgid "How long ZipLogger keeps delivered logs, events, traces and replays depends on your ZipLogger plan and workspace settings."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:111
+msgid "Browser identifiers stay in the visitor's browser until they clear site data or consent is revoked."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:114
+msgid "When the plugin is deleted"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:115
+msgid "Also delete the queue, counters, keys and settings from the database"
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:116
+msgid "Deactivating the plugin always keeps your settings and any queued events. This only applies when you delete the plugin."
+msgstr ""
+
+#: includes/admin/tabs/class-privacy.php:118
+msgid "Save privacy settings"
+msgstr ""
+
+#: includes/class-endpoint.php:68
+msgid "The URL is empty, too long, or contains spaces or control characters."
+msgstr ""
+
+#: includes/class-endpoint.php:73
+msgid "That is not a complete URL (expected https://host)."
+msgstr ""
+
+#: includes/class-endpoint.php:79
+msgid "The endpoint must use https:// so the API key is encrypted in transit."
+msgstr ""
+
+#: includes/class-endpoint.php:82
+msgid "The URL must not contain a username or password."
+msgstr ""
+
+#: includes/class-endpoint.php:85
+msgid "The URL must not contain a query string or fragment."
+msgstr ""
+
+#. translators: %d: port number.
+#: includes/class-endpoint.php:103
+#, php-format
+msgid "Port %d is not allowed. Use the standard HTTPS port (443)."
+msgstr ""
+
+#: includes/class-endpoint.php:111
+msgid "The URL path contains unsupported characters."
+msgstr ""
+
+#: includes/class-endpoint.php:197
+msgid "The host name is missing or too long."
+msgstr ""
+
+#: includes/class-endpoint.php:202
+msgid "The host name contains unsupported characters."
+msgstr ""
+
+#: includes/class-endpoint.php:205
+msgid "Use a host name, not an IP address."
+msgstr ""
+
+#: includes/class-endpoint.php:208
+msgid "That is not a valid public host name."
+msgstr ""
+
+#: includes/class-endpoint.php:213
+msgid "Local and internal host names are not allowed."
+msgstr ""
+
+#: includes/class-endpoint.php:228
+msgid "The host name could not be resolved. Check the spelling, or try again in a moment."
+msgstr ""
+
+#: includes/class-endpoint.php:235
+msgid "The host resolves to a private or reserved address, which is not allowed."
+msgstr ""
+
+#: includes/class-lifecycle.php:34
+msgid "ZipLogger cannot be network-activated: every site needs its own API key, queue and settings. Activate it on each site from that site's Plugins screen."
+msgstr ""
+
+#: includes/class-lifecycle.php:35
+msgid "Plugin activation error"
+msgstr ""
+
+#: includes/class-modules.php:55
+#: includes/class-modules.php:71
+msgid "No server API key is set."
+msgstr ""
+
+#: includes/class-modules.php:63
+msgid "No browser API key is set (Connection tab)."
+msgstr ""
+
+#: includes/class-modules.php:79
+msgid "No server API key is set (order and payment events are sent from the server)."
+msgstr ""
+
+#: includes/class-plugin.php:291
+msgid "ZipLogger keeps a separate queue and settings per site. Activate it on each site individually."
+msgstr ""
+
+#: includes/class-plugin.php:291
+msgid "Activate per site"
+msgstr ""
+
+#: includes/class-privacy-policy.php:50
+msgid "Suggested text:"
+msgstr ""
+
+#. translators: %s: host name of the ZipLogger service.
+#: includes/class-privacy-policy.php:53
+#, php-format
+msgid "This site sends technical and usage information to ZipLogger (%s), a service that helps the site's owners find and fix problems and understand how the site is used. What is sent depends on the features the site's owners have switched on, which are described below."
+msgstr ""
+
+#: includes/class-privacy-policy.php:59
+msgid "Information collected in your browser is sent directly from your browser to ZipLogger, so ZipLogger's servers receive your IP address and browser details (such as the user agent) with each request, as any website you connect to does. For usage events, ZipLogger uses the IP address only to work out an approximate location (country, region and city) and the browser details to record the browser, operating system and device type; the IP address is not stored with the event. How ZipLogger handles the connection itself is described in its privacy policy, linked below."
+msgstr ""
+
+#: includes/class-privacy-policy.php:62
+msgid "Server errors and warnings: the message, the time, a file path inside the site, and technical details such as the WordPress and PHP versions. Passwords, keys, cookies and the contents of requests are removed before anything is sent."
+msgstr ""
+
+#: includes/class-privacy-policy.php:65
+msgid "Errors and slow or failing requests in your browser, and page-load timing: the message, the address of the page without its query string or fragment, and timing figures. This sets no cookie and stores nothing on your device, except that a cookie named ziplogger_li (the value 1) tells the script that you are signed in, when you sign in."
+msgstr ""
+
+#: includes/class-privacy-policy.php:69
+msgid "With your consent, the pages you view and the actions you take on this site are recorded using a random identifier that is stored in your browser (localStorage, named zl_anon) and a session identifier (sessionStorage, named zl_sess). These identifiers are not your name or your email address."
+msgstr ""
+
+#: includes/class-privacy-policy.php:71
+msgid "If you are signed in, a one-way pseudonym of your account is added, so that your visits can be counted together. It cannot be turned back into your user name, your email address or your user id."
+msgstr ""
+
+#: includes/class-privacy-policy.php:77
+msgid "For a sample of visits, and only with your consent, a recording of the page is made in which all text and all form fields are hidden. Payment and password fields, and the sign-in, account, cart and checkout pages, are never recorded. Recording starts when you consent and stops when you withdraw your consent."
+msgstr ""
+
+#: includes/class-privacy-policy.php:80
+msgid "Requests to this site carry a random trace identifier, so that the site's owners can follow one request through the site. The identifier contains no personal information and is not stored on your device."
+msgstr ""
+
+#: includes/class-privacy-policy.php:83
+msgid "When an order is placed, changes status or is refunded, its amount, currency, number of items, payment method and status are sent under a reference that is not the order number. Names, addresses, email addresses, phone numbers, order keys and payment details are never sent. If you have consented to analytics, a cookie named ziplogger_v (seven days) lets the order be counted together with your visit."
+msgstr ""
+
+#: includes/class-privacy-policy.php:86
+msgid "Your choice about consent is stored in a cookie named ziplogger_consent (six months). You can withdraw your consent at any time; this stops the collection and removes the identifiers from your browser. The \"Do Not Track\" and \"Global Privacy Control\" signals of your browser are respected."
+msgstr ""
+
+#. translators: %s: link to the ZipLogger privacy policy.
+#: includes/class-privacy-policy.php:91
+#, php-format
+msgid "How long ZipLogger keeps the information depends on the site's plan. ZipLogger's own privacy policy is at %s."
+msgstr ""
+
+#. translators: %s: setting name.
+#: includes/class-settings-schema.php:339
+#, php-format
+msgid "\"%s\" must be a whole number. The previous value was kept."
+msgstr ""
+
+#. translators: 1: setting name, 2: value that was used instead.
+#: includes/class-settings-schema.php:345
+#, php-format
+msgid "\"%1$s\" was outside the allowed range and was set to %2$d."
+msgstr ""
+
+#. translators: %s: rejected values.
+#: includes/class-settings-schema.php:358
+#, php-format
+msgid "These selectors were not accepted and were dropped: %s"
+msgstr ""
+
+#. translators: %s: rejected values.
+#: includes/class-settings-schema.php:367
+#, php-format
+msgid "These paths were not accepted (they must start with \"/\") and were dropped: %s"
+msgstr ""
+
+#. translators: %s: rejected values.
+#: includes/class-settings-schema.php:376
+#, php-format
+msgid "These host names were not accepted and were dropped: %s"
+msgstr ""
+
+#: includes/class-settings-schema.php:383
+msgid "The service name may only contain letters, numbers, dots, dashes and underscores. The previous value was kept."
+msgstr ""
+
+#: includes/class-settings.php:216
+msgid "The site label may only contain letters, numbers, dots, dashes and underscores (up to 64 characters). The previous value was kept."
+msgstr ""
+
+#: includes/class-settings.php:227
+msgid "The environment name may only contain lowercase letters, numbers, dots, dashes and underscores. The previous value was kept."
+msgstr ""
+
+#: includes/class-settings.php:237
+msgid "Unknown minimum severity. The previous value was kept."
+msgstr ""
+
+#: includes/class-settings.php:244
+msgid "The slow-request threshold must be between 1 and 60 seconds. The previous value was kept."
+msgstr ""
+
+#. translators: %s: reason the endpoint was rejected.
+#: includes/class-settings.php:272
+#, php-format
+msgid "Endpoint not saved: %s The previous value was kept."
+msgstr ""
+
+#: includes/class-settings.php:321
+msgid "Unknown credential type."
+msgstr ""
+
+#: includes/class-settings.php:325
+msgid "That does not look like a ZipLogger API key. Keys contain only letters, numbers and _ - . ~ + / = (8 to 256 characters). The saved key was not changed."
+msgstr ""
+
+#. translators: %s: the other credential's name (server, browser or read).
+#: includes/class-settings.php:330
+#, php-format
+msgid "That key is already used as the %s key. Create a separate key in ZipLogger so each one can be revoked on its own. The saved key was not changed."
+msgstr ""
+
+#: includes/class-settings.php:440
+msgid "The configured key is not valid."
+msgstr ""
+
+#. translators: %s: the other credential's name.
+#: includes/class-settings.php:445
+#, php-format
+msgid "This key is identical to the %s key. Use a separate key for each purpose."
+msgstr ""
+
+#: includes/class-signal.php:93
+msgid "Logs"
+msgstr ""
+
+#: includes/class-transport.php:112
+#: includes/class-worker.php:121
+msgid "No API key is configured."
+msgstr ""
+
+#: includes/class-worker.php:417
+msgid "No API key is configured. Add one and save the settings first."
+msgstr ""
+
+#: includes/class-worker.php:421
+#: includes/dashboard/class-remote.php:57
+msgid "The endpoint is not usable."
+msgstr ""
+
+#: includes/class-worker.php:436
+msgid "The test event could not be encoded."
+msgstr ""
+
+#: includes/class-worker.php:445
+msgid "ZipLogger accepted the test event."
+msgstr ""
+
+#: includes/class-worker.php:448
+msgid "ZipLogger rejected the API key. Check that it is an ingestion key, that it has not been revoked, and that you copied all of it."
+msgstr ""
+
+#. translators: %s: sanitized error detail.
+#: includes/class-worker.php:451
+#, php-format
+msgid "The test event was not delivered: %s"
+msgstr ""
+
+#: includes/dashboard/class-ajax.php:37
+msgid "You are not allowed to see this."
+msgstr ""
+
+#: includes/dashboard/class-ajax.php:42
+msgid "Bad request."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:59
+msgid "Loading..."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:60
+msgid "Live data needs JavaScript in this screen. Everything else works without it."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:61
+msgid "Refresh"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:74
+msgid "Unknown panel."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:86
+msgid "Server errors per hour, last 24 hours"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:90
+msgid "Failed browser requests per hour, last 24 hours"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:99
+msgid "This panel could not be built."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:131
+#: includes/dashboard/class-panels.php:156
+msgid "Nothing in the last 24 hours."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:133
+msgid "When"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:133
+msgid "Message"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:138
+msgid "Search these in ZipLogger"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:190
+msgid "No measurements in the last 24 hours. They are recorded for a sample of page views once \"Core Web Vitals\" is enabled."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:192
+msgid "Core Web Vitals, 75th percentile of recent measurements"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:192
+msgid "Metric"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:192
+msgid "75th percentile"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:192
+msgid "Rating"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:192
+msgid "Measurements"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:198
+msgid "Good"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:198
+msgid "Needs improvement"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:198
+msgid "Poor"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:235
+msgid "No request spans in the last 24 hours. They appear once tracing is on and requests have been sampled."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:240
+msgid "Server request spans, last 24 hours"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:241
+msgid "Sampled requests"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:242
+msgid "With an error status"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:244
+msgid "Latest hourly p95 latency"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:246
+msgid "Counts cover the requests that were sampled, not every request."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:247
+msgid "Sampled requests per hour, last 24 hours"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:260
+msgid "Recent failed requests"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:261
+msgid "Recent requests"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:282
+msgid "None in the last 24 hours."
+msgstr ""
+
+#. translators: 1: total count, 2: highest single hour
+#: includes/dashboard/class-panels.php:486
+#, php-format
+msgid "%1$s in total, at most %2$s in one hour."
+msgstr ""
+
+#: includes/dashboard/class-panels.php:492
+msgid "Show the numbers"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:492
+msgid "Hour"
+msgstr ""
+
+#: includes/dashboard/class-panels.php:492
+msgid "Count"
+msgstr ""
+
+#: includes/dashboard/class-remote.php:51
+msgid "No read key is set. Add one on the Connection tab to see live data here."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:76
+msgid "Only ZipLogger's read interface can be queried from here."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:147
+msgid "ZipLogger did not answer in time."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:148
+msgid "The secure connection to ZipLogger could not be verified."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:149
+msgid "ZipLogger could not be reached."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:161
+msgid "ZipLogger answered, but not in a format this screen understands."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:172
+msgid "ZipLogger did not accept the read key. It may be revoked, mistyped, or not have the read scope."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:175
+msgid "This ZipLogger server does not offer the read interface (it may be switched off or older)."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:178
+msgid "ZipLogger is rate-limiting reads right now. Try again in a minute."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:181
+msgid "ZipLogger did not accept the query."
+msgstr ""
+
+#: includes/dashboard/class-remote.php:184
+msgid "ZipLogger reported a problem. Try again later."
+msgstr ""
+
+#. translators: %d: HTTP status
+#: includes/dashboard/class-remote.php:186
+#, php-format
+msgid "ZipLogger answered with HTTP %d."
+msgstr ""

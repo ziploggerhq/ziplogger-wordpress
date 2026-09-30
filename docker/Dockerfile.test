@@ -1,0 +1,44 @@
+# CI image: PHP CLI + WordPress core + the WordPress PHPUnit test library + PHPUnit/PHPCS.
+# Build args select the compatibility matrix cell, e.g.
+#   docker build -f docker/Dockerfile.test --build-arg PHP_VERSION=7.4 --build-arg WP_VERSION=6.0 .
+ARG PHP_VERSION=8.3
+FROM php:${PHP_VERSION}-cli
+
+ARG WP_VERSION=latest
+# Optional: put WooCommerce next to the tests (see tests/phpunit/test-commerce.php, which skips without it).
+ARG WC_VERSION=
+
+# Old PHP images (7.4) sit on a Debian release whose package mirrors have moved to archive.debian.org.
+RUN . /etc/os-release \
+	&& if [ "$VERSION_CODENAME" = "bullseye" ] || [ "$VERSION_CODENAME" = "buster" ]; then \
+		sed -i 's|deb.debian.org|archive.debian.org|g; /security/d; /-updates/d' /etc/apt/sources.list \
+		&& echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99archive; \
+	fi \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends git unzip zip subversion default-mysql-client libzip-dev curl ca-certificates \
+	&& docker-php-ext-install mysqli zip \
+	&& rm -rf /var/lib/apt/lists/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+
+WORKDIR /opt/ci
+COPY composer.json ./
+RUN composer install --no-interaction --prefer-dist --no-progress \
+	&& vendor/bin/phpcs --config-set installed_paths "$(pwd)/vendor/wp-coding-standards/wpcs,$(pwd)/vendor/phpcsstandards/phpcsextra,$(pwd)/vendor/phpcsstandards/phpcsutils,$(pwd)/vendor/phpcompatibility/php-compatibility,$(pwd)/vendor/phpcompatibility/phpcompatibility-paragonie,$(pwd)/vendor/phpcompatibility/phpcompatibility-wp" >/dev/null
+
+COPY docker/install-wp-tests.sh /usr/local/bin/install-wp-tests.sh
+COPY docker/wp-tests-config.php /opt/ci/wp-tests-config.php
+RUN chmod +x /usr/local/bin/install-wp-tests.sh && install-wp-tests.sh "${WP_VERSION}"
+
+RUN if [ -n "$WC_VERSION" ]; then \
+		curl -fsSL "https://downloads.wordpress.org/plugin/woocommerce.${WC_VERSION}.zip" -o /tmp/wc.zip \
+		&& mkdir -p /opt/ci/plugins && unzip -q /tmp/wc.zip -d /opt/ci/plugins && rm -f /tmp/wc.zip; \
+	fi
+
+ENV WC_PLUGIN_DIR=/opt/ci/plugins/woocommerce \
+	WP_TESTS_DIR=/tmp/wordpress-tests-lib \
+	WP_CORE_DIR=/tmp/wordpress \
+	WP_TESTS_PHPUNIT_POLYFILLS_PATH=/opt/ci/vendor/yoast/phpunit-polyfills \
+	ZIPLOGGER_PLUGIN_DIR=/plugin/ziplogger
+
+CMD ["vendor/bin/phpunit", "-c", "phpunit.xml.dist"]

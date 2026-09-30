@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- Defines wp_has_consent(), which cannot be undefined again, so it is a run of its own. -->
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	convertDeprecationsToExceptions="false"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+>
+	<testsuites>
+		<testsuite name="wp-consent-api">
+			<directory prefix="test-" suffix=".php">tests/phpunit-wp-consent-api</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
