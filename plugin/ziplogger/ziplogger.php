@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       ZipLogger: Error Monitoring & Session Replay
- * Plugin URI:        https://ziplogger.ai/
+ * Plugin URI:        https://github.com/ziploggerhq/ziplogger-wordpress
  * Description:       Server and browser error monitoring, analytics, masked session replay, tracing and WooCommerce events for ZipLogger. Nothing is sent until you add a key and switch a module on.
  * Version:           1.0.0
  * Requires at least: 6.0
