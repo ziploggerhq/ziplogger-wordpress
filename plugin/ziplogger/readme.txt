@@ -1,5 +1,5 @@
 === ZipLogger: Error Monitoring & Session Replay ===
-Contributors: ziplogger
+Contributors: ahaliav
 Tags: error monitoring, logging, analytics, session replay, woocommerce
 Requires at least: 6.0
 Tested up to: 7.1
