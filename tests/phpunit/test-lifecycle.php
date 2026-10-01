@@ -59,17 +59,110 @@ class Test_Lifecycle extends ZL_TestCase {
 		$this->assertNotSame( '', Settings::api_key(), 'The key is preserved too.' );
 	}
 
-	public function test_network_activation_is_refused_on_multisite() {
+	// ---------------------------------------------------------------------------------------------
+	// Network-wide activation (multisite).
+	// ---------------------------------------------------------------------------------------------
+
+	private function multisite_only() {
 		if ( ! is_multisite() ) {
 			$this->markTestSkipped( 'Multisite only (run with WP_MULTISITE=1).' );
 		}
-		$e = $this->catch_die(
-			static function () {
-				Lifecycle::activate( true );
-			}
+	}
+
+	/**
+	 * What a site has after set-up: its own tables and its own maintenance event.
+	 *
+	 * @param int $blog_id Site.
+	 * @return array{tables:bool,watchdog:bool}
+	 */
+	private function site_state( $blog_id ) {
+		switch_to_blog( $blog_id );
+		$state = array(
+			'tables'   => Schema::tables_exist(),
+			'watchdog' => false !== wp_next_scheduled( Scheduler::HOOK_WATCHDOG ),
 		);
-		$this->assertInstanceOf( WPDieException::class, $e );
-		$this->assertStringContainsString( 'cannot be network-activated', $e->getMessage() );
+		restore_current_blog();
+		return $state;
+	}
+
+	private function set_network_active( $active ) {
+		update_site_option( 'active_sitewide_plugins', $active ? array( plugin_basename( ZIPLOGGER_FILE ) => time() ) : array() );
+	}
+
+	public function test_network_activation_sets_up_every_site_and_prints_nothing() {
+		$this->multisite_only();
+		$sites = array( self::factory()->blog->create(), self::factory()->blog->create() );
+		foreach ( $sites as $id ) {
+			$this->assertFalse( $this->site_state( $id )['tables'], 'A new site has no ZipLogger tables yet.' );
+		}
+
+		ob_start();
+		Lifecycle::activate( true );
+		$output = ob_get_clean();
+
+		$this->assertSame( '', $output, 'Activation prints nothing.' );
+		foreach ( $sites as $id ) {
+			$this->assertSame( array( 'tables' => true, 'watchdog' => true ), $this->site_state( $id ), 'Site ' . $id );
+		}
+	}
+
+	public function test_network_activation_keeps_each_sites_settings_apart() {
+		$this->multisite_only();
+		$a = self::factory()->blog->create();
+		$b = self::factory()->blog->create();
+		Lifecycle::activate( true );
+
+		switch_to_blog( $a );
+		Settings::save( array( 'source' => 'site-a' ) );
+		restore_current_blog();
+		switch_to_blog( $b );
+		Settings::reset_cache();
+		$this->assertNotSame( 'site-a', Settings::get()['source'], 'Another site does not see site a settings.' );
+		restore_current_blog();
+		Settings::reset_cache();
+	}
+
+	public function test_a_site_created_after_network_activation_is_set_up_when_it_is_created() {
+		$this->multisite_only();
+		$this->set_network_active( true );
+		$id = self::factory()->blog->create();
+		$this->assertSame( array( 'tables' => true, 'watchdog' => true ), $this->site_state( $id ) );
+	}
+
+	public function test_a_site_created_while_the_plugin_is_active_on_other_sites_only_is_left_alone() {
+		$this->multisite_only();
+		$this->set_network_active( false );
+		$id = self::factory()->blog->create();
+		$this->assertSame( array( 'tables' => false, 'watchdog' => false ), $this->site_state( $id ) );
+	}
+
+	public function test_network_deactivation_removes_the_schedule_of_every_site_and_keeps_the_data() {
+		$this->multisite_only();
+		$sites = array( self::factory()->blog->create(), self::factory()->blog->create() );
+		Lifecycle::activate( true );
+		Lifecycle::deactivate( true );
+		foreach ( $sites as $id ) {
+			$state = $this->site_state( $id );
+			$this->assertFalse( $state['watchdog'], 'Site ' . $id . ' has no scheduled event.' );
+			$this->assertTrue( $state['tables'], 'Deactivating keeps the data.' );
+		}
+	}
+
+	public function test_the_first_request_of_a_site_the_activation_did_not_reach_sets_it_up() {
+		$this->multisite_only();
+		$id = self::factory()->blog->create();
+		switch_to_blog( $id );
+		$this->assertTrue( Schema::maybe_upgrade(), 'Tables are created on the first call.' );
+		$this->assertFalse( Schema::maybe_upgrade(), 'And not again.' );
+		$this->assertTrue( Schema::tables_exist() );
+		restore_current_blog();
+	}
+
+	public function test_activating_a_single_site_does_not_touch_the_others() {
+		$this->multisite_only();
+		$other = self::factory()->blog->create();
+		Lifecycle::activate( false );
+		$this->assertSame( array( 'tables' => false, 'watchdog' => false ), $this->site_state( $other ) );
 	}
 
 	// ---------------------------------------------------------------------------------------------

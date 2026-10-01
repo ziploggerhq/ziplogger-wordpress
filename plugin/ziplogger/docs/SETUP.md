@@ -50,7 +50,7 @@ Data waiting in the queue was collected for one workspace. If the key or endpoin
 
 ## Multisite
 
-Each site has its own settings, keys, queue and cron job. **Network activation is refused**; activate the plugin on each site. Uninstalling honours each site's own "delete data on uninstall" choice.
+Each site has its own settings, keys, queue and cron job. The plugin can be activated on single sites or **for the whole network**: network activation sets up the existing sites (the first 200 of a very large network; any other site is set up on its first request), and sites created later are set up when they are created. Keys defined in `wp-config.php` apply to every site of the network. Uninstalling honours each site's own "delete data on uninstall" choice.
 
 ## WP-CLI
 

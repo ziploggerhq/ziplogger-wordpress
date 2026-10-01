@@ -54,8 +54,14 @@ final class Plugin {
 	 * @return void
 	 */
 	public function boot() {
-		Schema::maybe_upgrade();
+		if ( Schema::maybe_upgrade() && is_multisite() ) {
+			// A site that the network activation did not reach (it was created before, or is beyond the first batch).
+			Scheduler::ensure_watchdog();
+		}
 		Transport::register_hooks();
+		if ( is_multisite() ) {
+			add_action( 'wp_initialize_site', array( Lifecycle::class, 'new_site' ), 200 );
+		}
 
 		add_action( 'switch_blog', array( '\ZipLogger\WordPress\Settings', 'reset_cache' ) );
 		add_action( Scheduler::HOOK_DELIVER, array( $this, 'run_delivery' ) );
@@ -77,9 +83,6 @@ final class Plugin {
 		if ( is_admin() ) {
 			$admin = new Admin\Settings_Page();
 			$admin->register();
-		}
-		if ( is_multisite() && is_network_admin() ) {
-			add_filter( 'network_admin_plugin_action_links_' . plugin_basename( ZIPLOGGER_FILE ), array( $this, 'network_action_links' ) );
 		}
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			\WP_CLI::add_command( 'ziplogger', '\ZipLogger\WordPress\Cli\Command' );
@@ -278,18 +281,5 @@ final class Plugin {
 		} catch ( \Throwable $e ) {
 			return;
 		}
-	}
-
-	/**
-	 * Explain, in the network plugins list, why there is no network-activate link.
-	 *
-	 * @param array $links Action links.
-	 * @return array
-	 */
-	public function network_action_links( $links ) {
-		if ( isset( $links['activate'] ) ) {
-			$links['activate'] = '<span title="' . esc_attr__( 'ZipLogger keeps a separate queue and settings per site. Activate it on each site individually.', 'ziplogger' ) . '">' . esc_html__( 'Activate per site', 'ziplogger' ) . '</span>';
-		}
-		return $links;
 	}
 }

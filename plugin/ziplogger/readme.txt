@@ -32,7 +32,7 @@ ZipLogger connects your WordPress site to [ZipLogger](https://ziplogger.ai/). It
 * Separate credentials: a server key, a public **ingestion-only** browser key, and an optional read key that never leaves the server. The plugin refuses to use one key for two purposes.
 * Consent: the WordPress Consent API, a filter for consent managers, or a JavaScript API. Do Not Track and Global Privacy Control are honoured for analytics and replay. Withdrawing consent stops collection and discards what was not yet sent.
 * Cache-safe: page caches and CDNs can store your pages; identifiers are created in the browser, never in the HTML.
-* Multisite: activate per site (each site has its own keys and queue).
+* Multisite: activate on single sites or for the whole network. Each site keeps its own settings, queue and schedule.
 
 = External services =
 
@@ -98,7 +98,7 @@ Yes: the page carries no visitor-specific data. Optimization plugins are asked (
 
 = Does it work on multisite? =
 
-Activate it per site. Network activation is refused because each site needs its own keys, queue and settings.
+Yes. Activate it on single sites, or for the whole network: the sites that exist are set up when you activate (the first 200 of a very large network; any other site is set up on its first request), and sites created later are set up when they are created. Each site keeps its own settings, queue, schedule and keys. Keys defined in wp-config.php (ZIPLOGGER_API_KEY and the others) apply to every site of the network.
 
 = What does it not do? =
 

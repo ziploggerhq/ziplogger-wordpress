@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-30T16:19:57+00:00\n"
+"POT-Creation-Date: 2026-10-01T07:27:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ziplogger\n"
@@ -1938,14 +1938,6 @@ msgstr ""
 msgid "The host resolves to a private or reserved address, which is not allowed."
 msgstr ""
 
-#: includes/class-lifecycle.php:34
-msgid "ZipLogger cannot be network-activated: every site needs its own API key, queue and settings. Activate it on each site from that site's Plugins screen."
-msgstr ""
-
-#: includes/class-lifecycle.php:35
-msgid "Plugin activation error"
-msgstr ""
-
 #: includes/class-modules.php:55
 #: includes/class-modules.php:71
 msgid "No server API key is set."
@@ -1957,14 +1949,6 @@ msgstr ""
 
 #: includes/class-modules.php:79
 msgid "No server API key is set (order and payment events are sent from the server)."
-msgstr ""
-
-#: includes/class-plugin.php:291
-msgid "ZipLogger keeps a separate queue and settings per site. Activate it on each site individually."
-msgstr ""
-
-#: includes/class-plugin.php:291
-msgid "Activate per site"
 msgstr ""
 
 #: includes/class-privacy-policy.php:50

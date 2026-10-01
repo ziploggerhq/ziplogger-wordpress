@@ -1,6 +1,6 @@
 # ZipLogger: Error Monitoring & Session Replay 1.0.0 (WordPress plugin): final report
 
-Date: 2026-09-30. Package: `dist/ziplogger.zip`, 80 files, 272,597 bytes, sha256 `568a0acc4936fbcdf597ba4c63937c50082c7c2d78990bc90762393436f98097`. Building it twice gives byte-identical files. The ZIP submitted to WordPress.org (sha256 `a4248c8d5c30e1569a9bfbcce0a450f1f7ea70ad780a0fc1eb32f97de9c591dc`) is exactly this one with two small changes, the `Contributors:` line of `readme.txt` and the Plugin URI header of `ziplogger.php` (WordPress.org requires it to differ from the Author URI); all the testing described below ran on the earlier file.
+Date: 2026-09-30. Package: `dist/ziplogger.zip`, 80 files, 273,187 bytes, sha256 `27e95a0dd79d23383ce4b8ce45bde433adccd826ff0de1d1d974a61eead1d2e7`. Building it twice gives byte-identical files. This is the ZIP that was re-submitted to WordPress.org after the plugin team's first review; every test described below ran on it.
 
 **Two levels of evidence, kept apart.** Almost everything was verified against a local stand-in that models ZipLogger as its own source code describes it. After the main work, one ingestion key for a real workspace became available, and the plugin's delivery, the HTTP contract and the browser script were then checked live (24 checks, all passed). **The read interface and the dashboard's live panels were not verified live** (that key has no read scope), and nobody has looked at the data inside ZipLogger's own screens. Details in [LIMITATIONS.md](LIMITATIONS.md).
 
@@ -11,7 +11,7 @@ Date: 2026-09-30. Package: `dist/ziplogger.zip`, 80 files, 272,597 bytes, sha256
 | The plugin | Server logs, browser monitoring, analytics, session replay, distributed tracing, WooCommerce events and a dashboard. Every module is off until switched on. 65 PHP files (about 14,700 lines), two browser scripts built from about 2,100 lines of readable source |
 | Package | `dist/ziplogger.zip`, with `readme.txt`, setup, privacy, troubleshooting, cron and developer-API guides (PHP and JavaScript examples), and a translation template |
 | Repository docs | [BUILD](BUILD.md) (reproducible build), [TESTING](TESTING.md), [COMPATIBILITY](COMPATIBILITY.md) (matrix and feature coverage), [PERFORMANCE](PERFORMANCE.md), [LIMITATIONS](LIMITATIONS.md) |
-| Tests | 647 PHP tests (+ 9 in a separate run), 154 JavaScript tests, 86 end-to-end tests in a real WordPress and a real Chromium |
+| Tests | 653 PHP tests (+ 9 in a separate run), 154 JavaScript tests, 86 end-to-end tests in a real WordPress and a real Chromium |
 
 ## Architecture decisions, and why
 
@@ -29,7 +29,7 @@ Date: 2026-09-30. Package: `dist/ziplogger.zip`, 80 files, 272,597 bytes, sha256
 
 | Layer | Result |
 | --- | --- |
-| PHP unit and integration (WordPress PHPUnit library, MariaDB 11) | 647 tests pass on 9 cells: PHP 7.4 / 8.1 / 8.3 / 8.4 / 8.5, WordPress 6.0 / 6.6 / 7.1.2, WooCommerce 11.1.2, single site and multisite. 9 more tests (WP Consent API) pass in a separate run on every cell. No PHP notice, warning or deprecation in any cell |
+| PHP unit and integration (WordPress PHPUnit library, MariaDB 11) | 653 tests pass on 9 cells: PHP 7.4 / 8.1 / 8.3 / 8.4 / 8.5, WordPress 6.0 / 6.6 / 7.1.2, WooCommerce 11.1.2, single site and multisite. 9 more tests (WP Consent API) pass in a separate run on every cell. No PHP notice, warning or deprecation in any cell |
 | Coding standards | WordPress-Extra and -Docs plus PHP-compatibility 7.4 and later: 0 errors, 0 warnings |
 | Plugin Check 2.1.0 on the shipped ZIP | 0 errors; 41 warnings, each explained in [COMPATIBILITY.md](COMPATIBILITY.md) and [WORDPRESS-ORG-REVIEW.md](WORDPRESS-ORG-REVIEW.md) |
 | JavaScript | 154 tests pass (each module in jsdom, plus checks of the built files: size budgets, no secret, no `eval`, one instance only) |
@@ -48,6 +48,7 @@ The spec's validation list, item by item, is in the coverage table of [COMPATIBI
 - **A delivery-status table overflowed the screen at phone width**, and a code sample on the privacy tab was not keyboard-scrollable.
 - **A dashboard message that contained `key=value` text was cut at it.**
 - **The PHP side of the WordPress Consent API integration had no test**; it now has nine, and a deliberately broken version fails them.
+- **Network-wide activation on multisite was refused** (the plugin stopped with `wp_die()`); the WordPress.org review flagged it. It is now supported: existing sites are set up on activation, new sites when they are created, any other site on its first request. Seven new tests, and a real multisite with `WP_DEBUG` on (activation prints nothing; every site gets its tables and schedule).
 - **A privacy statement was too strong**: the docs said IP addresses are never collected. The plugin puts none in the data it builds, but a browser that sends data to ZipLogger directly necessarily shows ZipLogger its IP address; the docs, the readme and the privacy-policy text now say so, and what ZipLogger does with it.
 - **Third-party notices were incomplete**: rrweb ships no licence file, so its MIT text (and that of a library compiled into it) is now kept in `frontend/licenses/` and added to the shipped notices by the build.
 - **86 inline `phpcs:ignore` comments** now each state why the flagged line is correct.

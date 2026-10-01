@@ -101,7 +101,7 @@ final class Schema {
 	 * Run install() when the stored schema version is behind the code (plugin auto-updates do not
 	 * fire the activation hook).
 	 *
-	 * @return void
+	 * @return bool Whether the tables were installed or upgraded by this call.
 	 */
 	public static function maybe_upgrade() {
 		$installed = (int) get_option( self::VERSION_OPTION, 0 );
@@ -115,7 +115,9 @@ final class Schema {
 					( new Queue_Store() )->bind_unbound( $destination );
 				}
 			}
+			return true;
 		}
+		return false;
 	}
 
 	/**

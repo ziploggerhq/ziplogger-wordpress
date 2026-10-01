@@ -13,7 +13,7 @@ Every row below was **executed**. Nothing is claimed for an environment that is 
 
 ## PHP unit and integration tests (WordPress PHPUnit library, real WordPress code, MariaDB 11)
 
-The same 647 tests run in every cell (plus 9 WP Consent API tests, run separately because they define a function that cannot be undefined); tests that only make sense with (or without) WooCommerce, or only on multisite, are skipped in the other cells and run in a complementary one. No cell printed a PHP notice, warning or deprecation.
+The same 653 tests run in every cell (plus 9 WP Consent API tests, run separately because they define a function that cannot be undefined); tests that only make sense with (or without) WooCommerce, or only on multisite, are skipped in the other cells and run in a complementary one. No cell printed a PHP notice, warning or deprecation.
 
 | PHP | WordPress | WooCommerce | Multisite | Result | Skipped (why) |
 | --- | --- | --- | --- | --- | --- |
@@ -40,7 +40,7 @@ Two real defects were found by this matrix, not by the tests that ran first, and
 
 ## WordPress Plugin Check (plugin-check 2.1.0, run in the real WordPress with the built ZIP)
 
-**0 errors and 41 warnings**, run on the ZIP that ships (sha256 `568a0acc...8097`). All 41 are listed here, so that none is hidden, and none is a defect:
+**0 errors and 41 warnings**, run on the ZIP that ships (sha256 `27e95a0d...d2e7`). All 41 are listed here, so that none is hidden, and none is a defect:
 
 | Warnings | Count | Assessment |
 | --- | ---: | --- |
@@ -54,7 +54,7 @@ Earlier runs also reported a restricted term in the plugin name, a missing `lang
 
 Environment: WordPress 7.1.2 on PHP 8.3.35 and Apache 2.4.68 (the official `wordpress:latest` image), MariaDB 11, WooCommerce 11.1.2, the Twenty Twenty-Five block theme, Chromium from the Playwright 1.63.0 image, a **local stand-in** for ZipLogger (see [LIMITATIONS.md](LIMITATIONS.md)). The plugin is installed from `dist/ziplogger.zip` with WP-CLI, exactly as a user would.
 
-One complete run of all five suites against `dist/ziplogger.zip` (sha256 `568a0acc...8097`, the file that ships): **86 tests, 86 passed, 0 failed.** The browser (`m3`), tracing (`m4`) and dashboard (`m6`) suites passed in one sitting; the server-log (`m1`) and WooCommerce (`m5`) suites were re-run against the same ZIP after two fixes to the *tests* described below, and passed.
+One complete run of all five suites against `dist/ziplogger.zip` (sha256 `27e95a0d...d2e7`, the file that ships): **86 tests, 86 passed, 0 failed.** All five suites passed in one sitting, one after another, with no re-run.
 
 | Suite | Covers | Tests | Result | Time |
 | --- | --- | ---: | --- | ---: |
@@ -102,7 +102,7 @@ Legend: **U** PHP unit/integration, **J** JavaScript unit (jsdom, source and bui
 | Dashboard panels, read key handling, no keys in HTML or JavaScript, capability and nonce | x | | x | m6 |
 | Accessibility of the admin screens (axe-core 4.13.0, no serious or critical findings) in LTR, with the page direction switched to RTL, and at phone width | | | x | m6 |
 | Measured overhead per module and with all modules | | | x | [PERFORMANCE.md](PERFORMANCE.md) |
-| Multisite (per-site settings, queues, isolation; network activation refused) | x | | | PHPUnit multisite cells |
+| Multisite (per-site settings, queues and schedules; activation on one site and for the whole network, new sites, network deactivation) | x | | | PHPUnit multisite cells (7 tests), and a real multisite (WordPress 7.1.2, `WP_DEBUG` on): network activation prints nothing and sets up every site |
 
 ## Not run
 
