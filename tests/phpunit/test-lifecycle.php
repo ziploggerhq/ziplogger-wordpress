@@ -171,7 +171,7 @@ class Test_Lifecycle extends ZL_TestCase {
 
 	private function run_uninstall() {
 		if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-			define( 'WP_UNINSTALL_PLUGIN', 'ziplogger/ziplogger.php' );
+			define( 'WP_UNINSTALL_PLUGIN', 'ziplogger-error-monitoring-session-replay/ziplogger.php' );
 		}
 		include ZIPLOGGER_DIR . 'uninstall.php';
 	}

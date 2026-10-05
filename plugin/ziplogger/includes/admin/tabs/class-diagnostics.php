@@ -35,51 +35,51 @@ final class Diagnostics {
 		unset( $s );
 		$r = self::report( $h );
 
-		echo '<h2>' . esc_html__( 'Diagnostics', 'ziplogger' ) . '</h2>';
-		echo '<p>' . esc_html__( 'Everything here is local to your site. The downloadable report contains no API keys or personal data.', 'ziplogger' ) . '</p>';
+		echo '<h2>' . esc_html__( 'Diagnostics', 'ziplogger-error-monitoring-session-replay' ) . '</h2>';
+		echo '<p>' . esc_html__( 'Everything here is local to your site. The downloadable report contains no API keys or personal data.', 'ziplogger-error-monitoring-session-replay' ) . '</p>';
 
 		echo '<table class="widefat striped ziplogger-health" role="presentation"><tbody>';
-		Settings_Page::row( __( 'Plugin version', 'ziplogger' ), $r['plugin']['version'] );
-		Settings_Page::row( __( 'WordPress', 'ziplogger' ), $r['wordpress']['version'] . ' (' . $r['wordpress']['environment'] . ')' . ( $r['wordpress']['multisite'] ? ' - multisite' : '' ) );
-		Settings_Page::row( __( 'PHP', 'ziplogger' ), $r['php']['version'] );
-		Settings_Page::row( __( 'HTTPS site', 'ziplogger' ), $r['wordpress']['https'] ? __( 'Yes', 'ziplogger' ) : __( 'No - browser monitoring works on HTTP, but keys travel unencrypted from visitors\' browsers', 'ziplogger' ) );
-		Settings_Page::row( __( 'WP-Cron', 'ziplogger' ), $r['wordpress']['wp_cron_disabled'] ? __( 'Disabled (a system cron must run "wp cron event run --due-now")', 'ziplogger' ) : __( 'Enabled (runs when the site gets visits)', 'ziplogger' ) );
-		Settings_Page::row( __( 'Persistent object cache', 'ziplogger' ), $r['wordpress']['object_cache'] ? __( 'Yes', 'ziplogger' ) : __( 'No', 'ziplogger' ) );
+		Settings_Page::row( __( 'Plugin version', 'ziplogger-error-monitoring-session-replay' ), $r['plugin']['version'] );
+		Settings_Page::row( __( 'WordPress', 'ziplogger-error-monitoring-session-replay' ), $r['wordpress']['version'] . ' (' . $r['wordpress']['environment'] . ')' . ( $r['wordpress']['multisite'] ? ' - multisite' : '' ) );
+		Settings_Page::row( __( 'PHP', 'ziplogger-error-monitoring-session-replay' ), $r['php']['version'] );
+		Settings_Page::row( __( 'HTTPS site', 'ziplogger-error-monitoring-session-replay' ), $r['wordpress']['https'] ? __( 'Yes', 'ziplogger-error-monitoring-session-replay' ) : __( 'No - browser monitoring works on HTTP, but keys travel unencrypted from visitors\' browsers', 'ziplogger-error-monitoring-session-replay' ) );
+		Settings_Page::row( __( 'WP-Cron', 'ziplogger-error-monitoring-session-replay' ), $r['wordpress']['wp_cron_disabled'] ? __( 'Disabled (a system cron must run "wp cron event run --due-now")', 'ziplogger-error-monitoring-session-replay' ) : __( 'Enabled (runs when the site gets visits)', 'ziplogger-error-monitoring-session-replay' ) );
+		Settings_Page::row( __( 'Persistent object cache', 'ziplogger-error-monitoring-session-replay' ), $r['wordpress']['object_cache'] ? __( 'Yes', 'ziplogger-error-monitoring-session-replay' ) : __( 'No', 'ziplogger-error-monitoring-session-replay' ) );
 		Settings_Page::row(
-			__( 'Page cache', 'ziplogger' ),
+			__( 'Page cache', 'ziplogger-error-monitoring-session-replay' ),
 			$r['page_cache']['detected']
-				? sprintf( /* translators: %s: cache plugin names */ __( 'Detected (%s). ZipLogger never writes visitor- or request-specific identifiers into pages, so cached pages are safe; requests answered from the cache do not run PHP and produce no server spans.', 'ziplogger' ), implode( ', ', $r['page_cache']['signals'] ) )
-				: __( 'None detected. If you use a caching service in front of WordPress, requests it answers do not reach PHP and produce no server spans.', 'ziplogger' )
+				? sprintf( /* translators: %s: cache plugin names */ __( 'Detected (%s). ZipLogger never writes visitor- or request-specific identifiers into pages, so cached pages are safe; requests answered from the cache do not run PHP and produce no server spans.', 'ziplogger-error-monitoring-session-replay' ), implode( ', ', $r['page_cache']['signals'] ) )
+				: __( 'None detected. If you use a caching service in front of WordPress, requests it answers do not reach PHP and produce no server spans.', 'ziplogger-error-monitoring-session-replay' )
 		);
-		Settings_Page::row( __( 'Consent evidence', 'ziplogger' ), $r['consent']['wp_consent_api'] ? __( 'WP Consent API detected', 'ziplogger' ) : __( 'WP Consent API not installed (use the JavaScript API or the ziplogger_has_consent filter)', 'ziplogger' ) );
+		Settings_Page::row( __( 'Consent evidence', 'ziplogger-error-monitoring-session-replay' ), $r['consent']['wp_consent_api'] ? __( 'WP Consent API detected', 'ziplogger-error-monitoring-session-replay' ) : __( 'WP Consent API not installed (use the JavaScript API or the ziplogger_has_consent filter)', 'ziplogger-error-monitoring-session-replay' ) );
 		echo '</tbody></table>';
 
-		echo '<h3>' . esc_html__( 'Credential isolation', 'ziplogger' ) . '</h3>';
+		echo '<h3>' . esc_html__( 'Credential isolation', 'ziplogger-error-monitoring-session-replay' ) . '</h3>';
 		echo '<ul class="ziplogger-requirements">';
 		foreach ( $r['credentials'] as $c ) {
 			echo '<li><span class="dashicons ' . ( $c['ok'] ? 'dashicons-yes-alt' : 'dashicons-warning' ) . '" aria-hidden="true"></span> ' . esc_html( $c['label'] ) . '</li>';
 		}
 		echo '</ul>';
 
-		echo '<h3>' . esc_html__( 'Modules', 'ziplogger' ) . '</h3>';
-		echo '<table class="widefat striped ziplogger-health"><thead><tr><th scope="col">' . esc_html__( 'Module', 'ziplogger' ) . '</th><th scope="col">' . esc_html__( 'Switched on', 'ziplogger' ) . '</th><th scope="col">' . esc_html__( 'Running', 'ziplogger' ) . '</th><th scope="col">' . esc_html__( 'Blocked by', 'ziplogger' ) . '</th></tr></thead><tbody>';
+		echo '<h3>' . esc_html__( 'Modules', 'ziplogger-error-monitoring-session-replay' ) . '</h3>';
+		echo '<table class="widefat striped ziplogger-health"><thead><tr><th scope="col">' . esc_html__( 'Module', 'ziplogger-error-monitoring-session-replay' ) . '</th><th scope="col">' . esc_html__( 'Switched on', 'ziplogger-error-monitoring-session-replay' ) . '</th><th scope="col">' . esc_html__( 'Running', 'ziplogger-error-monitoring-session-replay' ) . '</th><th scope="col">' . esc_html__( 'Blocked by', 'ziplogger-error-monitoring-session-replay' ) . '</th></tr></thead><tbody>';
 		foreach ( $r['modules'] as $name => $m ) {
-			echo '<tr><th scope="row">' . esc_html( $name ) . '</th><td>' . esc_html( $m['enabled'] ? __( 'Yes', 'ziplogger' ) : __( 'No', 'ziplogger' ) ) . '</td><td>' . esc_html( $m['effective'] ? __( 'Yes', 'ziplogger' ) : __( 'No', 'ziplogger' ) ) . '</td><td>' . esc_html( implode( ' ', $m['blockers'] ) ) . '</td></tr>';
+			echo '<tr><th scope="row">' . esc_html( $name ) . '</th><td>' . esc_html( $m['enabled'] ? __( 'Yes', 'ziplogger-error-monitoring-session-replay' ) : __( 'No', 'ziplogger-error-monitoring-session-replay' ) ) . '</td><td>' . esc_html( $m['effective'] ? __( 'Yes', 'ziplogger-error-monitoring-session-replay' ) : __( 'No', 'ziplogger-error-monitoring-session-replay' ) ) . '</td><td>' . esc_html( implode( ' ', $m['blockers'] ) ) . '</td></tr>';
 		}
 		echo '</tbody></table>';
 
-		echo '<h3>' . esc_html__( 'Delivery', 'ziplogger' ) . '</h3>';
+		echo '<h3>' . esc_html__( 'Delivery', 'ziplogger-error-monitoring-session-replay' ) . '</h3>';
 		Common::delivery_table( $h );
 		Common::held_panel( $h );
 		echo '<table class="widefat striped ziplogger-health" role="presentation"><tbody>';
-		Settings_Page::row( __( 'Worker (WP-Cron)', 'ziplogger' ), Common::worker_sentence( $h ) );
-		Settings_Page::row( __( 'Queue size', 'ziplogger' ), number_format_i18n( $h['pending'] ) . ' / ' . number_format_i18n( (int) Limits::get( 'queue_max_events' ) ) );
-		Settings_Page::row( __( 'Items in retry', 'ziplogger' ), number_format_i18n( $h['in_retry'] ) );
-		Settings_Page::row( __( 'Leases expired after a crash (recovered automatically)', 'ziplogger' ), number_format_i18n( $h['stale_leases'] ) );
+		Settings_Page::row( __( 'Worker (WP-Cron)', 'ziplogger-error-monitoring-session-replay' ), Common::worker_sentence( $h ) );
+		Settings_Page::row( __( 'Queue size', 'ziplogger-error-monitoring-session-replay' ), number_format_i18n( $h['pending'] ) . ' / ' . number_format_i18n( (int) Limits::get( 'queue_max_events' ) ) );
+		Settings_Page::row( __( 'Items in retry', 'ziplogger-error-monitoring-session-replay' ), number_format_i18n( $h['in_retry'] ) );
+		Settings_Page::row( __( 'Leases expired after a crash (recovered automatically)', 'ziplogger-error-monitoring-session-replay' ), number_format_i18n( $h['stale_leases'] ) );
 		echo '</tbody></table>';
 
-		echo '<h3>' . esc_html__( 'Report', 'ziplogger' ) . '</h3>';
-		Settings_Page::action_form( 'ziplogger_diagnostics', __( 'Download diagnostics (JSON)', 'ziplogger' ), 'secondary', 'diagnostics' );
+		echo '<h3>' . esc_html__( 'Report', 'ziplogger-error-monitoring-session-replay' ) . '</h3>';
+		Settings_Page::action_form( 'ziplogger_diagnostics', __( 'Download diagnostics (JSON)', 'ziplogger-error-monitoring-session-replay' ), 'secondary', 'diagnostics' );
 	}
 
 	/**
@@ -117,15 +117,15 @@ final class Diagnostics {
 			array(
 				'ok'    => '' === $browser || $browser !== $server,
 				/* translators: this is a check result line. */
-				'label' => __( 'The browser key is different from the server key', 'ziplogger' ),
+				'label' => __( 'The browser key is different from the server key', 'ziplogger-error-monitoring-session-replay' ),
 			),
 			array(
 				'ok'    => '' === $read || ( $read !== $server && $read !== $browser ),
-				'label' => __( 'The read key is different from the server and browser keys', 'ziplogger' ),
+				'label' => __( 'The read key is different from the server and browser keys', 'ziplogger-error-monitoring-session-replay' ),
 			),
 			array(
 				'ok'    => true,
-				'label' => __( 'Only the browser key can be delivered to visitors; the server and read keys are never placed in a page or script', 'ziplogger' ),
+				'label' => __( 'Only the browser key can be delivered to visitors; the server and read keys are never placed in a page or script', 'ziplogger-error-monitoring-session-replay' ),
 			),
 		);
 

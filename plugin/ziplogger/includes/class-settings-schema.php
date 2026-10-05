@@ -336,13 +336,13 @@ final class Settings_Schema {
 			if ( is_int( $fallback ) ) {
 				if ( ! is_numeric( $value ) || trim( (string) $value ) !== (string) (int) $value ) {
 					/* translators: %s: setting name. */
-					$errors[] = sprintf( __( '"%s" must be a whole number. The previous value was kept.', 'ziplogger' ), $key );
+					$errors[] = sprintf( __( '"%s" must be a whole number. The previous value was kept.', 'ziplogger-error-monitoring-session-replay' ), $key );
 					continue;
 				}
 				$new[ $key ] = self::int_in_range( $module, $key, $value, $fallback );
 				if ( (int) $value !== $new[ $key ] ) {
 					/* translators: 1: setting name, 2: value that was used instead. */
-					$errors[] = sprintf( __( '"%1$s" was outside the allowed range and was set to %2$d.', 'ziplogger' ), $key, $new[ $key ] );
+					$errors[] = sprintf( __( '"%1$s" was outside the allowed range and was set to %2$d.', 'ziplogger-error-monitoring-session-replay' ), $key, $new[ $key ] );
 				}
 				continue;
 			}
@@ -355,7 +355,7 @@ final class Settings_Schema {
 				$new[ $key ] = $r['clean'];
 				if ( $r['rejected'] ) {
 					/* translators: %s: rejected values. */
-					$errors[] = sprintf( __( 'These selectors were not accepted and were dropped: %s', 'ziplogger' ), implode( ', ', $r['rejected'] ) );
+					$errors[] = sprintf( __( 'These selectors were not accepted and were dropped: %s', 'ziplogger-error-monitoring-session-replay' ), implode( ', ', $r['rejected'] ) );
 				}
 				continue;
 			}
@@ -364,7 +364,7 @@ final class Settings_Schema {
 				$new[ $key ] = $r['clean'];
 				if ( $r['rejected'] ) {
 					/* translators: %s: rejected values. */
-					$errors[] = sprintf( __( 'These paths were not accepted (they must start with "/") and were dropped: %s', 'ziplogger' ), implode( ', ', $r['rejected'] ) );
+					$errors[] = sprintf( __( 'These paths were not accepted (they must start with "/") and were dropped: %s', 'ziplogger-error-monitoring-session-replay' ), implode( ', ', $r['rejected'] ) );
 				}
 				continue;
 			}
@@ -373,14 +373,14 @@ final class Settings_Schema {
 				$new[ $key ] = $r['clean'];
 				if ( $r['rejected'] ) {
 					/* translators: %s: rejected values. */
-					$errors[] = sprintf( __( 'These host names were not accepted and were dropped: %s', 'ziplogger' ), implode( ', ', $r['rejected'] ) );
+					$errors[] = sprintf( __( 'These host names were not accepted and were dropped: %s', 'ziplogger-error-monitoring-session-replay' ), implode( ', ', $r['rejected'] ) );
 				}
 				continue;
 			}
 			if ( 'service_name' === $key ) {
 				$label = Settings::clean_label( $value, '' );
 				if ( '' === $label && '' !== trim( (string) $value ) ) {
-					$errors[] = __( 'The service name may only contain letters, numbers, dots, dashes and underscores. The previous value was kept.', 'ziplogger' );
+					$errors[] = __( 'The service name may only contain letters, numbers, dots, dashes and underscores. The previous value was kept.', 'ziplogger-error-monitoring-session-replay' );
 				} else {
 					$new[ $key ] = $label;
 				}

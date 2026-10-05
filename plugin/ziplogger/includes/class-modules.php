@@ -52,7 +52,7 @@ final class Modules {
 		switch ( $module ) {
 			case 'logs':
 				if ( ! $server ) {
-					$reasons[] = __( 'No server API key is set.', 'ziplogger' );
+					$reasons[] = __( 'No server API key is set.', 'ziplogger-error-monitoring-session-replay' );
 				}
 				break;
 			case 'browser':
@@ -60,7 +60,7 @@ final class Modules {
 			case 'replay':
 				if ( ! $browser ) {
 					$problem   = Settings::key_problem( 'browser' );
-					$reasons[] = '' !== $problem ? $problem : __( 'No browser API key is set (Connection tab).', 'ziplogger' );
+					$reasons[] = '' !== $problem ? $problem : __( 'No browser API key is set (Connection tab).', 'ziplogger-error-monitoring-session-replay' );
 				}
 				if ( '' !== Settings::endpoint_problem() ) {
 					$reasons[] = Settings::endpoint_problem();
@@ -68,15 +68,15 @@ final class Modules {
 				break;
 			case 'tracing':
 				if ( ! $server ) {
-					$reasons[] = __( 'No server API key is set.', 'ziplogger' );
+					$reasons[] = __( 'No server API key is set.', 'ziplogger-error-monitoring-session-replay' );
 				}
 				break;
 			case 'woocommerce':
 				if ( ! self::woocommerce_active() ) {
-					$reasons[] = __( 'WooCommerce is not active on this site.', 'ziplogger' );
+					$reasons[] = __( 'WooCommerce is not active on this site.', 'ziplogger-error-monitoring-session-replay' );
 				}
 				if ( ! $server ) {
-					$reasons[] = __( 'No server API key is set (order and payment events are sent from the server).', 'ziplogger' );
+					$reasons[] = __( 'No server API key is set (order and payment events are sent from the server).', 'ziplogger-error-monitoring-session-replay' );
 				}
 				break;
 		}

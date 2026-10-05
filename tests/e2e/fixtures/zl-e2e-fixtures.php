@@ -299,7 +299,7 @@ if ( '' !== $zl_cfg ) {
 		add_filter(
 			'option_active_plugins',
 			static function ( $plugins ) {
-				return array_values( array_diff( (array) $plugins, array( 'ziplogger/ziplogger.php' ) ) );
+				return array_values( array_diff( (array) $plugins, array( 'ziplogger-error-monitoring-session-replay/ziplogger.php' ) ) );
 			}
 		);
 	} else {

@@ -50,7 +50,7 @@ async function raw(path, { method = 'POST', body, key = SERVER, headers = {} } =
 }
 
 installZip();
-wp(['plugin', 'activate', 'ziplogger'], { allowFail: true });
+wp(['plugin', 'activate', 'ziplogger-error-monitoring-session-replay'], { allowFail: true });
 
 // ---- A: the plugin's own delivery -------------------------------------------------------------------------------
 console.log('\n== A. delivery by the plugin ==');

@@ -34,8 +34,10 @@ test('the stack is up and WordPress is installed', async () => {
 });
 
 test('the ZIP installs and activates without transmitting anything', async () => {
-  wp(['plugin', 'deactivate', 'ziplogger'], { allowFail: true });
-  wp(['plugin', 'delete', 'ziplogger'], { allowFail: true });
+  for (const slug of ['ziplogger', 'ziplogger-error-monitoring-session-replay']) {
+    wp(['plugin', 'deactivate', slug], { allowFail: true });
+    wp(['plugin', 'delete', slug], { allowFail: true });
+  }
   // A fresh site: deleting a plugin keeps its data by design, so earlier runs' options are removed explicitly.
   for (const option of ['ziplogger_settings', 'ziplogger_api_key', 'ziplogger_browser_key', 'ziplogger_read_key', 'ziplogger_secret', 'ziplogger_db_version']) {
     wp(['option', 'delete', option], { allowFail: true });
@@ -46,7 +48,7 @@ test('the ZIP installs and activates without transmitting anything', async () =>
   // Whatever the receiver was sent before this test (an earlier suite) is not this test's business.
   await mock.clear();
   wp(['plugin', 'install', '/var/www/html/ziplogger.zip', '--activate']);
-  assert.match(wp(['plugin', 'list', '--name=ziplogger', '--field=status']).stdout, /^active$/m);
+  assert.match(wp(['plugin', 'list', '--name=ziplogger-error-monitoring-session-replay', '--field=status']).stdout, /^active$/m);
 
   await get('/');
   await get('/wp-login.php');
@@ -288,17 +290,17 @@ test('WP-Cron delivers in the background after a page view (traffic-driven), and
 });
 
 test('the plugin can be deactivated and uninstalled; data is kept by default and removed on request', async () => {
-  wp(['plugin', 'deactivate', 'ziplogger']);
+  wp(['plugin', 'deactivate', 'ziplogger-error-monitoring-session-replay']);
   const cronHooks = wp(['cron', 'event', 'list', '--fields=hook', '--format=csv']).stdout;
   assert.ok(!/ziplogger_/.test(cronHooks), 'scheduled events are removed on deactivation');
   assert.ok(settingsExist(), 'settings survive deactivation');
 
-  wp(['plugin', 'uninstall', 'ziplogger']); // WP-CLI's "plugin delete" skips uninstall.php; "uninstall" runs it.
+  wp(['plugin', 'uninstall', 'ziplogger-error-monitoring-session-replay']); // WP-CLI's "plugin delete" skips uninstall.php; "uninstall" runs it.
   assert.ok(settingsExist(), 'default policy keeps data on uninstall');
 
   wp(['plugin', 'install', '/var/www/html/ziplogger.zip', '--activate']);
   setSettings({ enabled: false, delete_on_uninstall: true });
-  wp(['plugin', 'uninstall', 'ziplogger', '--deactivate']);
+  wp(['plugin', 'uninstall', 'ziplogger-error-monitoring-session-replay', '--deactivate']);
   assert.ok(!settingsExist(), 'opt-in policy removes the settings');
   // The plugin's own two tables (not, for example, the copies that WordPress's Plugin Check makes under a "wp_pc_" prefix).
   const tables = wpEval("global $wpdb; echo implode( ',', $wpdb->get_col( \"SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name IN ('{$wpdb->prefix}ziplogger_queue', '{$wpdb->prefix}ziplogger_meta')\" ) );");

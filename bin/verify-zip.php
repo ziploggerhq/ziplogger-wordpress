@@ -4,8 +4,8 @@
  *
  * Usage: php bin/verify-zip.php dist/ziplogger.zip
  *
- * Fails (exit 1) when: an entry is outside "ziplogger/", a path uses a backslash, the main file is
- * missing, the plugin header and readme.txt disagree on version/requirements, a development file is
+ * Fails (exit 1) when: an entry is outside the one plugin folder (which must be the WordPress.org slug
+ * and equal the Text Domain header), a path uses a backslash, the main file is missing, the plugin header and readme.txt disagree on version/requirements, a development file is
  * present, or any PHP file fails a basic sanity check.
  */
 
@@ -19,6 +19,7 @@ if ( true !== $zip->open( $path ) ) {
 	exit( 1 );
 }
 
+$slug     = 'ziplogger-error-monitoring-session-replay'; // WordPress.org slug = folder in the ZIP = text domain.
 $problems = array();
 $names    = array();
 for ( $i = 0; $i < $zip->numFiles; $i++ ) {
@@ -27,8 +28,8 @@ for ( $i = 0; $i < $zip->numFiles; $i++ ) {
 	if ( false !== strpos( $name, '\\' ) ) {
 		$problems[] = "Backslash in entry name: {$name}";
 	}
-	if ( 0 !== strpos( $name, 'ziplogger/' ) ) {
-		$problems[] = "Entry outside ziplogger/: {$name}";
+	if ( 0 !== strpos( $name, $slug . '/' ) ) {
+		$problems[] = "Entry outside {$slug}/: {$name}";
 	}
 	if ( preg_match( '#(^|/)(tests?|node_modules|\.git|\.github|composer\.(json|lock)|package(-lock)?\.json|phpunit|phpcs)#i', $name ) ) {
 		$problems[] = "Development file shipped: {$name}";
@@ -37,14 +38,14 @@ for ( $i = 0; $i < $zip->numFiles; $i++ ) {
 		$problems[] = "Unexpected archive/secret-like file: {$name}";
 	}
 }
-foreach ( array( 'ziplogger/ziplogger.php', 'ziplogger/readme.txt', 'ziplogger/uninstall.php', 'ziplogger/index.php' ) as $required ) {
+foreach ( array( $slug . '/ziplogger.php', $slug . '/readme.txt', $slug . '/uninstall.php', $slug . '/index.php' ) as $required ) {
 	if ( ! in_array( $required, $names, true ) ) {
 		$problems[] = "Missing required file: {$required}";
 	}
 }
 
-$main   = (string) $zip->getFromName( 'ziplogger/ziplogger.php' );
-$readme = (string) $zip->getFromName( 'ziplogger/readme.txt' );
+$main   = (string) $zip->getFromName( $slug . '/ziplogger.php' );
+$readme = (string) $zip->getFromName( $slug . '/readme.txt' );
 $header = static function ( $text, $field ) {
 	return preg_match( '/^[ \t\/*#@]*' . preg_quote( $field, '/' ) . ':\s*(.+)$/mi', $text, $m ) ? trim( $m[1] ) : '';
 };
@@ -66,8 +67,8 @@ foreach ( array(
 		$problems[] = "{$label}: '{$pair[0]}' != '{$pair[1]}'";
 	}
 }
-if ( 'ziplogger' !== $header( $main, 'Text Domain' ) ) {
-	$problems[] = 'Text Domain header is not "ziplogger"';
+if ( $slug !== $header( $main, 'Text Domain' ) ) {
+	$problems[] = "Text Domain header is not \"{$slug}\"";
 }
 
 $php_files = 0;
@@ -79,7 +80,7 @@ for ( $i = 0; $i < $zip->numFiles; $i++ ) {
 		if ( false === strpos( $contents, '<?php' ) ) {
 			$problems[] = "PHP file without an opening tag: {$name}";
 		}
-		if ( 'ziplogger/index.php' !== $name && false === strpos( $contents, 'ABSPATH' ) && false === strpos( $contents, 'WP_UNINSTALL_PLUGIN' ) ) {
+		if ( $slug . '/index.php' !== $name && false === strpos( $contents, 'ABSPATH' ) && false === strpos( $contents, 'WP_UNINSTALL_PLUGIN' ) ) {
 			$problems[] = "PHP file without a direct-access guard: {$name}";
 		}
 	}

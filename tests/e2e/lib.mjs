@@ -105,8 +105,11 @@ import fs from 'node:fs';
 export function installZip() {
   const zip = path.join(ROOT, 'dist', 'ziplogger.zip');
   if (!fs.existsSync(zip)) throw new Error('build the ZIP first: php bin/build-zip.php');
-  wp(['plugin', 'deactivate', 'ziplogger'], { allowFail: true });
-  wp(['plugin', 'delete', 'ziplogger'], { allowFail: true });
+  // 'ziplogger' is the folder an earlier build installed into; two copies of the plugin would redeclare every class.
+  for (const slug of ['ziplogger', 'ziplogger-error-monitoring-session-replay']) {
+    wp(['plugin', 'deactivate', slug], { allowFail: true });
+    wp(['plugin', 'delete', slug], { allowFail: true });
+  }
   for (const option of ['ziplogger_settings', 'ziplogger_api_key', 'ziplogger_browser_key', 'ziplogger_read_key', 'ziplogger_secret', 'ziplogger_db_version']) {
     wp(['option', 'delete', option], { allowFail: true });
   }

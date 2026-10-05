@@ -85,7 +85,7 @@ See [COMPATIBILITY.md](COMPATIBILITY.md) for the matrix that was run (PHP 7.4 to
 ## Distribution
 
 - **The name** is "ZipLogger: Error Monitoring & Session Replay" (slug `ziplogger`), which contains no WordPress trademark.
-- **Plugin Check** reports 0 errors and 41 warnings, each assessed in [COMPATIBILITY.md](COMPATIBILITY.md) and [WORDPRESS-ORG-REVIEW.md](WORDPRESS-ORG-REVIEW.md); none is a defect.
+- **Plugin Check** reports 0 errors and 40 warnings, each assessed in [COMPATIBILITY.md](COMPATIBILITY.md) and [WORDPRESS-ORG-REVIEW.md](WORDPRESS-ORG-REVIEW.md); none is a defect.
 - **Translations.** The plugin is translation-ready (`languages/ziplogger.pot` is shipped) but no translation is included. The admin screens were checked with axe-core with the page direction switched to right-to-left (not a real right-to-left locale) and at phone width; no native reader of a right-to-left language reviewed them.
 - **Privacy tooling.** The plugin offers suggested text for the site's privacy policy (`wp_add_privacy_policy_content()`), describing the modules that are switched on. It does not register WordPress personal-data exporters or erasers: what it stores about a person is pseudonymous identifiers in the browser and two private markers on WooCommerce orders (see `plugin/ziplogger/docs/PRIVACY.md`).
 - **The WordPress.org contributor username** in `readme.txt` is a placeholder until the account that will own the plugin exists.

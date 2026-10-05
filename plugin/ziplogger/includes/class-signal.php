@@ -86,11 +86,11 @@ final class Signal {
 	public static function label( $signal ) {
 		switch ( $signal ) {
 			case self::EVENTS:
-				return __( 'Events', 'ziplogger' );
+				return __( 'Events', 'ziplogger-error-monitoring-session-replay' );
 			case self::TRACES:
-				return __( 'Traces', 'ziplogger' );
+				return __( 'Traces', 'ziplogger-error-monitoring-session-replay' );
 			default:
-				return __( 'Logs', 'ziplogger' );
+				return __( 'Logs', 'ziplogger-error-monitoring-session-replay' );
 		}
 	}
 

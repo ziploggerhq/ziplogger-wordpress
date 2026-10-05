@@ -11,11 +11,11 @@
 	<rule ref="WordPress-Extra"/>
 	<rule ref="WordPress-Docs"/>
 
-	<config name="text_domain" value="ziplogger"/>
+	<config name="text_domain" value="ziplogger-error-monitoring-session-replay"/>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="ziplogger"/>
+				<element value="ziplogger-error-monitoring-session-replay"/>
 			</property>
 		</properties>
 	</rule>

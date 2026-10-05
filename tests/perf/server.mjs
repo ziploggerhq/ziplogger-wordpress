@@ -77,7 +77,7 @@ const shuffled = (list) => {
 installZip();
 wp(['plugin', 'activate', 'woocommerce'], { allowFail: true });
 wp(['option', 'update', 'zl_e2e_gateway_outcome', 'success'], { allowFail: true });
-wp(['plugin', 'activate', 'ziplogger'], { allowFail: true });
+wp(['plugin', 'activate', 'ziplogger-error-monitoring-session-replay'], { allowFail: true });
 setKeys();
 const map = {};
 for (const c of CONFIGS) if (c.id !== 'inactive') map[c.id] = { ...base, ...(c.settings || {}) };

@@ -48,13 +48,13 @@ final class Remote {
 	public static function unavailable_reason() {
 		if ( '' === Settings::read_key() ) {
 			$problem = Settings::key_problem( 'read' );
-			return '' !== $problem ? $problem : __( 'No read key is set. Add one on the Connection tab to see live data here.', 'ziplogger' );
+			return '' !== $problem ? $problem : __( 'No read key is set. Add one on the Connection tab to see live data here.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		$problem = Settings::endpoint_problem();
 		if ( '' !== $problem ) {
 			return $problem;
 		}
-		return '' === Settings::endpoint_base() ? __( 'The endpoint is not usable.', 'ziplogger' ) : '';
+		return '' === Settings::endpoint_base() ? __( 'The endpoint is not usable.', 'ziplogger-error-monitoring-session-replay' ) : '';
 	}
 
 	/**
@@ -73,7 +73,7 @@ final class Remote {
 		$key  = Settings::read_key();
 		$base = Settings::endpoint_base();
 		if ( 0 !== strpos( $path, '/grafana/' ) ) {
-			return self::fail( 'path', __( 'Only ZipLogger\'s read interface can be queried from here.', 'ziplogger' ) );
+			return self::fail( 'path', __( 'Only ZipLogger\'s read interface can be queried from here.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 		$problem = Endpoint::preflight( $base );
 		if ( '' !== $problem ) {
@@ -144,9 +144,9 @@ final class Remote {
 				$code = 'tls';
 			}
 			$text = array(
-				'timeout' => __( 'ZipLogger did not answer in time.', 'ziplogger' ),
-				'tls'     => __( 'The secure connection to ZipLogger could not be verified.', 'ziplogger' ),
-				'network' => __( 'ZipLogger could not be reached.', 'ziplogger' ),
+				'timeout' => __( 'ZipLogger did not answer in time.', 'ziplogger-error-monitoring-session-replay' ),
+				'tls'     => __( 'The secure connection to ZipLogger could not be verified.', 'ziplogger-error-monitoring-session-replay' ),
+				'network' => __( 'ZipLogger could not be reached.', 'ziplogger-error-monitoring-session-replay' ),
 			);
 			return self::fail( $code, $text[ $code ] );
 		}
@@ -158,7 +158,7 @@ final class Remote {
 
 		if ( $status >= 200 && $status < 300 ) {
 			if ( ! is_array( $json ) ) {
-				return self::fail( 'format', __( 'ZipLogger answered, but not in a format this screen understands.', 'ziplogger' ) );
+				return self::fail( 'format', __( 'ZipLogger answered, but not in a format this screen understands.', 'ziplogger-error-monitoring-session-replay' ) );
 			}
 			return array(
 				'ok'     => true,
@@ -169,21 +169,21 @@ final class Remote {
 			);
 		}
 		if ( 401 === $status || 403 === $status ) {
-			return self::fail( 'auth', __( 'ZipLogger did not accept the read key. It may be revoked, mistyped, or not have the read scope.', 'ziplogger' ) );
+			return self::fail( 'auth', __( 'ZipLogger did not accept the read key. It may be revoked, mistyped, or not have the read scope.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 		if ( 404 === $status ) {
-			return self::fail( 'unsupported', __( 'This ZipLogger server does not offer the read interface (it may be switched off or older).', 'ziplogger' ) );
+			return self::fail( 'unsupported', __( 'This ZipLogger server does not offer the read interface (it may be switched off or older).', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 		if ( 429 === $status ) {
-			return self::fail( 'rate', __( 'ZipLogger is rate-limiting reads right now. Try again in a minute.', 'ziplogger' ) );
+			return self::fail( 'rate', __( 'ZipLogger is rate-limiting reads right now. Try again in a minute.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 		if ( 400 === $status || 422 === $status ) {
-			return self::fail( 'query', '' !== $server ? $server : __( 'ZipLogger did not accept the query.', 'ziplogger' ) );
+			return self::fail( 'query', '' !== $server ? $server : __( 'ZipLogger did not accept the query.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 		if ( $status >= 500 ) {
-			return self::fail( 'server', __( 'ZipLogger reported a problem. Try again later.', 'ziplogger' ) );
+			return self::fail( 'server', __( 'ZipLogger reported a problem. Try again later.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
-		return self::fail( 'http', sprintf( /* translators: %d: HTTP status */ __( 'ZipLogger answered with HTTP %d.', 'ziplogger' ), $status ) );
+		return self::fail( 'http', sprintf( /* translators: %d: HTTP status */ __( 'ZipLogger answered with HTTP %d.', 'ziplogger-error-monitoring-session-replay' ), $status ) );
 	}
 
 	/**

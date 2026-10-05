@@ -19,8 +19,10 @@ defined( 'ABSPATH' ) || exit;
  *
  *  - Warnings and notices: an error handler chained in front of any existing one. It always calls the
  *    previous handler and returns its result (or false, so PHP's own handling - display_errors,
- *    log_errors, WP_DEBUG_LOG - carries on exactly as before). Errors hidden by the @ operator or by
- *    error_reporting() are ignored, as PHP itself would.
+ *    log_errors, WP_DEBUG_LOG - carries on exactly as before). Notices, deprecations and strict-standards
+ *    messages are recorded only while WP_DEBUG is on, which is WordPress's own default reporting level.
+ *    PHP's own reporting level is neither changed nor read, so a warning silenced with the @ operator
+ *    is recorded like any other warning.
  *  - Uncaught exceptions: if another exception handler already exists (an error tracker, WP-CLI), ours
  *    is chained in front of it - log, then hand over. If there is none, NOTHING is installed: PHP raises
  *    its normal "Uncaught ..." fatal error and the fatal-error path below records it, so PHP and
@@ -53,6 +55,11 @@ final class Php_Errors {
 	public static $last_error_source = null;
 
 	/**
+	 * Levels WordPress hides unless WP_DEBUG is on (see wp_debug_mode()).
+	 */
+	const QUIET_TYPES = array( E_NOTICE, E_USER_NOTICE, E_DEPRECATED, E_USER_DEPRECATED, Severity::LEVEL_STRICT );
+
+	/**
 	 * Recorder.
 	 *
 	 * @var Recorder
@@ -72,6 +79,14 @@ final class Php_Errors {
 	 * @var callable|null
 	 */
 	private $previous_exception = null;
+
+	/**
+	 * Whether notices, deprecations and strict-standards messages are recorded (WordPress shows them
+	 * only while WP_DEBUG is on).
+	 *
+	 * @var bool
+	 */
+	private $record_notices = false;
 
 	/**
 	 * Memory released at shutdown so a fatal out-of-memory error still has room to be recorded.
@@ -127,8 +142,9 @@ final class Php_Errors {
 		if ( $this->registered ) {
 			return;
 		}
-		$this->registered = true;
-		$this->reserve    = str_repeat( ' ', 32768 );
+		$this->registered     = true;
+		$this->record_notices = defined( 'WP_DEBUG' ) && WP_DEBUG;
+		$this->reserve        = str_repeat( ' ', 32768 );
 
 		$this->previous_error = set_error_handler( array( $this, 'handle_error' ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_set_error_handler -- observing errors is the purpose of this class; the previous handler is kept and still called.
 
@@ -164,9 +180,7 @@ final class Php_Errors {
 	public function handle_error( $errno, $errstr, $errfile = '', $errline = 0, $errcontext = null ) {
 		$arguments = func_get_args(); // Taken before anything is touched, so a previous handler gets what PHP passed.
 		unset( $errcontext );
-		// Reading (not changing) the level is how the @ operator and error_reporting() are honoured.
-		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.prevent_path_disclosure_error_reporting, WordPress.PHP.DiscouragedPHPFunctions.runtime_configuration_error_reporting -- only reads the level, so that a message silenced with the @ operator stays silent; it never changes it.
-		if ( ! $this->in_handler && ! $this->recorder->is_busy() && ( error_reporting() & $errno ) ) {
+		if ( ! $this->in_handler && ! $this->recorder->is_busy() && ( $this->record_notices || ! in_array( (int) $errno, self::QUIET_TYPES, true ) ) ) {
 			$this->in_handler = true;
 			try {
 				$this->capture_error( (int) $errno, (string) $errstr, (string) $errfile, (int) $errline );

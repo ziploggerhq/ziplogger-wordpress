@@ -10,7 +10,7 @@
  * Author URI:        https://ziplogger.ai/
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       ziplogger
+ * Text Domain:       ziplogger-error-monitoring-session-replay
  * Domain Path:       /languages
  *
  * @package ZipLogger

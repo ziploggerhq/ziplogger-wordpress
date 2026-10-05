@@ -6,6 +6,9 @@
  *   plugin dir  default: plugin/ziplogger  (relative to the repository directory of this script)
  *   output zip  default: dist/ziplogger.zip
  *
+ * The folder inside the ZIP is the plugin's WordPress.org slug, which is also its text domain: the
+ * directory's upload check reads the slug from that folder name and compares it with the text domain.
+ *
  * Reproducible: entries are sorted, timestamps are fixed (SOURCE_DATE_EPOCH, or the newest mtime
  * in the plugin directory rounded down to the day is NOT used - set SOURCE_DATE_EPOCH for a stable
  * hash), permissions are normalised and forward slashes are always used. Building the same tree twice
@@ -20,6 +23,7 @@ if ( ! class_exists( 'ZipArchive' ) ) {
 	exit( 1 );
 }
 
+$slug   = 'ziplogger-error-monitoring-session-replay'; // WordPress.org slug = folder in the ZIP = text domain.
 $root   = dirname( __DIR__ );
 $source = isset( $argv[1] ) ? $argv[1] : $root . '/plugin/ziplogger';
 $target = isset( $argv[2] ) ? $argv[2] : $root . '/dist/ziplogger.zip';
@@ -66,7 +70,7 @@ if ( true !== $zip->open( $target, ZipArchive::CREATE | ZipArchive::EXCL ) ) {
 	exit( 1 );
 }
 foreach ( $files as $relative ) {
-	$name = 'ziplogger/' . $relative;
+	$name = $slug . '/' . $relative;
 	$zip->addFile( $source . '/' . $relative, $name );
 	$zip->setCompressionName( $name, ZipArchive::CM_DEFLATE, 9 );
 	$zip->setMtimeName( $name, $epoch );

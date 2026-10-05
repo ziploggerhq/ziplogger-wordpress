@@ -213,7 +213,7 @@ final class Settings {
 		if ( $do( 'connection' ) && isset( $post['source'] ) ) {
 			$label = self::clean_label( $post['source'], '' );
 			if ( '' === $label ) {
-				$errors[] = __( 'The site label may only contain letters, numbers, dots, dashes and underscores (up to 64 characters). The previous value was kept.', 'ziplogger' );
+				$errors[] = __( 'The site label may only contain letters, numbers, dots, dashes and underscores (up to 64 characters). The previous value was kept.', 'ziplogger-error-monitoring-session-replay' );
 			} else {
 				$new['source'] = $label;
 			}
@@ -224,7 +224,7 @@ final class Settings {
 			if ( '' === $env ) {
 				$new['environment'] = '';
 			} elseif ( '' === self::clean_environment( $env ) ) {
-				$errors[] = __( 'The environment name may only contain lowercase letters, numbers, dots, dashes and underscores. The previous value was kept.', 'ziplogger' );
+				$errors[] = __( 'The environment name may only contain lowercase letters, numbers, dots, dashes and underscores. The previous value was kept.', 'ziplogger-error-monitoring-session-replay' );
 			} else {
 				$new['environment'] = self::clean_environment( $env );
 			}
@@ -234,14 +234,14 @@ final class Settings {
 			if ( Severity::is_valid( $post['min_severity'] ) ) {
 				$new['min_severity'] = $post['min_severity'];
 			} else {
-				$errors[] = __( 'Unknown minimum severity. The previous value was kept.', 'ziplogger' );
+				$errors[] = __( 'Unknown minimum severity. The previous value was kept.', 'ziplogger-error-monitoring-session-replay' );
 			}
 		}
 
 		if ( $do( 'logs' ) && isset( $post['slow_http_seconds'] ) ) {
 			$secs = (int) $post['slow_http_seconds'];
 			if ( $secs < 1 || $secs > 60 ) {
-				$errors[] = __( 'The slow-request threshold must be between 1 and 60 seconds. The previous value was kept.', 'ziplogger' );
+				$errors[] = __( 'The slow-request threshold must be between 1 and 60 seconds. The previous value was kept.', 'ziplogger-error-monitoring-session-replay' );
 			} else {
 				$new['slow_http_seconds'] = $secs;
 			}
@@ -269,7 +269,7 @@ final class Settings {
 					$new['endpoint'] = Endpoint::same_base( $checked['base'], Endpoint::DEFAULT_BASE ) ? '' : $checked['base'];
 				} else {
 					/* translators: %s: reason the endpoint was rejected. */
-					$errors[] = sprintf( __( 'Endpoint not saved: %s The previous value was kept.', 'ziplogger' ), $checked['error'] );
+					$errors[] = sprintf( __( 'Endpoint not saved: %s The previous value was kept.', 'ziplogger-error-monitoring-session-replay' ), $checked['error'] );
 				}
 			}
 		}
@@ -318,16 +318,16 @@ final class Settings {
 	 */
 	public static function save_key( $kind, $key ) {
 		if ( ! isset( self::KEY_KINDS[ $kind ] ) ) {
-			return __( 'Unknown credential type.', 'ziplogger' );
+			return __( 'Unknown credential type.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		$key = trim( (string) $key );
 		if ( ! self::is_valid_key( $key ) ) {
-			return __( 'That does not look like a ZipLogger API key. Keys contain only letters, numbers and _ - . ~ + / = (8 to 256 characters). The saved key was not changed.', 'ziplogger' );
+			return __( 'That does not look like a ZipLogger API key. Keys contain only letters, numbers and _ - . ~ + / = (8 to 256 characters). The saved key was not changed.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		foreach ( array_keys( self::KEY_KINDS ) as $other ) {
 			if ( $other !== $kind && self::raw_key( $other ) === $key ) {
 				/* translators: %s: the other credential's name (server, browser or read). */
-				return sprintf( __( 'That key is already used as the %s key. Create a separate key in ZipLogger so each one can be revoked on its own. The saved key was not changed.', 'ziplogger' ), $other );
+				return sprintf( __( 'That key is already used as the %s key. Create a separate key in ZipLogger so each one can be revoked on its own. The saved key was not changed.', 'ziplogger-error-monitoring-session-replay' ), $other );
 			}
 		}
 		$option = self::KEY_KINDS[ $kind ]['option'];
@@ -437,12 +437,12 @@ final class Settings {
 	public static function key_problem( $kind ) {
 		$key = self::key( $kind );
 		if ( '' === $key ) {
-			return 'invalid' === self::key_source( $kind ) ? __( 'The configured key is not valid.', 'ziplogger' ) : '';
+			return 'invalid' === self::key_source( $kind ) ? __( 'The configured key is not valid.', 'ziplogger-error-monitoring-session-replay' ) : '';
 		}
 		foreach ( array_keys( self::KEY_KINDS ) as $other ) {
 			if ( $other !== $kind && self::key( $other ) === $key ) {
 				/* translators: %s: the other credential's name. */
-				return sprintf( __( 'This key is identical to the %s key. Use a separate key for each purpose.', 'ziplogger' ), $other );
+				return sprintf( __( 'This key is identical to the %s key. Use a separate key for each purpose.', 'ziplogger-error-monitoring-session-replay' ), $other );
 			}
 		}
 		return '';

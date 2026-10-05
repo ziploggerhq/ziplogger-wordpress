@@ -31,7 +31,6 @@ class Test_Collectors extends ZL_TestCase {
 			restore_error_handler();
 			--$this->handlers_to_restore;
 		}
-		error_reporting( E_ALL );
 		parent::tear_down();
 	}
 
@@ -120,20 +119,52 @@ class Test_Collectors extends ZL_TestCase {
 		$this->assertSame( array( 'info', 'debug' ), array_column( $this->queued_events(), 'severity' ) );
 	}
 
-	public function test_errors_hidden_by_error_reporting_are_not_recorded_but_still_reach_the_previous_handler() {
-		list( , $recorder ) = $this->install();
-		error_reporting( E_ALL & ~E_USER_WARNING );
-		trigger_error( 'hidden by error_reporting', E_USER_WARNING );
-		$this->assertSame( 0, $recorder->buffered() );
-		$this->assertCount( 1, $this->prev_calls );
+	/**
+	 * Decide whether the collector records notices, as it does when WP_DEBUG is on, without depending on how
+	 * the test run defines that constant.
+	 */
+	private function record_notices( Php_Errors $collector, $on ) {
+		$property = new ReflectionProperty( Php_Errors::class, 'record_notices' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$property->setAccessible( true );
+		}
+		$property->setValue( $collector, (bool) $on );
 	}
 
-	public function test_the_at_operator_suppresses_recording() {
+	public function test_notices_and_deprecations_are_recorded_only_while_wp_debug_is_on() {
+		list( $collector, $recorder ) = $this->install();
+		\ZipLogger\WordPress\Settings::save( array( 'enabled' => true, 'min_severity' => 'debug' ) ); // Lower the threshold so only the WP_DEBUG rule decides.
+
+		$this->record_notices( $collector, false );
+		trigger_error( 'a notice', E_USER_NOTICE );
+		trigger_error( 'a deprecation', E_USER_DEPRECATED );
+		$this->assertSame( 0, $recorder->buffered(), 'WordPress hides these unless WP_DEBUG is on.' );
+		$this->assertCount( 2, $this->prev_calls, 'The previous handler still sees every error.' );
+
+		trigger_error( 'a warning', E_USER_WARNING );
+		$this->assertSame( 1, $recorder->buffered(), 'Warnings are always recorded.' );
+
+		$this->record_notices( $collector, true );
+		trigger_error( 'a notice', E_USER_NOTICE );
+		trigger_error( 'a deprecation', E_USER_DEPRECATED );
+		$this->assertSame( 3, $recorder->buffered() );
+	}
+
+	public function test_the_collector_follows_wp_debug_when_it_registers() {
+		list( $collector ) = $this->install();
+		$property = new ReflectionProperty( Php_Errors::class, 'record_notices' );
+		if ( PHP_VERSION_ID < 80100 ) {
+			$property->setAccessible( true );
+		}
+		$this->assertSame( defined( 'WP_DEBUG' ) && WP_DEBUG, $property->getValue( $collector ) );
+	}
+
+	public function test_a_warning_silenced_with_the_at_operator_is_recorded_like_any_other() {
+		// The plugin does not read PHP's reporting level, so it cannot tell that the operator was used.
 		list( , $recorder ) = $this->install();
 		@trigger_error( 'suppressed with @', E_USER_WARNING ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-		$this->assertSame( 0, $recorder->buffered() );
-		trigger_error( 'not suppressed', E_USER_WARNING );
 		$this->assertSame( 1, $recorder->buffered() );
+		$this->assertCount( 1, $this->prev_calls, 'The previous handler is still called, as PHP does.' );
 	}
 
 	public function test_a_repeated_warning_is_reported_once_with_a_count() {

@@ -41,16 +41,16 @@ final class Settings_Page {
 	 */
 	public static function tabs() {
 		return array(
-			'overview'    => __( 'Overview', 'ziplogger' ),
-			'connection'  => __( 'Connection', 'ziplogger' ),
-			'logs'        => __( 'Server logs', 'ziplogger' ),
-			'browser'     => __( 'Browser monitoring', 'ziplogger' ),
-			'analytics'   => __( 'Analytics', 'ziplogger' ),
-			'replay'      => __( 'Session replay', 'ziplogger' ),
-			'tracing'     => __( 'Tracing', 'ziplogger' ),
-			'woocommerce' => __( 'WooCommerce', 'ziplogger' ),
-			'privacy'     => __( 'Privacy and consent', 'ziplogger' ),
-			'diagnostics' => __( 'Diagnostics', 'ziplogger' ),
+			'overview'    => __( 'Overview', 'ziplogger-error-monitoring-session-replay' ),
+			'connection'  => __( 'Connection', 'ziplogger-error-monitoring-session-replay' ),
+			'logs'        => __( 'Server logs', 'ziplogger-error-monitoring-session-replay' ),
+			'browser'     => __( 'Browser monitoring', 'ziplogger-error-monitoring-session-replay' ),
+			'analytics'   => __( 'Analytics', 'ziplogger-error-monitoring-session-replay' ),
+			'replay'      => __( 'Session replay', 'ziplogger-error-monitoring-session-replay' ),
+			'tracing'     => __( 'Tracing', 'ziplogger-error-monitoring-session-replay' ),
+			'woocommerce' => __( 'WooCommerce', 'ziplogger-error-monitoring-session-replay' ),
+			'privacy'     => __( 'Privacy and consent', 'ziplogger-error-monitoring-session-replay' ),
+			'diagnostics' => __( 'Diagnostics', 'ziplogger-error-monitoring-session-replay' ),
 		);
 	}
 
@@ -80,8 +80,8 @@ final class Settings_Page {
 	 */
 	public function add_menu() {
 		add_options_page(
-			__( 'ZipLogger', 'ziplogger' ),
-			__( 'ZipLogger', 'ziplogger' ),
+			__( 'ZipLogger', 'ziplogger-error-monitoring-session-replay' ),
+			__( 'ZipLogger', 'ziplogger-error-monitoring-session-replay' ),
 			self::CAPABILITY,
 			self::SLUG,
 			array( $this, 'render' )
@@ -109,7 +109,7 @@ final class Settings_Page {
 	 * @return array
 	 */
 	public function action_links( $links ) {
-		array_unshift( $links, '<a href="' . esc_url( self::url() ) . '">' . esc_html__( 'Settings', 'ziplogger' ) . '</a>' );
+		array_unshift( $links, '<a href="' . esc_url( self::url() ) . '">' . esc_html__( 'Settings', 'ziplogger-error-monitoring-session-replay' ) . '</a>' );
 		return $links;
 	}
 
@@ -136,7 +136,7 @@ final class Settings_Page {
 	 */
 	private function authorize( $action ) {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to manage ZipLogger.', 'ziplogger' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to manage ZipLogger.', 'ziplogger-error-monitoring-session-replay' ), '', array( 'response' => 403 ) );
 		}
 		check_admin_referer( $action );
 	}
@@ -180,7 +180,7 @@ final class Settings_Page {
 				$errors = $result['errors'];
 				Settings::save( $new );
 				if ( $new['enabled'] && ! Settings::is_configured() ) {
-					$notices[] = array( 'warning', __( 'Collection is on, but there is no server API key yet, so nothing can be delivered. Events wait in the local queue.', 'ziplogger' ) );
+					$notices[] = array( 'warning', __( 'Collection is on, but there is no server API key yet, so nothing can be delivered. Events wait in the local queue.', 'ziplogger-error-monitoring-session-replay' ) );
 				}
 				if ( $new['enabled'] && Settings::is_configured() && ( new Queue_Store() )->stats()['count'] > 0 ) {
 					Scheduler::ensure_scheduled( Clock::time() );
@@ -216,7 +216,7 @@ final class Settings_Page {
 						$new[ $section ]['enabled'] = false;
 						foreach ( $blockers as $b ) {
 							/* translators: 1: module name, 2: what is missing. */
-							$errors[] = sprintf( __( '%1$s was not switched on: %2$s', 'ziplogger' ), self::tabs()[ $section ], $b );
+							$errors[] = sprintf( __( '%1$s was not switched on: %2$s', 'ziplogger-error-monitoring-session-replay' ), self::tabs()[ $section ], $b );
 						}
 					}
 				}
@@ -224,7 +224,7 @@ final class Settings_Page {
 				break;
 
 			default:
-				$errors = array( __( 'Unknown settings section.', 'ziplogger' ) );
+				$errors = array( __( 'Unknown settings section.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 
 		if ( null !== $errors ) {
@@ -232,7 +232,7 @@ final class Settings_Page {
 				$notices[] = array( 'error', $error );
 			}
 			if ( ! $errors ) {
-				array_unshift( $notices, array( 'success', __( 'Settings saved.', 'ziplogger' ) ) );
+				array_unshift( $notices, array( 'success', __( 'Settings saved.', 'ziplogger-error-monitoring-session-replay' ) ) );
 			}
 		}
 		$this->finish( $notices, $tab );
@@ -250,20 +250,20 @@ final class Settings_Page {
 		$browser = '' !== Settings::browser_key();
 		if ( in_array( $module, array( 'browser', 'analytics', 'replay' ), true ) && ! $browser ) {
 			$problem   = Settings::key_problem( 'browser' );
-			$reasons[] = '' !== $problem ? $problem : __( 'add a browser API key on the Connection tab first.', 'ziplogger' );
+			$reasons[] = '' !== $problem ? $problem : __( 'add a browser API key on the Connection tab first.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		if ( 'tracing' === $module && '' === Settings::api_key() ) {
-			$reasons[] = __( 'add a server API key on the Connection tab first.', 'ziplogger' );
+			$reasons[] = __( 'add a server API key on the Connection tab first.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		if ( 'tracing' === $module && ! empty( $settings['tracing']['browser'] ) && ! $browser ) {
-			$reasons[] = __( 'browser-to-server tracing needs a browser API key.', 'ziplogger' );
+			$reasons[] = __( 'browser-to-server tracing needs a browser API key.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		if ( 'woocommerce' === $module ) {
 			if ( ! Modules::woocommerce_active() ) {
-				$reasons[] = __( 'WooCommerce is not active on this site.', 'ziplogger' );
+				$reasons[] = __( 'WooCommerce is not active on this site.', 'ziplogger-error-monitoring-session-replay' );
 			}
 			if ( '' === Settings::api_key() ) {
-				$reasons[] = __( 'add a server API key on the Connection tab first.', 'ziplogger' );
+				$reasons[] = __( 'add a server API key on the Connection tab first.', 'ziplogger-error-monitoring-session-replay' );
 			}
 		}
 		return $reasons;
@@ -290,16 +290,16 @@ final class Settings_Page {
 		$new_keys     = isset( $post['key'] ) && is_array( $post['key'] ) ? $post['key'] : array();
 		$remove       = isset( $post['remove_key'] ) && is_array( $post['remove_key'] ) ? $post['remove_key'] : array();
 		$labels       = array(
-			'server'  => __( 'server', 'ziplogger' ),
-			'browser' => __( 'browser', 'ziplogger' ),
-			'read'    => __( 'read', 'ziplogger' ),
+			'server'  => __( 'server', 'ziplogger-error-monitoring-session-replay' ),
+			'browser' => __( 'browser', 'ziplogger-error-monitoring-session-replay' ),
+			'read'    => __( 'read', 'ziplogger-error-monitoring-session-replay' ),
 		);
 		foreach ( array_keys( Settings::KEY_KINDS ) as $kind ) {
 			if ( ! empty( $remove[ $kind ] ) ) {
 				Settings::remove_key( $kind );
 				$keys_changed = true;
 				/* translators: %s: server, browser or read. */
-				$notices[] = array( 'success', sprintf( __( 'The saved %s key was removed.', 'ziplogger' ), $labels[ $kind ] ) );
+				$notices[] = array( 'success', sprintf( __( 'The saved %s key was removed.', 'ziplogger-error-monitoring-session-replay' ), $labels[ $kind ] ) );
 			} elseif ( isset( $new_keys[ $kind ] ) && is_string( $new_keys[ $kind ] ) && '' !== trim( $new_keys[ $kind ] ) ) {
 				$error = Settings::save_key( $kind, $new_keys[ $kind ] );
 				if ( '' !== $error ) {
@@ -307,9 +307,9 @@ final class Settings_Page {
 				} else {
 					$keys_changed = true;
 					/* translators: %s: server, browser or read. */
-					$notices[] = array( 'success', sprintf( __( 'The %s key was saved.', 'ziplogger' ), $labels[ $kind ] ) );
+					$notices[] = array( 'success', sprintf( __( 'The %s key was saved.', 'ziplogger-error-monitoring-session-replay' ), $labels[ $kind ] ) );
 					if ( 0 !== strpos( trim( $new_keys[ $kind ] ), 'zk_' ) ) {
-						$notices[] = array( 'warning', __( 'ZipLogger keys normally start with "zk_". If sending fails, check that you copied the right key.', 'ziplogger' ) );
+						$notices[] = array( 'warning', __( 'ZipLogger keys normally start with "zk_". If sending fails, check that you copied the right key.', 'ziplogger-error-monitoring-session-replay' ) );
 					}
 				}
 			}
@@ -331,15 +331,15 @@ final class Settings_Page {
 				if ( 'retarget' === $policy ) {
 					$queue->retarget_held( $after );
 					/* translators: %d: number of events. */
-					$notices[] = array( 'warning', sprintf( _n( '%d queued item collected for the previous destination will now be sent to the new one, as you chose.', '%d queued items collected for the previous destination will now be sent to the new one, as you chose.', $held, 'ziplogger' ), $held ) );
+					$notices[] = array( 'warning', sprintf( _n( '%d queued item collected for the previous destination will now be sent to the new one, as you chose.', '%d queued items collected for the previous destination will now be sent to the new one, as you chose.', $held, 'ziplogger-error-monitoring-session-replay' ), $held ) );
 				} elseif ( 'discard' === $policy ) {
 					$deleted = $queue->discard_held( $after );
 					( new Meta_Store() )->dropped( 'cleared', $deleted );
 					/* translators: %d: number of events. */
-					$notices[] = array( 'warning', sprintf( _n( '%d queued item collected for the previous destination was discarded, as you chose.', '%d queued items collected for the previous destination were discarded, as you chose.', $deleted, 'ziplogger' ), $deleted ) );
+					$notices[] = array( 'warning', sprintf( _n( '%d queued item collected for the previous destination was discarded, as you chose.', '%d queued items collected for the previous destination were discarded, as you chose.', $deleted, 'ziplogger-error-monitoring-session-replay' ), $deleted ) );
 				} else {
 					/* translators: %d: number of events. */
-					$notices[] = array( 'warning', sprintf( _n( '%d queued item was collected for the previous key or endpoint. It is HELD, not sent, because the new key may belong to a different workspace. Choose what to do with it on the Connection tab.', '%d queued items were collected for the previous key or endpoint. They are HELD, not sent, because the new key may belong to a different workspace. Choose what to do with them on the Connection tab.', $held, 'ziplogger' ), $held ) );
+					$notices[] = array( 'warning', sprintf( _n( '%d queued item was collected for the previous key or endpoint. It is HELD, not sent, because the new key may belong to a different workspace. Choose what to do with it on the Connection tab.', '%d queued items were collected for the previous key or endpoint. They are HELD, not sent, because the new key may belong to a different workspace. Choose what to do with them on the Connection tab.', $held, 'ziplogger-error-monitoring-session-replay' ), $held ) );
 				}
 			}
 		}
@@ -347,9 +347,9 @@ final class Settings_Page {
 			Scheduler::ensure_scheduled( Clock::time() );
 		}
 		if ( ! $notices ) {
-			$notices[] = array( 'success', __( 'Settings saved.', 'ziplogger' ) );
+			$notices[] = array( 'success', __( 'Settings saved.', 'ziplogger-error-monitoring-session-replay' ) );
 		} elseif ( ! in_array( 'error', array_column( $notices, 0 ), true ) ) {
-			array_unshift( $notices, array( 'success', __( 'Settings saved.', 'ziplogger' ) ) );
+			array_unshift( $notices, array( 'success', __( 'Settings saved.', 'ziplogger-error-monitoring-session-replay' ) ) );
 		}
 		return $notices;
 	}
@@ -367,17 +367,17 @@ final class Settings_Page {
 		$notices     = array();
 
 		if ( '' === $destination ) {
-			$notices[] = array( 'error', __( 'Add a server API key first.', 'ziplogger' ) );
+			$notices[] = array( 'error', __( 'Add a server API key first.', 'ziplogger-error-monitoring-session-replay' ) );
 		} elseif ( 'retarget' === $choice ) {
 			$n = $queue->retarget_held( $destination );
 			/* translators: %d: number of events. */
-			$notices[] = array( 'success', sprintf( _n( '%d held item will now be sent to the current destination.', '%d held items will now be sent to the current destination.', $n, 'ziplogger' ), $n ) );
+			$notices[] = array( 'success', sprintf( _n( '%d held item will now be sent to the current destination.', '%d held items will now be sent to the current destination.', $n, 'ziplogger-error-monitoring-session-replay' ), $n ) );
 			Scheduler::ensure_scheduled( Clock::time() );
 		} elseif ( 'discard' === $choice ) {
 			$n = $queue->discard_held( $destination );
 			( new Meta_Store() )->dropped( 'cleared', $n );
 			/* translators: %d: number of events. */
-			$notices[] = array( 'success', sprintf( _n( '%d held item was discarded.', '%d held items were discarded.', $n, 'ziplogger' ), $n ) );
+			$notices[] = array( 'success', sprintf( _n( '%d held item was discarded.', '%d held items were discarded.', $n, 'ziplogger-error-monitoring-session-replay' ), $n ) );
 		}
 		$this->finish( $notices, 'connection' );
 	}
@@ -401,7 +401,7 @@ final class Settings_Page {
 						'ZipLogger accepted the test event (HTTP %1$d, %2$d event). "Accepted" means it was received and queued for indexing; it can take a short while to appear in Search.',
 						'ZipLogger accepted the test event (HTTP %1$d, %2$d events). "Accepted" means it was received and queued for indexing; it can take a short while to appear in Search.',
 						(int) $result['accepted'],
-						'ziplogger'
+						'ziplogger-error-monitoring-session-replay'
 					),
 					$result['status'],
 					(int) $result['accepted']
@@ -437,8 +437,8 @@ final class Settings_Page {
 				'success',
 				'' !== $workspace
 					/* translators: %s: workspace name. */
-					? sprintf( __( 'The read key works. It belongs to the workspace "%s".', 'ziplogger' ), $workspace )
-					: __( 'The read key works.', 'ziplogger' ),
+					? sprintf( __( 'The read key works. It belongs to the workspace "%s".', 'ziplogger-error-monitoring-session-replay' ), $workspace )
+					: __( 'The read key works.', 'ziplogger-error-monitoring-session-replay' ),
 			);
 		} else {
 			$meta->set_json(
@@ -471,7 +471,7 @@ final class Settings_Page {
 
 		$notices = array();
 		if ( 'disabled' === $report['status'] ) {
-			$notices[] = array( 'warning', __( 'Server collection is switched off, so queued items are not being delivered. Turn it on to send them.', 'ziplogger' ) );
+			$notices[] = array( 'warning', __( 'Server collection is switched off, so queued items are not being delivered. Turn it on to send them.', 'ziplogger-error-monitoring-session-replay' ) );
 		} elseif ( 'not_configured' === $report['status'] ) {
 			$notices[] = array( 'error', $report['error'] );
 		} else {
@@ -479,10 +479,10 @@ final class Settings_Page {
 				'' === $report['error'] ? 'success' : 'warning',
 				sprintf(
 					/* translators: 1: items delivered, 2: items still waiting. */
-					__( 'Delivered %1$d items. %2$d still waiting.', 'ziplogger' ),
+					__( 'Delivered %1$d items. %2$d still waiting.', 'ziplogger-error-monitoring-session-replay' ),
 					$report['events_sent'],
 					$report['pending']
-				) . ( '' !== $report['error'] ? ' ' . sprintf( /* translators: %s: error detail */ __( 'Last error: %s', 'ziplogger' ), $report['error'] ) : '' ),
+				) . ( '' !== $report['error'] ? ' ' . sprintf( /* translators: %s: error detail */ __( 'Last error: %s', 'ziplogger-error-monitoring-session-replay' ), $report['error'] ) : '' ),
 			);
 		}
 		$this->finish( $notices, $this->tab_of( wp_unslash( $_POST ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- verified in authorize(); the tab is validated.
@@ -505,7 +505,7 @@ final class Settings_Page {
 					'success',
 					sprintf(
 						/* translators: %d: number of items. */
-						_n( 'Cleared %d queued item.', 'Cleared %d queued items.', $deleted, 'ziplogger' ),
+						_n( 'Cleared %d queued item.', 'Cleared %d queued items.', $deleted, 'ziplogger-error-monitoring-session-replay' ),
 						$deleted
 					),
 				),
@@ -562,7 +562,7 @@ final class Settings_Page {
 	 */
 	public function render() {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'ziplogger' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to access this page.', 'ziplogger-error-monitoring-session-replay' ), '', array( 'response' => 403 ) );
 		}
 		$tab      = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'overview'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only navigation.
 		$tabs     = self::tabs();
@@ -571,10 +571,10 @@ final class Settings_Page {
 		$health   = Health::snapshot();
 
 		echo '<div class="wrap ziplogger-wrap">';
-		echo '<h1>' . esc_html__( 'ZipLogger', 'ziplogger' ) . '</h1>';
+		echo '<h1>' . esc_html__( 'ZipLogger', 'ziplogger-error-monitoring-session-replay' ) . '</h1>';
 		$this->render_notices();
 
-		echo '<nav class="nav-tab-wrapper ziplogger-tabs" aria-label="' . esc_attr__( 'ZipLogger sections', 'ziplogger' ) . '">';
+		echo '<nav class="nav-tab-wrapper ziplogger-tabs" aria-label="' . esc_attr__( 'ZipLogger sections', 'ziplogger-error-monitoring-session-replay' ) . '">';
 		foreach ( $tabs as $slug => $label ) {
 			printf(
 				'<a href="%1$s" class="nav-tab%2$s"%3$s>%4$s</a>',
@@ -668,7 +668,7 @@ final class Settings_Page {
 			return '';
 		}
 		/* translators: 1: date and time, 2: how long ago. */
-		return sprintf( __( '%1$s (%2$s ago)', 'ziplogger' ), wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $ts ), human_time_diff( $ts, $now ) );
+		return sprintf( __( '%1$s (%2$s ago)', 'ziplogger-error-monitoring-session-replay' ), wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $ts ), human_time_diff( $ts, $now ) );
 	}
 
 	/**

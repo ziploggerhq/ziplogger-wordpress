@@ -78,7 +78,7 @@ test('the served page carries the browser key only: never the server key and nev
   assert.equal(config.endpoint, ENDPOINT);
   assert.match(html, /<script[^>]*ziplogger\.min\.js[^>]*>/);
   assert.match(html.match(/<script[^>]*ziplogger\.min\.js[^>]*>/)[0], /\bdefer\b/);
-  const script = (await get('/wp-content/plugins/ziplogger/assets/js/ziplogger.min.js')).text;
+  const script = (await get('/wp-content/plugins/ziplogger-error-monitoring-session-replay/assets/js/ziplogger.min.js')).text;
   assert.ok(script.length > 10000);
   for (const secret of [KEYS.server, KEYS.read]) assert.ok(!script.includes(secret));
 });

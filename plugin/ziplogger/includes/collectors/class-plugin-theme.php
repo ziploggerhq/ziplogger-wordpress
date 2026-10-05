@@ -104,7 +104,7 @@ final class Plugin_Theme {
 	 */
 	private function plugin_event( $type, $label, $plugin, $network_wide ) {
 		$slug = self::slug( (string) $plugin );
-		if ( '' === $slug || 'ziplogger' === $slug ) {
+		if ( '' === $slug || basename( dirname( ZIPLOGGER_FILE ) ) === $slug ) {
 			return; // This plugin's own state changes are not interesting to itself.
 		}
 		$this->recorder->record(

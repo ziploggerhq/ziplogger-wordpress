@@ -73,7 +73,7 @@ test('the stack is up, the ZIP is installed and WooCommerce is set up', async ()
 test('WooCommerce lists the plugin as compatible with HPOS and the block checkout', async () => {
   const out = JSON.parse(wpEval(`
     $c = wc_get_container()->get( \\Automattic\\WooCommerce\\Internal\\Features\\FeaturesController::class );
-    echo wp_json_encode( $c->get_compatible_features_for_plugin( 'ziplogger/ziplogger.php' ) );
+    echo wp_json_encode( $c->get_compatible_features_for_plugin( 'ziplogger-error-monitoring-session-replay/ziplogger.php' ) );
   `));
   assert.ok(out.compatible.includes('custom_order_tables'), JSON.stringify(out));
   assert.ok(out.compatible.includes('cart_checkout_blocks'));

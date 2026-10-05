@@ -42,7 +42,7 @@ const summary = (values) => ({ median: Number(q(values, 50).toFixed(2)), p90: Nu
 
 installZip();
 wp(['plugin', 'activate', 'woocommerce'], { allowFail: true });
-wp(['plugin', 'activate', 'ziplogger'], { allowFail: true });
+wp(['plugin', 'activate', 'ziplogger-error-monitoring-session-replay'], { allowFail: true });
 setKeys();
 const map = {};
 for (const c of CONFIGS) if (c.id !== 'inactive') map[c.id] = { ...base, ...(c.settings || {}) };

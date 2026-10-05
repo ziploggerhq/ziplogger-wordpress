@@ -13,7 +13,7 @@ Every row below was **executed**. Nothing is claimed for an environment that is 
 
 ## PHP unit and integration tests (WordPress PHPUnit library, real WordPress code, MariaDB 11)
 
-The same 653 tests run in every cell (plus 9 WP Consent API tests, run separately because they define a function that cannot be undefined); tests that only make sense with (or without) WooCommerce, or only on multisite, are skipped in the other cells and run in a complementary one. No cell printed a PHP notice, warning or deprecation.
+The same 654 tests run in every cell (7 cells were run after the second WordPress.org review: PHP 7.4 / WP 6.0, 8.1 / 6.6, 8.3 / latest as single site, multisite and with WooCommerce 11.1.2, 8.4 and 8.5; the earlier 9-cell matrix ran 653 tests on the previous build) (plus 9 WP Consent API tests, run separately because they define a function that cannot be undefined); tests that only make sense with (or without) WooCommerce, or only on multisite, are skipped in the other cells and run in a complementary one. No cell printed a PHP notice, warning or deprecation.
 
 | PHP | WordPress | WooCommerce | Multisite | Result | Skipped (why) |
 | --- | --- | --- | --- | --- | --- |
@@ -40,21 +40,20 @@ Two real defects were found by this matrix, not by the tests that ran first, and
 
 ## WordPress Plugin Check (plugin-check 2.1.0, run in the real WordPress with the built ZIP)
 
-**0 errors and 41 warnings**, run on the ZIP that ships (sha256 `27e95a0d...d2e7`). All 41 are listed here, so that none is hidden, and none is a defect:
+**0 errors and 40 warnings**, run on the ZIP that ships (sha256 `1644d839...1bac`). All 40 are listed here, so that none is hidden, and none is a defect:
 
 | Warnings | Count | Assessment |
 | --- | ---: | --- |
 | `PluginCheck.Security.DirectDB.UnescapedDBParameter` | 38 | **False positives.** Every one is a query on the plugin's **own table**, whose name is `$wpdb->prefix` plus a constant (`Schema::queue_table()`, `Schema::meta_table()`), interpolated into a query whose **values** are bound with `$wpdb->prepare()`. An identifier cannot be bound as a value; the `%i` placeholder that can does not exist before WordPress 6.2 and the plugin supports 6.0. Where a further fragment is interpolated (the destination condition), it was itself produced by `prepare()`. Each such line carries a `phpcs:ignore` with this reason |
 | `WordPress.DB.DirectDatabaseQuery.DirectQuery` and `.NoCaching` | 2 | **Intentional.** One query, `SHOW TABLES LIKE` in `Schema::tables_exist()`, the health check that asks whether the plugin's own tables exist. A cached answer would defeat the check |
-| `PluginCheck.CodeAnalysis.PHPErrorReporting.DirectErrorReportingCall` | 1 | **Intentional.** `error_reporting()` is *read*, never changed, in the error handler (`includes/collectors/class-php-errors.php`), so that a warning silenced with the `@` operator stays silent (PHP lowers the level while an `@` expression runs). Reading the level is the documented way to honour that; `ini_get()` would not see it |
 
-Earlier runs also reported a restricted term in the plugin name, a missing `languages/` folder, an over-long readme short description and the discouraged `load_plugin_textdomain()` call. All four were fixed (the plugin is now named "ZipLogger: Error Monitoring & Session Replay", ships a `.pot` file, and leaves translations to WordPress). The same notes are in [WORDPRESS-ORG-REVIEW.md](WORDPRESS-ORG-REVIEW.md).
+Earlier runs also reported a restricted term in the plugin name, a missing `languages/` folder, an over-long readme short description and the discouraged `load_plugin_textdomain()` call. All four were fixed (the plugin is now named "ZipLogger: Error Monitoring & Session Replay", ships a `.pot` file, and leaves translations to WordPress). The same notes are in [WORDPRESS-ORG-REVIEW.md](WORDPRESS-ORG-REVIEW.md). A later review also objected to the plugin reading `error_reporting()` in its error handler; that call is gone (see [WORDPRESS-ORG-REVIEW.md](WORDPRESS-ORG-REVIEW.md), review round 2), and the text domain is now the WordPress.org slug `ziplogger-error-monitoring-session-replay`.
 
 ## Real WordPress, real browser (end-to-end)
 
 Environment: WordPress 7.1.2 on PHP 8.3.35 and Apache 2.4.68 (the official `wordpress:latest` image), MariaDB 11, WooCommerce 11.1.2, the Twenty Twenty-Five block theme, Chromium from the Playwright 1.63.0 image, a **local stand-in** for ZipLogger (see [LIMITATIONS.md](LIMITATIONS.md)). The plugin is installed from `dist/ziplogger.zip` with WP-CLI, exactly as a user would.
 
-One complete run of all five suites against `dist/ziplogger.zip` (sha256 `27e95a0d...d2e7`, the file that ships): **86 tests, 86 passed, 0 failed.** All five suites passed in one sitting, one after another, with no re-run.
+One complete run of all five suites against `dist/ziplogger.zip` (sha256 `1644d839...1bac`, the file that ships): **86 tests, 86 passed, 0 failed** (m1 16, m3 28, m4 17, m5 16, m6 9). A first attempt on this file failed for reasons of the test setup, not the plugin (a hand-made site with a different administrator name than the suites create, and a second run started while an earlier one was still going); the suites were then run again one at a time on a freshly reset site, and every one passed. The timings in the table below are from the earlier run of the same suites.
 
 | Suite | Covers | Tests | Result | Time |
 | --- | --- | ---: | --- | ---: |

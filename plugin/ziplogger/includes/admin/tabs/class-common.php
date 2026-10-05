@@ -27,16 +27,16 @@ final class Common {
 	 */
 	public static function status_card( array $h ) {
 		$labels                        = array(
-			'off'          => array( 'dashicons-controls-pause', __( 'Server collection is off', 'ziplogger' ), __( 'Nothing from your server is being collected or sent. Add a server API key, then switch server collection on (Server logs tab). Browser and other modules have their own switches.', 'ziplogger' ) ),
-			'unconfigured' => array( 'dashicons-warning', __( 'Needs a server API key', 'ziplogger' ), __( 'Server collection is on, but events cannot be delivered until a server API key is set. They wait in the local queue.', 'ziplogger' ) ),
-			'ready'        => array( 'dashicons-yes-alt', __( 'Ready', 'ziplogger' ), __( 'Server collection is on. Use "Send test event" to confirm ZipLogger accepts events from this site.', 'ziplogger' ) ),
-			'healthy'      => array( 'dashicons-yes-alt', __( 'Delivering normally', 'ziplogger' ), __( 'Events are reaching ZipLogger.', 'ziplogger' ) ),
-			'waiting'      => array( 'dashicons-clock', __( 'Events are waiting to be sent', 'ziplogger' ), __( 'Delivery runs in the background shortly after events are queued.', 'ziplogger' ) ),
-			'failing'      => array( 'dashicons-warning', __( 'Delivery is failing - retrying', 'ziplogger' ), __( 'The last attempt failed. Events are kept and retried with increasing delays.', 'ziplogger' ) ),
-			'blocked'      => array( 'dashicons-dismiss', __( 'Delivery is paused', 'ziplogger' ), __( 'ZipLogger did not accept this site\'s credentials or endpoint. Events are kept while you fix it; saving the connection settings or sending a test event retries at once.', 'ziplogger' ) ),
-			'held'         => array( 'dashicons-warning', __( 'Queued data is on hold', 'ziplogger' ), __( 'The API key or endpoint changed while events were waiting. They will not be sent to the new destination until you decide (Connection tab).', 'ziplogger' ) ),
-			'overdue'      => array( 'dashicons-clock', __( 'The delivery worker is overdue', 'ziplogger' ), __( 'Events are due to be sent but the background job has not run. See the worker status below.', 'ziplogger' ) ),
-			'broken'       => array( 'dashicons-dismiss', __( 'Database tables are missing', 'ziplogger' ), __( 'Deactivate and reactivate the plugin to recreate them.', 'ziplogger' ) ),
+			'off'          => array( 'dashicons-controls-pause', __( 'Server collection is off', 'ziplogger-error-monitoring-session-replay' ), __( 'Nothing from your server is being collected or sent. Add a server API key, then switch server collection on (Server logs tab). Browser and other modules have their own switches.', 'ziplogger-error-monitoring-session-replay' ) ),
+			'unconfigured' => array( 'dashicons-warning', __( 'Needs a server API key', 'ziplogger-error-monitoring-session-replay' ), __( 'Server collection is on, but events cannot be delivered until a server API key is set. They wait in the local queue.', 'ziplogger-error-monitoring-session-replay' ) ),
+			'ready'        => array( 'dashicons-yes-alt', __( 'Ready', 'ziplogger-error-monitoring-session-replay' ), __( 'Server collection is on. Use "Send test event" to confirm ZipLogger accepts events from this site.', 'ziplogger-error-monitoring-session-replay' ) ),
+			'healthy'      => array( 'dashicons-yes-alt', __( 'Delivering normally', 'ziplogger-error-monitoring-session-replay' ), __( 'Events are reaching ZipLogger.', 'ziplogger-error-monitoring-session-replay' ) ),
+			'waiting'      => array( 'dashicons-clock', __( 'Events are waiting to be sent', 'ziplogger-error-monitoring-session-replay' ), __( 'Delivery runs in the background shortly after events are queued.', 'ziplogger-error-monitoring-session-replay' ) ),
+			'failing'      => array( 'dashicons-warning', __( 'Delivery is failing - retrying', 'ziplogger-error-monitoring-session-replay' ), __( 'The last attempt failed. Events are kept and retried with increasing delays.', 'ziplogger-error-monitoring-session-replay' ) ),
+			'blocked'      => array( 'dashicons-dismiss', __( 'Delivery is paused', 'ziplogger-error-monitoring-session-replay' ), __( 'ZipLogger did not accept this site\'s credentials or endpoint. Events are kept while you fix it; saving the connection settings or sending a test event retries at once.', 'ziplogger-error-monitoring-session-replay' ) ),
+			'held'         => array( 'dashicons-warning', __( 'Queued data is on hold', 'ziplogger-error-monitoring-session-replay' ), __( 'The API key or endpoint changed while events were waiting. They will not be sent to the new destination until you decide (Connection tab).', 'ziplogger-error-monitoring-session-replay' ) ),
+			'overdue'      => array( 'dashicons-clock', __( 'The delivery worker is overdue', 'ziplogger-error-monitoring-session-replay' ), __( 'Events are due to be sent but the background job has not run. See the worker status below.', 'ziplogger-error-monitoring-session-replay' ) ),
+			'broken'       => array( 'dashicons-dismiss', __( 'Database tables are missing', 'ziplogger-error-monitoring-session-replay' ), __( 'Deactivate and reactivate the plugin to recreate them.', 'ziplogger-error-monitoring-session-replay' ) ),
 		);
 		$state                         = isset( $labels[ $h['state'] ] ) ? $h['state'] : 'healthy';
 		list( $icon, $title, $detail ) = $labels[ $state ];
@@ -58,9 +58,9 @@ final class Common {
 	 */
 	public static function delivery_table( array $h ) {
 		$reason_labels = self::drop_labels();
-		echo '<div class="ziplogger-scroll" role="region" tabindex="0" aria-label="' . esc_attr__( 'Delivery by signal', 'ziplogger' ) . '">';
-		echo '<table class="widefat striped ziplogger-health"><caption class="screen-reader-text">' . esc_html__( 'Delivery by signal', 'ziplogger' ) . '</caption><thead><tr>';
-		foreach ( array( __( 'Signal', 'ziplogger' ), __( 'Waiting', 'ziplogger' ), __( 'Delivered', 'ziplogger' ), __( 'Last success', 'ziplogger' ), __( 'Dropped', 'ziplogger' ), __( 'Last error', 'ziplogger' ) ) as $col ) {
+		echo '<div class="ziplogger-scroll" role="region" tabindex="0" aria-label="' . esc_attr__( 'Delivery by signal', 'ziplogger-error-monitoring-session-replay' ) . '">';
+		echo '<table class="widefat striped ziplogger-health"><caption class="screen-reader-text">' . esc_html__( 'Delivery by signal', 'ziplogger-error-monitoring-session-replay' ) . '</caption><thead><tr>';
+		foreach ( array( __( 'Signal', 'ziplogger-error-monitoring-session-replay' ), __( 'Waiting', 'ziplogger-error-monitoring-session-replay' ), __( 'Delivered', 'ziplogger-error-monitoring-session-replay' ), __( 'Last success', 'ziplogger-error-monitoring-session-replay' ), __( 'Dropped', 'ziplogger-error-monitoring-session-replay' ), __( 'Last error', 'ziplogger-error-monitoring-session-replay' ) ) as $col ) {
 			echo '<th scope="col">' . esc_html( $col ) . '</th>';
 		}
 		echo '</tr></thead><tbody>';
@@ -80,10 +80,10 @@ final class Common {
 			echo '<tr>';
 			echo '<th scope="row">' . esc_html( Signal::label( $signal ) ) . '</th>';
 			echo '<td>' . esc_html( number_format_i18n( $s['pending'] ) ) . '</td>';
-			echo '<td>' . esc_html( number_format_i18n( $s['sent_events'] ) ) . ( $s['server_rejected'] > 0 ? ' <span class="description">' . esc_html( sprintf( /* translators: %s: number */ __( '(%s refused by ZipLogger validation)', 'ziplogger' ), number_format_i18n( $s['server_rejected'] ) ) ) . '</span>' : '' ) . '</td>';
-			echo '<td>' . ( $s['last_success'] ? esc_html( Settings_Page::ago( $s['last_success'], $h['now'] ) ) : esc_html__( 'None yet', 'ziplogger' ) ) . '</td>';
+			echo '<td>' . esc_html( number_format_i18n( $s['sent_events'] ) ) . ( $s['server_rejected'] > 0 ? ' <span class="description">' . esc_html( sprintf( /* translators: %s: number */ __( '(%s refused by ZipLogger validation)', 'ziplogger-error-monitoring-session-replay' ), number_format_i18n( $s['server_rejected'] ) ) ) . '</span>' : '' ) . '</td>';
+			echo '<td>' . ( $s['last_success'] ? esc_html( Settings_Page::ago( $s['last_success'], $h['now'] ) ) : esc_html__( 'None yet', 'ziplogger-error-monitoring-session-replay' ) ) . '</td>';
 			echo '<td>' . esc_html( $dropped ? implode( '; ', $dropped ) : '0' ) . '</td>';
-			echo '<td>' . ( '' !== $error ? esc_html( $error ) : esc_html__( 'None', 'ziplogger' ) ) . '</td>';
+			echo '<td>' . ( '' !== $error ? esc_html( $error ) : esc_html__( 'None', 'ziplogger-error-monitoring-session-replay' ) ) . '</td>';
 			echo '</tr>';
 		}
 		echo '</tbody></table></div>';
@@ -97,12 +97,12 @@ final class Common {
 	 */
 	public static function worker_sentence( array $h ) {
 		if ( $h['cron_disabled'] ) {
-			return __( 'WP-Cron is disabled on this site (DISABLE_WP_CRON). Delivery only happens if a system cron runs "wp cron event run --due-now" or "wp ziplogger flush".', 'ziplogger' );
+			return __( 'WP-Cron is disabled on this site (DISABLE_WP_CRON). Delivery only happens if a system cron runs "wp cron event run --due-now" or "wp ziplogger flush".', 'ziplogger-error-monitoring-session-replay' );
 		}
 		if ( $h['overdue'] ) {
 			return sprintf(
 				/* translators: %s: how late */
-				__( 'Overdue by %s. WP-Cron only runs when someone visits the site, so a quiet site can fall behind. A system cron fixes this - see the plugin documentation.', 'ziplogger' ),
+				__( 'Overdue by %s. WP-Cron only runs when someone visits the site, so a quiet site can fall behind. A system cron fixes this - see the plugin documentation.', 'ziplogger-error-monitoring-session-replay' ),
 				human_time_diff( $h['now'] - $h['overdue_by'], $h['now'] )
 			);
 		}
@@ -112,13 +112,13 @@ final class Common {
 		}
 		if ( $gate > $h['now'] ) {
 			/* translators: %s: how long from now */
-			return sprintf( __( 'Waiting before the next attempt (about %s).', 'ziplogger' ), human_time_diff( $h['now'], $gate ) );
+			return sprintf( __( 'Waiting before the next attempt (about %s).', 'ziplogger-error-monitoring-session-replay' ), human_time_diff( $h['now'], $gate ) );
 		}
 		if ( $h['next_run'] ) {
 			/* translators: %s: how long from now */
-			return $h['next_run'] > $h['now'] ? sprintf( __( 'Next run scheduled in about %s.', 'ziplogger' ), human_time_diff( $h['now'], $h['next_run'] ) ) : __( 'A run is due and will start on the next site visit.', 'ziplogger' );
+			return $h['next_run'] > $h['now'] ? sprintf( __( 'Next run scheduled in about %s.', 'ziplogger-error-monitoring-session-replay' ), human_time_diff( $h['now'], $h['next_run'] ) ) : __( 'A run is due and will start on the next site visit.', 'ziplogger-error-monitoring-session-replay' );
 		}
-		return __( 'Idle. A run is scheduled automatically when items are queued.', 'ziplogger' );
+		return __( 'Idle. A run is scheduled automatically when items are queued.', 'ziplogger-error-monitoring-session-replay' );
 	}
 
 	/**
@@ -128,15 +128,15 @@ final class Common {
 	 */
 	public static function drop_labels() {
 		return array(
-			'overflow'    => __( 'Queue was full', 'ziplogger' ),
-			'request_cap' => __( 'Per-request limit reached', 'ziplogger' ),
-			'oversize'    => __( 'Too large', 'ziplogger' ),
-			'unencodable' => __( 'Could not be encoded', 'ziplogger' ),
-			'expired'     => __( 'Older than the retention window', 'ziplogger' ),
-			'poison'      => __( 'Repeatedly failed delivery', 'ziplogger' ),
-			'rejected'    => __( 'Rejected by ZipLogger', 'ziplogger' ),
-			'cleared'     => __( 'Cleared by an administrator', 'ziplogger' ),
-			'storage'     => __( 'Local database write failed', 'ziplogger' ),
+			'overflow'    => __( 'Queue was full', 'ziplogger-error-monitoring-session-replay' ),
+			'request_cap' => __( 'Per-request limit reached', 'ziplogger-error-monitoring-session-replay' ),
+			'oversize'    => __( 'Too large', 'ziplogger-error-monitoring-session-replay' ),
+			'unencodable' => __( 'Could not be encoded', 'ziplogger-error-monitoring-session-replay' ),
+			'expired'     => __( 'Older than the retention window', 'ziplogger-error-monitoring-session-replay' ),
+			'poison'      => __( 'Repeatedly failed delivery', 'ziplogger-error-monitoring-session-replay' ),
+			'rejected'    => __( 'Rejected by ZipLogger', 'ziplogger-error-monitoring-session-replay' ),
+			'cleared'     => __( 'Cleared by an administrator', 'ziplogger-error-monitoring-session-replay' ),
+			'storage'     => __( 'Local database write failed', 'ziplogger-error-monitoring-session-replay' ),
 		);
 	}
 
@@ -150,11 +150,11 @@ final class Common {
 		if ( $h['held'] < 1 ) {
 			return;
 		}
-		echo '<div class="notice notice-warning inline"><p><strong>' . esc_html( sprintf( /* translators: %s: number of queued items. */ _n( '%s queued item is on hold.', '%s queued items are on hold.', $h['held'], 'ziplogger' ), number_format_i18n( $h['held'] ) ) ) . '</strong> ';
-		echo esc_html__( 'They were collected for the previous API key or endpoint. A different key can belong to a different workspace, so they are not sent automatically. If the new key belongs to the same workspace (for example you rotated the key), send them; otherwise discard them. They expire on their own after the retention window.', 'ziplogger' ) . '</p>';
+		echo '<div class="notice notice-warning inline"><p><strong>' . esc_html( sprintf( /* translators: %s: number of queued items. */ _n( '%s queued item is on hold.', '%s queued items are on hold.', $h['held'], 'ziplogger-error-monitoring-session-replay' ), number_format_i18n( $h['held'] ) ) ) . '</strong> ';
+		echo esc_html__( 'They were collected for the previous API key or endpoint. A different key can belong to a different workspace, so they are not sent automatically. If the new key belongs to the same workspace (for example you rotated the key), send them; otherwise discard them. They expire on their own after the retention window.', 'ziplogger-error-monitoring-session-replay' ) . '</p>';
 		echo '<div class="ziplogger-actions">';
-		Settings_Page::action_form( 'ziplogger_held', __( 'Send to the current destination', 'ziplogger' ), 'secondary', 'connection', null, array( 'choice' => 'retarget' ) );
-		Settings_Page::action_form( 'ziplogger_held', __( 'Discard held items', 'ziplogger' ), 'delete', 'connection', __( 'Discard the held items? They cannot be recovered.', 'ziplogger' ), array( 'choice' => 'discard' ) );
+		Settings_Page::action_form( 'ziplogger_held', __( 'Send to the current destination', 'ziplogger-error-monitoring-session-replay' ), 'secondary', 'connection', null, array( 'choice' => 'retarget' ) );
+		Settings_Page::action_form( 'ziplogger_held', __( 'Discard held items', 'ziplogger-error-monitoring-session-replay' ), 'delete', 'connection', __( 'Discard the held items? They cannot be recovered.', 'ziplogger-error-monitoring-session-replay' ), array( 'choice' => 'discard' ) );
 		echo '</div></div>';
 	}
 
@@ -167,10 +167,10 @@ final class Common {
 	 */
 	public static function open_link( array $h, $source ) {
 		$app = Endpoint::app_url( '' !== $h['endpoint'] ? $h['endpoint'] : Endpoint::DEFAULT_BASE );
-		echo '<p class="ziplogger-open"><a class="button button-primary" href="' . esc_url( $app ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Open ZipLogger', 'ziplogger' ) . '<span class="screen-reader-text"> ' . esc_html__( '(opens in a new tab)', 'ziplogger' ) . '</span></a> ';
+		echo '<p class="ziplogger-open"><a class="button button-primary" href="' . esc_url( $app ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Open ZipLogger', 'ziplogger-error-monitoring-session-replay' ) . '<span class="screen-reader-text"> ' . esc_html__( '(opens in a new tab)', 'ziplogger-error-monitoring-session-replay' ) . '</span></a> ';
 		printf(
 			/* translators: %s: the site label, shown in code style. */
-			esc_html__( 'Then search for events with source %s.', 'ziplogger' ),
+			esc_html__( 'Then search for events with source %s.', 'ziplogger-error-monitoring-session-replay' ),
 			'<code>' . esc_html( $source ) . '</code>'
 		);
 		echo '</p>';
@@ -184,11 +184,11 @@ final class Common {
 	 */
 	public static function actions( $tab ) {
 		echo '<div class="ziplogger-actions">';
-		Settings_Page::action_form( 'ziplogger_test', __( 'Send test event', 'ziplogger' ), 'secondary', $tab );
-		Settings_Page::action_form( 'ziplogger_flush', __( 'Deliver queued items now', 'ziplogger' ), 'secondary', $tab );
-		Settings_Page::action_form( 'ziplogger_clear', __( 'Clear queue', 'ziplogger' ), 'delete', $tab, __( 'Delete every queued item that has not been delivered yet? This cannot be undone.', 'ziplogger' ) );
+		Settings_Page::action_form( 'ziplogger_test', __( 'Send test event', 'ziplogger-error-monitoring-session-replay' ), 'secondary', $tab );
+		Settings_Page::action_form( 'ziplogger_flush', __( 'Deliver queued items now', 'ziplogger-error-monitoring-session-replay' ), 'secondary', $tab );
+		Settings_Page::action_form( 'ziplogger_clear', __( 'Clear queue', 'ziplogger-error-monitoring-session-replay' ), 'delete', $tab, __( 'Delete every queued item that has not been delivered yet? This cannot be undone.', 'ziplogger-error-monitoring-session-replay' ) );
 		echo '</div>';
-		echo '<p class="description">' . esc_html__( 'These actions use the saved settings, so save any changes first. "Send test event" works even while collection is off.', 'ziplogger' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'These actions use the saved settings, so save any changes first. "Send test event" works even while collection is off.', 'ziplogger-error-monitoring-session-replay' ) . '</p>';
 	}
 
 	/**
@@ -197,7 +197,7 @@ final class Common {
 	 * @return void
 	 */
 	public static function guarantee_note() {
-		echo '<p class="description">' . esc_html__( 'Delivery is at-least-once, not exactly-once: a batch retried after a timeout carries the same idempotency key so ZipLogger can recognise it, but a rare duplicate or loss is possible when the site or server dies at the wrong moment. "Accepted" means ZipLogger received the event; it can take a short while to be searchable.', 'ziplogger' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Delivery is at-least-once, not exactly-once: a batch retried after a timeout carries the same idempotency key so ZipLogger can recognise it, but a rare duplicate or loss is possible when the site or server dies at the wrong moment. "Accepted" means ZipLogger received the event; it can take a short while to be searchable.', 'ziplogger-error-monitoring-session-replay' ) . '</p>';
 	}
 
 	/**

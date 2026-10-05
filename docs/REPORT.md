@@ -1,6 +1,6 @@
 # ZipLogger: Error Monitoring & Session Replay 1.0.0 (WordPress plugin): final report
 
-Date: 2026-09-30. Package: `dist/ziplogger.zip`, 80 files, 273,187 bytes, sha256 `27e95a0dd79d23383ce4b8ce45bde433adccd826ff0de1d1d974a61eead1d2e7`. Building it twice gives byte-identical files. This is the ZIP that was re-submitted to WordPress.org after the plugin team's first review; every test described below ran on it.
+Date: 2026-10-06. Package: `dist/ziplogger.zip`, 80 files, 279,194 bytes, sha256 `1644d839e475967a8a974c4fd375e3754e7f5f14757f725b03f6c9c6cb5a1bac`. Building it twice gives byte-identical files. This is the ZIP prepared for re-submission to WordPress.org after the plugin team's second review (its folder, and every text domain, is the assigned slug `ziplogger-error-monitoring-session-replay`; the PHP error handler no longer reads PHP's reporting level); the end-to-end suites, Plugin Check and the PHPUnit matrix described below ran on it.
 
 **Two levels of evidence, kept apart.** Almost everything was verified against a local stand-in that models ZipLogger as its own source code describes it. After the main work, one ingestion key for a real workspace became available, and the plugin's delivery, the HTTP contract and the browser script were then checked live (24 checks, all passed). **The read interface and the dashboard's live panels were not verified live** (that key has no read scope), and nobody has looked at the data inside ZipLogger's own screens. Details in [LIMITATIONS.md](LIMITATIONS.md).
 
@@ -11,7 +11,7 @@ Date: 2026-09-30. Package: `dist/ziplogger.zip`, 80 files, 273,187 bytes, sha256
 | The plugin | Server logs, browser monitoring, analytics, session replay, distributed tracing, WooCommerce events and a dashboard. Every module is off until switched on. 65 PHP files (about 14,700 lines), two browser scripts built from about 2,100 lines of readable source |
 | Package | `dist/ziplogger.zip`, with `readme.txt`, setup, privacy, troubleshooting, cron and developer-API guides (PHP and JavaScript examples), and a translation template |
 | Repository docs | [BUILD](BUILD.md) (reproducible build), [TESTING](TESTING.md), [COMPATIBILITY](COMPATIBILITY.md) (matrix and feature coverage), [PERFORMANCE](PERFORMANCE.md), [LIMITATIONS](LIMITATIONS.md) |
-| Tests | 653 PHP tests (+ 9 in a separate run), 154 JavaScript tests, 86 end-to-end tests in a real WordPress and a real Chromium |
+| Tests | 654 PHP tests (+ 9 in a separate run), 154 JavaScript tests, 86 end-to-end tests in a real WordPress and a real Chromium |
 
 ## Architecture decisions, and why
 
@@ -29,9 +29,9 @@ Date: 2026-09-30. Package: `dist/ziplogger.zip`, 80 files, 273,187 bytes, sha256
 
 | Layer | Result |
 | --- | --- |
-| PHP unit and integration (WordPress PHPUnit library, MariaDB 11) | 653 tests pass on 9 cells: PHP 7.4 / 8.1 / 8.3 / 8.4 / 8.5, WordPress 6.0 / 6.6 / 7.1.2, WooCommerce 11.1.2, single site and multisite. 9 more tests (WP Consent API) pass in a separate run on every cell. No PHP notice, warning or deprecation in any cell |
+| PHP unit and integration (WordPress PHPUnit library, MariaDB 11) | 654 tests pass in the round after the second WordPress.org review, on 7 cells: PHP 7.4 / WordPress 6.0, PHP 8.1 / 6.6, PHP 8.3 / latest (single site, multisite and with WooCommerce 11.1.2), PHP 8.4 and PHP 8.5 / latest. The full 9-cell matrix ran on the previous build (653 tests); that round's change touched one collector and the text domain, neither of which differs by cell. 9 more tests (WP Consent API) pass in a separate run (PHP 8.3). No PHP notice, warning or deprecation in any cell |
 | Coding standards | WordPress-Extra and -Docs plus PHP-compatibility 7.4 and later: 0 errors, 0 warnings |
-| Plugin Check 2.1.0 on the shipped ZIP | 0 errors; 41 warnings, each explained in [COMPATIBILITY.md](COMPATIBILITY.md) and [WORDPRESS-ORG-REVIEW.md](WORDPRESS-ORG-REVIEW.md) |
+| Plugin Check 2.1.0 on the shipped ZIP | 0 errors; 40 warnings, each explained in [COMPATIBILITY.md](COMPATIBILITY.md) and [WORDPRESS-ORG-REVIEW.md](WORDPRESS-ORG-REVIEW.md) |
 | JavaScript | 154 tests pass (each module in jsdom, plus checks of the built files: size budgets, no secret, no `eval`, one instance only) |
 | End-to-end (real WordPress 7.1.2, WooCommerce 11.1.2, Chromium; the built ZIP installed by WP-CLI) | 86 of 86 pass in one complete run: server logs 16, browser 28, tracing 17, WooCommerce 16, dashboard 9 |
 | Accessibility | axe-core 4.13.0: no serious or critical finding on any admin tab in LTR, with the page direction switched to RTL, and at phone width, and no horizontal scrolling at phone width |

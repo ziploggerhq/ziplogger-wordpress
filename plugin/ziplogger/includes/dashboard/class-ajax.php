@@ -34,12 +34,12 @@ final class Ajax {
 	 */
 	public static function handle() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'You are not allowed to see this.', 'ziplogger' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'You are not allowed to see this.', 'ziplogger-error-monitoring-session-replay' ) ), 403 );
 		}
 		check_ajax_referer( 'ziplogger_panel', 'nonce' );
 		$method = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) : '';
 		if ( 'POST' !== $method ) {
-			wp_send_json_error( array( 'message' => __( 'Bad request.', 'ziplogger' ) ), 405 );
+			wp_send_json_error( array( 'message' => __( 'Bad request.', 'ziplogger-error-monitoring-session-replay' ) ), 405 );
 		}
 		$id      = isset( $_POST['panel'] ) ? sanitize_key( wp_unslash( $_POST['panel'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified above.
 		$refresh = ! empty( $_POST['refresh'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- a boolean flag; the nonce was verified above.

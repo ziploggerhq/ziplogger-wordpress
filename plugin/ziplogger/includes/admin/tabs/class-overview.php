@@ -28,14 +28,14 @@ final class Overview {
 		Common::status_card( $h );
 		Common::held_panel( $h );
 
-		echo '<h2>' . esc_html__( 'Live from ZipLogger', 'ziplogger' ) . '</h2>';
-		\ZipLogger\WordPress\Dashboard\Panels::slot( 'errors', __( 'Recent server errors', 'ziplogger' ) );
-		\ZipLogger\WordPress\Dashboard\Panels::slot( 'error_trend', __( 'Server errors, last 24 hours', 'ziplogger' ) );
+		echo '<h2>' . esc_html__( 'Live from ZipLogger', 'ziplogger-error-monitoring-session-replay' ) . '</h2>';
+		\ZipLogger\WordPress\Dashboard\Panels::slot( 'errors', __( 'Recent server errors', 'ziplogger-error-monitoring-session-replay' ) );
+		\ZipLogger\WordPress\Dashboard\Panels::slot( 'error_trend', __( 'Server errors, last 24 hours', 'ziplogger-error-monitoring-session-replay' ) );
 
-		echo '<h2>' . esc_html__( 'Modules', 'ziplogger' ) . '</h2>';
-		echo '<p class="description">' . esc_html__( 'Nothing is switched on automatically. Each module has its own tab, its own switch and its own sampling.', 'ziplogger' ) . '</p>';
-		echo '<table class="widefat striped ziplogger-modules"><caption class="screen-reader-text">' . esc_html__( 'Modules and their state', 'ziplogger' ) . '</caption><thead><tr>';
-		foreach ( array( __( 'Module', 'ziplogger' ), __( 'State', 'ziplogger' ), __( 'What it sends', 'ziplogger' ) ) as $col ) {
+		echo '<h2>' . esc_html__( 'Modules', 'ziplogger-error-monitoring-session-replay' ) . '</h2>';
+		echo '<p class="description">' . esc_html__( 'Nothing is switched on automatically. Each module has its own tab, its own switch and its own sampling.', 'ziplogger-error-monitoring-session-replay' ) . '</p>';
+		echo '<table class="widefat striped ziplogger-modules"><caption class="screen-reader-text">' . esc_html__( 'Modules and their state', 'ziplogger-error-monitoring-session-replay' ) . '</caption><thead><tr>';
+		foreach ( array( __( 'Module', 'ziplogger-error-monitoring-session-replay' ), __( 'State', 'ziplogger-error-monitoring-session-replay' ), __( 'What it sends', 'ziplogger-error-monitoring-session-replay' ) ) as $col ) {
 			echo '<th scope="col">' . esc_html( $col ) . '</th>';
 		}
 		echo '</tr></thead><tbody>';
@@ -43,12 +43,12 @@ final class Overview {
 		$tabs    = Settings_Page::tabs();
 		$summary = Modules::summary();
 		$what    = array(
-			'logs'        => __( 'PHP errors and selected WordPress events, from the server', 'ziplogger' ),
-			'browser'     => __( 'JavaScript errors, failing requests and page performance, from the browser', 'ziplogger' ),
-			'analytics'   => __( 'Page views, chosen interactions and custom events, from the browser', 'ziplogger' ),
-			'replay'      => __( 'Masked recordings of sampled sessions, from the browser', 'ziplogger' ),
-			'tracing'     => __( 'Request and outbound-call traces, from the server (and optionally the browser)', 'ziplogger' ),
-			'woocommerce' => __( 'Shopping journey, orders, payments and refunds', 'ziplogger' ),
+			'logs'        => __( 'PHP errors and selected WordPress events, from the server', 'ziplogger-error-monitoring-session-replay' ),
+			'browser'     => __( 'JavaScript errors, failing requests and page performance, from the browser', 'ziplogger-error-monitoring-session-replay' ),
+			'analytics'   => __( 'Page views, chosen interactions and custom events, from the browser', 'ziplogger-error-monitoring-session-replay' ),
+			'replay'      => __( 'Masked recordings of sampled sessions, from the browser', 'ziplogger-error-monitoring-session-replay' ),
+			'tracing'     => __( 'Request and outbound-call traces, from the server (and optionally the browser)', 'ziplogger-error-monitoring-session-replay' ),
+			'woocommerce' => __( 'Shopping journey, orders, payments and refunds', 'ziplogger-error-monitoring-session-replay' ),
 		);
 		$tab_for = array(
 			'logs' => 'logs',
@@ -57,13 +57,13 @@ final class Overview {
 			$slug  = isset( $tab_for[ $module ] ) ? $tab_for[ $module ] : $module;
 			$state = $summary[ $module ]['state'];
 			if ( 'on' === $state ) {
-				$state_text = __( 'On', 'ziplogger' );
+				$state_text = __( 'On', 'ziplogger-error-monitoring-session-replay' );
 				$icon       = 'dashicons-yes-alt';
 			} elseif ( 'blocked' === $state ) {
-				$state_text = __( 'On, but not running', 'ziplogger' );
+				$state_text = __( 'On, but not running', 'ziplogger-error-monitoring-session-replay' );
 				$icon       = 'dashicons-warning';
 			} else {
-				$state_text = __( 'Off', 'ziplogger' );
+				$state_text = __( 'Off', 'ziplogger-error-monitoring-session-replay' );
 				$icon       = 'dashicons-minus';
 			}
 			echo '<tr><th scope="row"><a href="' . esc_url( Settings_Page::url( $slug ) ) . '">' . esc_html( 'logs' === $module ? $tabs['logs'] : $tabs[ $module ] ) . '</a></th>';
@@ -75,20 +75,20 @@ final class Overview {
 		}
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Server delivery', 'ziplogger' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Server delivery', 'ziplogger-error-monitoring-session-replay' ) . '</h2>';
 		Common::delivery_table( $h );
 		echo '<table class="widefat striped ziplogger-health" role="presentation"><tbody>';
-		Settings_Page::row( __( 'Worker (WP-Cron)', 'ziplogger' ), Common::worker_sentence( $h ) );
+		Settings_Page::row( __( 'Worker (WP-Cron)', 'ziplogger-error-monitoring-session-replay' ), Common::worker_sentence( $h ) );
 		if ( $h['worker_last_run'] ) {
-			Settings_Page::row( __( 'Worker last ran', 'ziplogger' ), Settings_Page::ago( $h['worker_last_run'], $h['now'] ) );
+			Settings_Page::row( __( 'Worker last ran', 'ziplogger-error-monitoring-session-replay' ), Settings_Page::ago( $h['worker_last_run'], $h['now'] ) );
 		}
 		if ( $h['oldest'] ) {
-			Settings_Page::row( __( 'Oldest waiting item', 'ziplogger' ), Settings_Page::ago( $h['oldest'], $h['now'] ) );
+			Settings_Page::row( __( 'Oldest waiting item', 'ziplogger-error-monitoring-session-replay' ), Settings_Page::ago( $h['oldest'], $h['now'] ) );
 		}
 		echo '</tbody></table>';
 		Common::guarantee_note();
 
-		echo '<h2>' . esc_html__( 'Actions', 'ziplogger' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Actions', 'ziplogger-error-monitoring-session-replay' ) . '</h2>';
 		Common::actions( 'overview' );
 		Common::open_link( $h, $s['source'] );
 	}

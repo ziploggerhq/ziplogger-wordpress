@@ -4,7 +4,7 @@ This page is for the plugin team's reviewer. It says what the plugin is, where e
 
 ## What it is
 
-**ZipLogger: Error Monitoring & Session Replay** (slug `ziplogger`) is the WordPress connector for **ZipLogger** (https://ziplogger.ai/), an external software-as-a-service platform for logs, error monitoring, analytics, session replay and tracing. **A ZipLogger account is required** (API keys are created in it). ZipLogger has a free plan and optional paid plans (https://ziplogger.ai/pricing). Terms: https://ziplogger.ai/terms. Privacy policy: https://ziplogger.ai/privacy.
+**ZipLogger: Error Monitoring & Session Replay** (slug `ziplogger-error-monitoring-session-replay`) is the WordPress connector for **ZipLogger** (https://ziplogger.ai/), an external software-as-a-service platform for logs, error monitoring, analytics, session replay and tracing. **A ZipLogger account is required** (API keys are created in it). ZipLogger has a free plan and optional paid plans (https://ziplogger.ai/pricing). Terms: https://ziplogger.ai/terms. Privacy policy: https://ziplogger.ai/privacy.
 
 The plugin sends data **only** to the ZipLogger workspace that the site owner's keys belong to (`https://app.ziplogger.ai`, or a self-hosted address the owner types in, which must be HTTPS on a public host name). **It does nothing, and makes no network request, until the owner adds a key and switches a module on** (checked by the test that installs and activates the plugin and verifies that nothing is transmitted). Each module is off by default and independent of the others. What each module sends, and when, is in the "External services" section of `readme.txt`, in `docs/PRIVACY.md`, and, for the site's own privacy policy, in the text the plugin offers through `wp_add_privacy_policy_content()` (class `Privacy_Policy`, generated from the modules that are switched on).
 
@@ -23,7 +23,15 @@ The plugin sends data **only** to the ZipLogger workspace that the site owner's 
 
 ## Review round 1
 
-The first review (30 Sep) raised four points. Network-wide activation (the plugin refused it) is fixed and tested on a real multisite with `WP_DEBUG` on. The text domain and the slug are consistent once the permalink is `ziplogger`, which was requested. Two points are questions about intentional code: `error_reporting()` is only read, never set, in the error handler, to honour the `@` operator; `ABSPATH` and the content and plugin directory constants are used only as prefixes to remove from file paths in messages before they are sent, never to locate or load a file.
+The first review (30 Sep) raised four points. Network-wide activation (the plugin refused it) is fixed and tested on a real multisite with `WP_DEBUG` on. `ABSPATH` and the content and plugin directory constants are used only as prefixes to remove from file paths in messages before they are sent, never to locate or load a file. The other two points are dealt with in round 2.
+
+## Review round 2
+
+The second review (2 Oct) kept two points, and both are changed rather than argued:
+
+- **`error_reporting()`.** The call is gone; the plugin no longer reads or changes PHP's reporting level anywhere. What it did with it (leave out messages the site would not show, and messages silenced with the `@` operator) is replaced by WordPress's own default: notices, deprecations and strict-standards messages are recorded only while `WP_DEBUG` is on, and the severity threshold (default "warn") still applies on top. The cost, stated in the code and tests: a warning silenced with `@` is now recorded like any other, and the previous error handler is still called as before.
+- **Text domain.** Every gettext call, the `Text Domain` header, the `.pot` file name and the folder inside the ZIP now use the slug `ziplogger-error-monitoring-session-replay` (585 strings; no other string or identifier changed, and the menu slug, script handles and the `wp ziplogger` command keep their names). The plugin recognises itself by the folder it is installed in, so it keeps ignoring its own activation events whatever that folder is called.
+
 
 ## Security, briefly
 
@@ -31,13 +39,12 @@ Capability and nonce checks on every administrative action and on the panel endp
 
 ## Plugin Check
 
-Plugin Check 2.1.0, run in a real WordPress on the ZIP that is submitted: **0 errors, 41 warnings**. No warning was silenced by changing correct code; each is explained:
+Plugin Check 2.1.0, run in a real WordPress on the ZIP that is submitted: **0 errors, 40 warnings**. No warning was silenced by changing correct code; each is explained:
 
 | Warnings | Count | Assessment |
 | --- | ---: | --- |
 | `PluginCheck.Security.DirectDB.UnescapedDBParameter` | 38 | **False positives.** Every one is a query on the plugin's **own table**, whose name is `$wpdb->prefix` plus a constant (`Schema::queue_table()`, `Schema::meta_table()`), interpolated into a query whose **values** are bound with `$wpdb->prepare()`. An identifier cannot be bound as a value; the `%i` placeholder that can does not exist before WordPress 6.2 and the plugin supports 6.0. Where a further fragment is interpolated (the destination condition), it was itself produced by `prepare()`. Each such line carries a `phpcs:ignore` with this reason |
 | `WordPress.DB.DirectDatabaseQuery.DirectQuery` and `.NoCaching` | 2 | **Intentional.** One query, `SHOW TABLES LIKE` in `Schema::tables_exist()`, the health check that asks whether the plugin's own tables exist. A cached answer would defeat the check |
-| `PluginCheck.CodeAnalysis.PHPErrorReporting.DirectErrorReportingCall` | 1 | **Intentional.** `error_reporting()` is *read*, never changed, in the error handler (`includes/collectors/class-php-errors.php`), so that a warning silenced with the `@` operator stays silent (PHP lowers the level while an `@` expression runs). Reading the level is the documented way to honour that; `ini_get()` would not see it |
 
 Reasons for every inline `phpcs:ignore` in the plugin are written next to it.
 

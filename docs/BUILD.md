@@ -9,7 +9,7 @@ wordpress_ziplogger/
   bin/                   build-zip.php, verify-zip.php, refresh-e2e.ps1
   tests/                 phpunit, e2e (real WordPress + real browser), perf
   docker/, docker-compose.*.yml
-  dist/ziplogger.zip     the output
+  dist/ziplogger.zip     the output (its folder is named after the WordPress.org slug and text domain, ziplogger-error-monitoring-session-replay)
 ```
 
 ## 1. Build the browser scripts
@@ -60,11 +60,11 @@ Edit `frontend/src`, run `npm test` in `frontend` (unit tests in jsdom, plus che
 
 ## Translations
 
-`plugin/ziplogger/languages/ziplogger.pot` is generated from the source with WP-CLI's `i18n make-pot` (it is a source file that ships in the ZIP like any other; it is not generated during the build, so a rebuild stays byte-identical). Regenerate it after changing user-visible strings:
+`plugin/ziplogger/languages/ziplogger-error-monitoring-session-replay.pot` is generated from the source with WP-CLI's `i18n make-pot` (it is a source file that ships in the ZIP like any other; it is not generated during the build, so a rebuild stays byte-identical). Regenerate it after changing user-visible strings:
 
 ```bash
 docker compose -f docker-compose.e2e.yml --profile tools run --rm -T -v "$PWD/plugin/ziplogger:/src" wpcli \
-  wp i18n make-pot /src /src/languages/ziplogger.pot --slug=ziplogger --domain=ziplogger \
+  wp i18n make-pot /src /src/languages/ziplogger-error-monitoring-session-replay.pot --slug=ziplogger-error-monitoring-session-replay --domain=ziplogger-error-monitoring-session-replay \
   --package-name="ZipLogger: Error Monitoring & Session Replay" --headers='{"Report-Msgid-Bugs-To":"https://ziplogger.ai/"}' --exclude=languages,assets/js
 ```
 

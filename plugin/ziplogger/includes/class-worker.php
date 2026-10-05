@@ -118,7 +118,7 @@ final class Worker {
 		}
 		if ( ! Settings::is_configured() ) {
 			$report['status']  = 'not_configured';
-			$report['error']   = '' !== Settings::endpoint_problem() ? Settings::endpoint_problem() : __( 'No API key is configured.', 'ziplogger' );
+			$report['error']   = '' !== Settings::endpoint_problem() ? Settings::endpoint_problem() : __( 'No API key is configured.', 'ziplogger-error-monitoring-session-replay' );
 			$report['pending'] = $this->queue->stats()['count'];
 			return $this->finish( $report, false );
 		}
@@ -414,11 +414,11 @@ final class Worker {
 		$api_key = Settings::api_key();
 		$base    = Settings::endpoint_base();
 		if ( '' === $api_key ) {
-			return $this->test_outcome( false, __( 'No API key is configured. Add one and save the settings first.', 'ziplogger' ), 0, null );
+			return $this->test_outcome( false, __( 'No API key is configured. Add one and save the settings first.', 'ziplogger-error-monitoring-session-replay' ), 0, null );
 		}
 		if ( '' === $base ) {
 			$problem = Settings::endpoint_problem();
-			return $this->test_outcome( false, '' !== $problem ? $problem : __( 'The endpoint is not usable.', 'ziplogger' ), 0, null );
+			return $this->test_outcome( false, '' !== $problem ? $problem : __( 'The endpoint is not usable.', 'ziplogger-error-monitoring-session-replay' ), 0, null );
 		}
 
 		$factory = new Event_Factory( new Redactor( array( 'secrets' => array( $api_key ) ) ) );
@@ -433,7 +433,7 @@ final class Worker {
 		);
 		$encoded = $factory->encode( $record );
 		if ( null === $encoded['json'] ) {
-			return $this->test_outcome( false, __( 'The test event could not be encoded.', 'ziplogger' ), 0, null );
+			return $this->test_outcome( false, __( 'The test event could not be encoded.', 'ziplogger-error-monitoring-session-replay' ), 0, null );
 		}
 
 		$payload = '[' . $encoded['json'] . ']';
@@ -442,13 +442,13 @@ final class Worker {
 		if ( $result->is_success() ) {
 			$this->meta->clear_gate( Signal::LOGS );
 			$this->meta->set_num( Meta_Store::LAST_SUCCESS, Clock::time() );
-			return $this->test_outcome( true, __( 'ZipLogger accepted the test event.', 'ziplogger' ), $result->status, $result->accepted );
+			return $this->test_outcome( true, __( 'ZipLogger accepted the test event.', 'ziplogger-error-monitoring-session-replay' ), $result->status, $result->accepted );
 		}
 		if ( Delivery_Result::AUTH === $result->outcome ) {
-			return $this->test_outcome( false, __( 'ZipLogger rejected the API key. Check that it is an ingestion key, that it has not been revoked, and that you copied all of it.', 'ziplogger' ) . ' (' . $result->message . ')', $result->status, null );
+			return $this->test_outcome( false, __( 'ZipLogger rejected the API key. Check that it is an ingestion key, that it has not been revoked, and that you copied all of it.', 'ziplogger-error-monitoring-session-replay' ) . ' (' . $result->message . ')', $result->status, null );
 		}
 		/* translators: %s: sanitized error detail. */
-		return $this->test_outcome( false, sprintf( __( 'The test event was not delivered: %s', 'ziplogger' ), $result->message ), $result->status, $result->accepted );
+		return $this->test_outcome( false, sprintf( __( 'The test event was not delivered: %s', 'ziplogger-error-monitoring-session-replay' ), $result->message ), $result->status, $result->accepted );
 	}
 
 	/**

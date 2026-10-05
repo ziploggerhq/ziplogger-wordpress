@@ -65,24 +65,24 @@ final class Endpoint {
 
 		$url = trim( (string) $url );
 		if ( '' === $url || strlen( $url ) > 2048 || 1 === preg_match( '/[\x00-\x20\x7F\\\\]/', $url ) ) {
-			return $fail( 'malformed', __( 'The URL is empty, too long, or contains spaces or control characters.', 'ziplogger' ) );
+			return $fail( 'malformed', __( 'The URL is empty, too long, or contains spaces or control characters.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 
 		$parts = wp_parse_url( $url );
 		if ( ! is_array( $parts ) || empty( $parts['host'] ) || empty( $parts['scheme'] ) ) {
-			return $fail( 'malformed', __( 'That is not a complete URL (expected https://host).', 'ziplogger' ) );
+			return $fail( 'malformed', __( 'That is not a complete URL (expected https://host).', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 
 		$dev    = self::insecure_allowed();
 		$scheme = strtolower( $parts['scheme'] );
 		if ( 'https' !== $scheme && ! ( $dev && 'http' === $scheme ) ) {
-			return $fail( 'scheme', __( 'The endpoint must use https:// so the API key is encrypted in transit.', 'ziplogger' ) );
+			return $fail( 'scheme', __( 'The endpoint must use https:// so the API key is encrypted in transit.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 		if ( isset( $parts['user'] ) || isset( $parts['pass'] ) ) {
-			return $fail( 'credentials', __( 'The URL must not contain a username or password.', 'ziplogger' ) );
+			return $fail( 'credentials', __( 'The URL must not contain a username or password.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 		if ( isset( $parts['query'] ) || isset( $parts['fragment'] ) ) {
-			return $fail( 'query', __( 'The URL must not contain a query string or fragment.', 'ziplogger' ) );
+			return $fail( 'query', __( 'The URL must not contain a query string or fragment.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 
 		$host = strtolower( rtrim( $parts['host'], '.' ) );
@@ -100,7 +100,7 @@ final class Endpoint {
 		$allowed = is_array( $allowed ) ? array_map( 'intval', $allowed ) : array( 443 );
 		if ( ! $dev && ! in_array( $port, $allowed, true ) ) {
 			/* translators: %d: port number. */
-			return $fail( 'port', sprintf( __( 'Port %d is not allowed. Use the standard HTTPS port (443).', 'ziplogger' ), $port ) );
+			return $fail( 'port', sprintf( __( 'Port %d is not allowed. Use the standard HTTPS port (443).', 'ziplogger-error-monitoring-session-replay' ), $port ) );
 		}
 
 		$path = isset( $parts['path'] ) ? rtrim( $parts['path'], '/' ) : '';
@@ -108,7 +108,7 @@ final class Endpoint {
 			$path = substr( $path, 0, -strlen( self::INGEST_PATH ) );
 		}
 		if ( '' !== $path && 1 !== preg_match( '#^(?:/[A-Za-z0-9._~\-]+)+$#', $path ) ) {
-			return $fail( 'path', __( 'The URL path contains unsupported characters.', 'ziplogger' ) );
+			return $fail( 'path', __( 'The URL path contains unsupported characters.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 
 		$is_default = self::same_host( $host, self::DEFAULT_BASE ) && '' === $path && 443 === $port && 'https' === $scheme;
@@ -194,23 +194,23 @@ final class Endpoint {
 	 */
 	private static function host_error( $host, $dev ) {
 		if ( '' === $host || strlen( $host ) > 253 ) {
-			return __( 'The host name is missing or too long.', 'ziplogger' );
+			return __( 'The host name is missing or too long.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		if ( $dev ) {
 			return 1 === preg_match( '/^[a-z0-9.\-]+$/', $host ) || false !== filter_var( trim( $host, '[]' ), FILTER_VALIDATE_IP )
 				? ''
-				: __( 'The host name contains unsupported characters.', 'ziplogger' );
+				: __( 'The host name contains unsupported characters.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		if ( false !== filter_var( trim( $host, '[]' ), FILTER_VALIDATE_IP ) ) {
-			return __( 'Use a host name, not an IP address.', 'ziplogger' );
+			return __( 'Use a host name, not an IP address.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		if ( 1 !== preg_match( '/^(?=.{1,253}$)([a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?\.)+[a-z][a-z0-9\-]{0,61}[a-z0-9]$/', $host ) ) {
-			return __( 'That is not a valid public host name.', 'ziplogger' );
+			return __( 'That is not a valid public host name.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		$blocked = array( 'localhost', 'local', 'localdomain', 'internal', 'intranet', 'lan', 'home', 'corp', 'test', 'invalid', 'example' );
 		$tld     = substr( $host, (int) strrpos( $host, '.' ) + 1 );
 		if ( 'localhost' === $host || in_array( $tld, $blocked, true ) ) {
-			return __( 'Local and internal host names are not allowed.', 'ziplogger' );
+			return __( 'Local and internal host names are not allowed.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		return '';
 	}
@@ -225,14 +225,14 @@ final class Endpoint {
 	private static function resolution_error( $host, $dev ) {
 		$ips = self::resolve( $host );
 		if ( ! $ips ) {
-			return __( 'The host name could not be resolved. Check the spelling, or try again in a moment.', 'ziplogger' );
+			return __( 'The host name could not be resolved. Check the spelling, or try again in a moment.', 'ziplogger-error-monitoring-session-replay' );
 		}
 		if ( $dev ) {
 			return '';
 		}
 		foreach ( $ips as $ip ) {
 			if ( ! self::is_public_ip( $ip ) ) {
-				return __( 'The host resolves to a private or reserved address, which is not allowed.', 'ziplogger' );
+				return __( 'The host resolves to a private or reserved address, which is not allowed.', 'ziplogger-error-monitoring-session-replay' );
 			}
 		}
 		return '';

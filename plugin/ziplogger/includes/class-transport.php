@@ -109,7 +109,7 @@ final class Transport {
 		$redactor = new Redactor( array( 'secrets' => array( $api_key ) ) );
 
 		if ( '' === $api_key ) {
-			return new Delivery_Result( Delivery_Result::AUTH, 0, 'no_key', __( 'No API key is configured.', 'ziplogger' ) );
+			return new Delivery_Result( Delivery_Result::AUTH, 0, 'no_key', __( 'No API key is configured.', 'ziplogger-error-monitoring-session-replay' ) );
 		}
 		$problem = Endpoint::preflight( $endpoint_base );
 		if ( '' !== $problem ) {
