@@ -59,7 +59,7 @@ The browser scripts bundle: the ZipLogger browser client (`@ziplogger/browser`, 
 
 == Installation ==
 
-1. Upload the plugin and activate it.
+1. In WordPress, go to Plugins, Add New, search for "ZipLogger", then install and activate "ZipLogger: Error Monitoring & Session Replay". (Or upload the plugin ZIP under Plugins, Add New, Upload Plugin.)
 2. Go to Settings, ZipLogger, Connection and paste a server API key (created in ZipLogger under Settings, API keys). Add a browser key (ingestion only) for browser modules, and optionally a read key for live dashboard panels.
 3. Press "Send test event".
 4. Switch on the modules you want, each on its own tab, and review "Privacy and consent".
@@ -103,6 +103,16 @@ Yes. Activate it on single sites, or for the whole network: the sites that exist
 = What does it not do? =
 
 It does not capture PHP errors when the request never reaches PHP (a page served by a full-page cache), does not read product analytics or replays back into WordPress (the dashboard links into ZipLogger for those), and cannot recall data already sent. See `docs/LIMITATIONS.md` in the public source repository (https://github.com/ziploggerhq/ziplogger-wordpress).
+
+== Screenshots ==
+
+1. Overview: delivery health at a glance, and the latest server errors read back from your ZipLogger workspace (with an optional read key).
+2. Browser monitoring: recent JavaScript errors, failed browser requests per hour and Core Web Vitals at the 75th percentile.
+3. Tracing: sampled server requests, how many failed, p95 latency and links to recent traces.
+4. Server logs: exactly what is collected, the minimum severity and each optional collector with its own switch.
+5. Session replay: sampling and masking. Input values are always masked, and admin, login, cart and checkout pages are never recorded.
+6. Privacy and consent: the identifiers each feature uses, and a consent policy for each category.
+7. Connection: three separate keys (server, browser and an optional read key), each of which can also be set in wp-config.php.
 
 == Changelog ==
 

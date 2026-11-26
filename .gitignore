@@ -9,3 +9,5 @@ tests/e2e/.out/
 tests/e2e/browser/out/
 tests/e2e/browser/node_modules/
 tests/perf/*.tmp
+# WordPress.org screenshot run output (regenerate with wporg-assets/screenshots/make-screenshots.mjs; the published copies live in SVN assets/).
+wporg-assets/screenshots/out/
