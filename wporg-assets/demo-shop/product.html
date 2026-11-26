@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- Product images for the ziplogger.dev demo shop. Rendered by render-products.mjs (800x800). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; }
+  body { width: 800px; height: 800px; display: grid; place-items: center; font-family: Georgia, 'Times New Roman', serif;
+         background: radial-gradient(circle at 50% 40%, var(--bg1), var(--bg2)); overflow: hidden; }
+  .bag { position: relative; width: 380px; height: 520px; background: var(--bag); border-radius: 28px 28px 18px 18px;
+         box-shadow: 0 40px 60px rgba(0,0,0,.35), inset -30px 0 40px rgba(0,0,0,.18), inset 20px 0 30px rgba(255,255,255,.08); }
+  .bag::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 70px; border-radius: 28px 28px 0 0;
+                 background: repeating-linear-gradient(90deg, rgba(0,0,0,.12) 0 6px, transparent 6px 14px); }
+  .label { position: absolute; left: 40px; right: 40px; top: 130px; bottom: 70px; background: #f6f1e7; border-radius: 10px;
+           display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; box-sizing: border-box; color: #2a211b; }
+  .brand { font-size: 20px; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); }
+  .rule { width: 70px; height: 3px; background: var(--accent); margin: 18px 0; }
+  .name { font-size: 44px; line-height: 1.08; font-weight: 700; }
+  .sub { margin-top: 18px; font-size: 21px; font-style: italic; color: #5d5148; }
+  .mark { flex-shrink: 0; margin-top: 26px; width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--accent); display: grid; place-items: center; color: var(--accent); font-size: 28px; }
+  /* Non-bag items (kit, subscription box) */
+  .box { position: relative; width: 520px; height: 380px; background: var(--bag); border-radius: 18px;
+         box-shadow: 0 40px 60px rgba(0,0,0,.35), inset 0 -30px 40px rgba(0,0,0,.18); display: grid; place-items: center; }
+  .box .label { position: static; width: 400px; height: 270px; }
+</style>
+</head>
+<body>
+<script>
+  const p = new URLSearchParams(location.search);
+  const s = document.documentElement.style;
+  s.setProperty('--bag', p.get('bag')); s.setProperty('--accent', p.get('accent'));
+  s.setProperty('--bg1', p.get('bg1')); s.setProperty('--bg2', p.get('bg2'));
+  const shape = p.get('shape') || 'bag';
+  document.body.innerHTML = `<div class="${shape}"><div class="label">
+    <div class="brand">Northwind Coffee</div><div class="rule"></div>
+    <div class="name">${p.get('name')}</div><div class="sub">${p.get('sub')}</div><div class="mark">${p.get('mark') || '&#9749;'}</div>
+  </div></div>`;
+</script>
+</body>
+</html>
