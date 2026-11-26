@@ -65,6 +65,15 @@ final class Delivery_Result {
 	public $rejected;
 
 	/**
+	 * Events the backend received and then discarded because a drop rule in the ZipLogger workspace matched
+	 * them (0 when it reported none). They are part of {@see $accepted}: nothing is left to retry, but they
+	 * were not stored and will not appear in Search.
+	 *
+	 * @var int
+	 */
+	public $dropped = 0;
+
+	/**
 	 * Server-requested delay in seconds.
 	 *
 	 * @var int|null

@@ -4,11 +4,13 @@
  */
 
 use ZipLogger\WordPress\Clock;
+use ZipLogger\WordPress\Health;
 use ZipLogger\WordPress\Limits;
 use ZipLogger\WordPress\Meta_Store;
 use ZipLogger\WordPress\Queue_Store;
 use ZipLogger\WordPress\Scheduler;
 use ZipLogger\WordPress\Schema;
+use ZipLogger\WordPress\Signal;
 use ZipLogger\WordPress\Worker;
 
 class Test_Worker extends ZL_TestCase {
@@ -66,6 +68,38 @@ class Test_Worker extends ZL_TestCase {
 		$this->assertSame( Clock::time(), $this->meta->get_num( Meta_Store::LAST_SUCCESS ) );
 		$this->assertSame( 5, $this->meta->get_num( Meta_Store::SENT_EVENTS ) );
 		$this->assertSame( 0, $this->meta->get_num( Meta_Store::FAILURES ) );
+	}
+
+	public function test_logs_a_workspace_drop_rule_discarded_are_delivered_and_counted_apart() {
+		$this->seed( 5 );
+		$this->responses = array( self::response( 202, array( 'accepted' => 5, 'rejected' => 0, 'dropped' => 3 ) ) );
+		$report          = $this->worker()->run();
+
+		$this->assertSame( 'sent', $report['status'] );
+		$this->assertSame( 0, $this->queue_count(), 'Nothing is left to retry: ZipLogger handled all five.' );
+		$this->assertCount( 1, $this->requests );
+		$this->assertSame( 5, $this->meta->get_num( Meta_Store::SENT_EVENTS ) );
+		$this->assertSame( 3, $this->meta->get_num( Meta_Store::SERVER_DROPPED ) );
+		$this->assertSame( 0, $this->meta->get_num( Meta_Store::FAILURES ) );
+		$this->assertSame( 3, Health::snapshot()['signals'][ Signal::LOGS ]['server_dropped'] );
+
+		$this->seed( 2 );
+		$this->responses = array( self::response( 202, array( 'accepted' => 2, 'rejected' => 0 ) ) );
+		$this->worker()->run();
+		$this->assertSame( 3, $this->meta->get_num( Meta_Store::SERVER_DROPPED ), 'A response without the field adds nothing.' );
+	}
+
+	public function test_the_test_event_says_so_when_a_drop_rule_discarded_it() {
+		$this->responses = array( self::response( 202, array( 'accepted' => 1, 'rejected' => 0, 'dropped' => 1 ) ) );
+		$result          = $this->worker()->send_test_event();
+		$this->assertTrue( $result['ok'], 'The connection works.' );
+		$this->assertSame( 1, $result['dropped'] );
+		$this->assertStringContainsString( 'drop rule', $result['message'] );
+
+		$this->responses = array( self::response( 202, array( 'accepted' => 1, 'rejected' => 0 ) ) );
+		$result          = $this->worker()->send_test_event();
+		$this->assertSame( 0, $result['dropped'] );
+		$this->assertStringContainsString( 'accepted the test event', $result['message'] );
 	}
 
 	public function test_an_empty_queue_makes_no_request() {

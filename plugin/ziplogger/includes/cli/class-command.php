@@ -83,6 +83,10 @@ class Command extends \WP_CLI_Command {
 				'value' => $h['sent_events'],
 			),
 			array(
+				'field' => 'not_stored_by_drop_rule',
+				'value' => array_sum( array_column( $h['signals'], 'server_dropped' ) ),
+			),
+			array(
 				'field' => 'last_success',
 				'value' => $h['last_success'] ? gmdate( 'c', $h['last_success'] ) : '',
 			),
@@ -164,6 +168,10 @@ class Command extends \WP_CLI_Command {
 	public function test( $args, $assoc_args ) {
 		unset( $args, $assoc_args );
 		$result = ( new Worker() )->send_test_event();
+		if ( $result['ok'] && ! empty( $result['dropped'] ) ) {
+			\WP_CLI::warning( $result['message'] );
+			return;
+		}
 		if ( $result['ok'] ) {
 			\WP_CLI::success( sprintf( 'ZipLogger accepted the test event (HTTP %d).', $result['status'] ) );
 			return; // success() does not exit.

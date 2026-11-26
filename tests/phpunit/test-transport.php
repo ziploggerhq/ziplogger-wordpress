@@ -181,6 +181,28 @@ class Test_Transport extends ZL_TestCase {
 		$this->assertNull( $this->send()->retry_after );
 	}
 
+	public function test_logs_discarded_by_a_workspace_drop_rule_are_a_success_that_reports_the_count() {
+		// ZipLogger counts dropped logs inside "accepted": nothing is left to retry.
+		$this->responses = array( self::response( 202, array( 'accepted' => 5, 'rejected' => 0, 'dropped' => 3 ) ) );
+		$r               = $this->send( '[{},{},{},{},{}]', 5 );
+		$this->assertTrue( $r->is_success() );
+		$this->assertSame( 5, $r->accepted );
+		$this->assertSame( 3, $r->dropped );
+	}
+
+	public function test_a_response_without_a_dropped_count_reports_none_and_a_nonsense_count_is_bounded() {
+		$this->responses = array(
+			self::response( 202, array( 'accepted' => 2, 'rejected' => 0 ) ),
+			self::response( 202, array( 'accepted' => 2, 'rejected' => 0, 'dropped' => 99 ) ),
+			self::response( 202, array( 'accepted' => 2, 'rejected' => 0, 'dropped' => -4 ) ),
+			self::response( 202, array( 'accepted' => 2, 'rejected' => 0, 'dropped' => 'many' ) ),
+		);
+		$this->assertSame( 0, $this->send( '[{},{}]', 2, 'zlwp-d1' )->dropped );
+		$this->assertSame( 2, $this->send( '[{},{}]', 2, 'zlwp-d2' )->dropped, 'Never more than were accepted.' );
+		$this->assertSame( 0, $this->send( '[{},{}]', 2, 'zlwp-d3' )->dropped );
+		$this->assertSame( 0, $this->send( '[{},{}]', 2, 'zlwp-d4' )->dropped );
+	}
+
 	public function test_partial_results_report_the_counts_the_server_gave() {
 		$this->responses = array( self::response( 429, array( 'accepted' => 2, 'rejected' => 3 ), array( 'Retry-After' => '60' ) ) );
 		$r               = $this->send( '[{},{},{},{},{}]', 5 );

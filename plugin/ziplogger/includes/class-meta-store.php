@@ -23,6 +23,7 @@ final class Meta_Store {
 
 	// Counted per signal (the key gets a signal suffix, see sk()).
 	const SERVER_REJECTED = 'server_rejected';
+	const SERVER_DROPPED  = 'server_dropped';
 
 	// Drop reasons: "drop_<reason>".
 	const DROP_REASONS = array(

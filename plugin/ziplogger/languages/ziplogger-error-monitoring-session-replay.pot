@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ZipLogger: Error Monitoring & Session Replay 1.0.0\n"
+"Project-Id-Version: ZipLogger: Error Monitoring & Session Replay 1.0.1\n"
 "Report-Msgid-Bugs-To: https://ziplogger.ai/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-01T07:27:56+00:00\n"
+"POT-Creation-Date: 2026-11-26T21:09:29+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ziplogger-error-monitoring-session-replay\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: ziplogger.php
-msgid "https://github.com/ziploggerhq/ziplogger-wordpress"
+msgid "https://ziplogger.dev/plugin/"
 msgstr ""
 
 #. Description of the plugin
@@ -31,9 +31,9 @@ msgstr ""
 
 #. Author of the plugin
 #: ziplogger.php
-#: includes/admin/class-settings-page.php:83
-#: includes/admin/class-settings-page.php:84
-#: includes/admin/class-settings-page.php:574
+#: includes/admin/class-settings-page.php:100
+#: includes/admin/class-settings-page.php:101
+#: includes/admin/class-settings-page.php:594
 msgid "ZipLogger"
 msgstr ""
 
@@ -560,82 +560,90 @@ msgstr ""
 msgid "Diagnostics"
 msgstr ""
 
-#: includes/admin/class-settings-page.php:112
+#: includes/admin/class-settings-page.php:88
+msgid "Documentation"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:89
+msgid "Demo shop"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:129
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-settings-page.php:139
+#: includes/admin/class-settings-page.php:156
 msgid "Sorry, you are not allowed to manage ZipLogger."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:183
+#: includes/admin/class-settings-page.php:200
 msgid "Collection is on, but there is no server API key yet, so nothing can be delivered. Events wait in the local queue."
 msgstr ""
 
 #. translators: 1: module name, 2: what is missing.
-#: includes/admin/class-settings-page.php:219
+#: includes/admin/class-settings-page.php:236
 #, php-format
 msgid "%1$s was not switched on: %2$s"
 msgstr ""
 
-#: includes/admin/class-settings-page.php:227
+#: includes/admin/class-settings-page.php:244
 msgid "Unknown settings section."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:235
-#: includes/admin/class-settings-page.php:350
-#: includes/admin/class-settings-page.php:352
+#: includes/admin/class-settings-page.php:252
+#: includes/admin/class-settings-page.php:367
+#: includes/admin/class-settings-page.php:369
 msgid "Settings saved."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:253
+#: includes/admin/class-settings-page.php:270
 msgid "add a browser API key on the Connection tab first."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:256
-#: includes/admin/class-settings-page.php:266
+#: includes/admin/class-settings-page.php:273
+#: includes/admin/class-settings-page.php:283
 msgid "add a server API key on the Connection tab first."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:259
+#: includes/admin/class-settings-page.php:276
 msgid "browser-to-server tracing needs a browser API key."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:263
+#: includes/admin/class-settings-page.php:280
 #: includes/class-modules.php:76
 msgid "WooCommerce is not active on this site."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:293
+#: includes/admin/class-settings-page.php:310
 msgid "server"
 msgstr ""
 
-#: includes/admin/class-settings-page.php:294
+#: includes/admin/class-settings-page.php:311
 msgid "browser"
 msgstr ""
 
-#: includes/admin/class-settings-page.php:295
+#: includes/admin/class-settings-page.php:312
 msgid "read"
 msgstr ""
 
 #. translators: %s: server, browser or read.
-#: includes/admin/class-settings-page.php:302
+#: includes/admin/class-settings-page.php:319
 #, php-format
 msgid "The saved %s key was removed."
 msgstr ""
 
 #. translators: %s: server, browser or read.
-#: includes/admin/class-settings-page.php:310
+#: includes/admin/class-settings-page.php:327
 #, php-format
 msgid "The %s key was saved."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:312
+#: includes/admin/class-settings-page.php:329
 msgid "ZipLogger keys normally start with \"zk_\". If sending fails, check that you copied the right key."
 msgstr ""
 
 #. translators: %d: number of events.
-#: includes/admin/class-settings-page.php:334
+#: includes/admin/class-settings-page.php:351
 #, php-format
 msgid "%d queued item collected for the previous destination will now be sent to the new one, as you chose."
 msgid_plural "%d queued items collected for the previous destination will now be sent to the new one, as you chose."
@@ -643,7 +651,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of events.
-#: includes/admin/class-settings-page.php:339
+#: includes/admin/class-settings-page.php:356
 #, php-format
 msgid "%d queued item collected for the previous destination was discarded, as you chose."
 msgid_plural "%d queued items collected for the previous destination were discarded, as you chose."
@@ -651,19 +659,19 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of events.
-#: includes/admin/class-settings-page.php:342
+#: includes/admin/class-settings-page.php:359
 #, php-format
 msgid "%d queued item was collected for the previous key or endpoint. It is HELD, not sent, because the new key may belong to a different workspace. Choose what to do with it on the Connection tab."
 msgid_plural "%d queued items were collected for the previous key or endpoint. They are HELD, not sent, because the new key may belong to a different workspace. Choose what to do with them on the Connection tab."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-settings-page.php:370
+#: includes/admin/class-settings-page.php:387
 msgid "Add a server API key first."
 msgstr ""
 
 #. translators: %d: number of events.
-#: includes/admin/class-settings-page.php:374
+#: includes/admin/class-settings-page.php:391
 #, php-format
 msgid "%d held item will now be sent to the current destination."
 msgid_plural "%d held items will now be sent to the current destination."
@@ -671,7 +679,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: number of events.
-#: includes/admin/class-settings-page.php:380
+#: includes/admin/class-settings-page.php:397
 #, php-format
 msgid "%d held item was discarded."
 msgid_plural "%d held items were discarded."
@@ -679,7 +687,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: HTTP status code, 2: number of events accepted.
-#: includes/admin/class-settings-page.php:400
+#: includes/admin/class-settings-page.php:420
 #, php-format
 msgid "ZipLogger accepted the test event (HTTP %1$d, %2$d event). \"Accepted\" means it was received and queued for indexing; it can take a short while to appear in Search."
 msgid_plural "ZipLogger accepted the test event (HTTP %1$d, %2$d events). \"Accepted\" means it was received and queued for indexing; it can take a short while to appear in Search."
@@ -687,49 +695,49 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: workspace name.
-#: includes/admin/class-settings-page.php:440
+#: includes/admin/class-settings-page.php:460
 #, php-format
 msgid "The read key works. It belongs to the workspace \"%s\"."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:441
+#: includes/admin/class-settings-page.php:461
 msgid "The read key works."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:474
+#: includes/admin/class-settings-page.php:494
 msgid "Server collection is switched off, so queued items are not being delivered. Turn it on to send them."
 msgstr ""
 
 #. translators: 1: items delivered, 2: items still waiting.
-#: includes/admin/class-settings-page.php:482
+#: includes/admin/class-settings-page.php:502
 #, php-format
 msgid "Delivered %1$d items. %2$d still waiting."
 msgstr ""
 
 #. translators: %s: error detail
-#: includes/admin/class-settings-page.php:485
+#: includes/admin/class-settings-page.php:505
 #, php-format
 msgid "Last error: %s"
 msgstr ""
 
 #. translators: %d: number of items.
-#: includes/admin/class-settings-page.php:508
+#: includes/admin/class-settings-page.php:528
 #, php-format
 msgid "Cleared %d queued item."
 msgid_plural "Cleared %d queued items."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-settings-page.php:565
+#: includes/admin/class-settings-page.php:585
 msgid "Sorry, you are not allowed to access this page."
 msgstr ""
 
-#: includes/admin/class-settings-page.php:577
+#: includes/admin/class-settings-page.php:597
 msgid "ZipLogger sections"
 msgstr ""
 
 #. translators: 1: date and time, 2: how long ago.
-#: includes/admin/class-settings-page.php:671
+#: includes/admin/class-settings-page.php:692
 #, php-format
 msgid "%1$s (%2$s ago)"
 msgstr ""
@@ -844,89 +852,95 @@ msgid "Last error"
 msgstr ""
 
 #. translators: %s: number
-#: includes/admin/tabs/class-common.php:83
+#: includes/admin/tabs/class-common.php:84
 #, php-format
 msgid "(%s refused by ZipLogger validation)"
 msgstr ""
 
 #. translators: %s: number
-#: includes/admin/tabs/class-common.php:84
+#: includes/admin/tabs/class-common.php:85
+#, php-format
+msgid "(%s not stored: dropped by a rule in your ZipLogger workspace)"
+msgstr ""
+
+#. translators: %s: number
+#: includes/admin/tabs/class-common.php:86
 msgid "None yet"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:86
+#: includes/admin/tabs/class-common.php:88
 msgid "None"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:100
+#: includes/admin/tabs/class-common.php:102
 msgid "WP-Cron is disabled on this site (DISABLE_WP_CRON). Delivery only happens if a system cron runs \"wp cron event run --due-now\" or \"wp ziplogger flush\"."
 msgstr ""
 
 #. translators: %s: how late
-#: includes/admin/tabs/class-common.php:105
+#: includes/admin/tabs/class-common.php:107
 #, php-format
 msgid "Overdue by %s. WP-Cron only runs when someone visits the site, so a quiet site can fall behind. A system cron fixes this - see the plugin documentation."
 msgstr ""
 
 #. translators: %s: how long from now
-#: includes/admin/tabs/class-common.php:115
+#: includes/admin/tabs/class-common.php:117
 #, php-format
 msgid "Waiting before the next attempt (about %s)."
 msgstr ""
 
 #. translators: %s: how long from now
-#: includes/admin/tabs/class-common.php:119
+#: includes/admin/tabs/class-common.php:121
 #, php-format
 msgid "Next run scheduled in about %s."
 msgstr ""
 
 #. translators: %s: how long from now
-#: includes/admin/tabs/class-common.php:119
+#: includes/admin/tabs/class-common.php:121
 msgid "A run is due and will start on the next site visit."
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:121
+#: includes/admin/tabs/class-common.php:123
 msgid "Idle. A run is scheduled automatically when items are queued."
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:131
+#: includes/admin/tabs/class-common.php:133
 msgid "Queue was full"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:132
+#: includes/admin/tabs/class-common.php:134
 msgid "Per-request limit reached"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:133
+#: includes/admin/tabs/class-common.php:135
 msgid "Too large"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:134
+#: includes/admin/tabs/class-common.php:136
 msgid "Could not be encoded"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:135
+#: includes/admin/tabs/class-common.php:137
 msgid "Older than the retention window"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:136
+#: includes/admin/tabs/class-common.php:138
 msgid "Repeatedly failed delivery"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:137
+#: includes/admin/tabs/class-common.php:139
 msgid "Rejected by ZipLogger"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:138
+#: includes/admin/tabs/class-common.php:140
 msgid "Cleared by an administrator"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:139
+#: includes/admin/tabs/class-common.php:141
 msgid "Local database write failed"
 msgstr ""
 
 #. translators: %s: number of queued items.
-#: includes/admin/tabs/class-common.php:153
+#: includes/admin/tabs/class-common.php:155
 #, php-format
 msgid "%s queued item is on hold."
 msgid_plural "%s queued items are on hold."
@@ -934,59 +948,75 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: number of queued items.
-#: includes/admin/tabs/class-common.php:154
+#: includes/admin/tabs/class-common.php:156
 msgid "They were collected for the previous API key or endpoint. A different key can belong to a different workspace, so they are not sent automatically. If the new key belongs to the same workspace (for example you rotated the key), send them; otherwise discard them. They expire on their own after the retention window."
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:156
+#: includes/admin/tabs/class-common.php:158
 msgid "Send to the current destination"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:157
+#: includes/admin/tabs/class-common.php:159
 msgid "Discard held items"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:157
+#: includes/admin/tabs/class-common.php:159
 msgid "Discard the held items? They cannot be recovered."
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:170
+#: includes/admin/tabs/class-common.php:172
 msgid "Open ZipLogger"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:170
+#: includes/admin/tabs/class-common.php:172
+#: includes/admin/tabs/class-common.php:213
+#: includes/admin/tabs/class-common.php:214
 #: includes/admin/tabs/class-module.php:125
 msgid "(opens in a new tab)"
 msgstr ""
 
 #. translators: %s: the site label, shown in code style.
-#: includes/admin/tabs/class-common.php:173
+#: includes/admin/tabs/class-common.php:175
 #, php-format
 msgid "Then search for events with source %s."
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:187
+#: includes/admin/tabs/class-common.php:189
 msgid "Send test event"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:188
+#: includes/admin/tabs/class-common.php:190
 msgid "Deliver queued items now"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:189
+#: includes/admin/tabs/class-common.php:191
 msgid "Clear queue"
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:189
+#: includes/admin/tabs/class-common.php:191
 msgid "Delete every queued item that has not been delivered yet? This cannot be undone."
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:191
+#: includes/admin/tabs/class-common.php:193
 msgid "These actions use the saved settings, so save any changes first. \"Send test event\" works even while collection is off."
 msgstr ""
 
-#: includes/admin/tabs/class-common.php:200
-msgid "Delivery is at-least-once, not exactly-once: a batch retried after a timeout carries the same idempotency key so ZipLogger can recognise it, but a rare duplicate or loss is possible when the site or server dies at the wrong moment. \"Accepted\" means ZipLogger received the event; it can take a short while to be searchable."
+#. translators: 1: link to the documentation, 2: link to the demo shop.
+#: includes/admin/tabs/class-common.php:212
+#, php-format
+msgid "Setup guide, troubleshooting and answers to common questions: %1$s. To see what each module records in a shop: %2$s."
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:213
+msgid "ziplogger.dev documentation"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:214
+msgid "the demo shop"
+msgstr ""
+
+#: includes/admin/tabs/class-common.php:225
+msgid "Delivery is at-least-once, not exactly-once: a batch retried after a timeout carries the same idempotency key so ZipLogger can recognise it, but a rare duplicate or loss is possible when the site or server dies at the wrong moment. \"Accepted\" means ZipLogger received the event; it can take a short while to be searchable. A log that matches a drop rule you created in ZipLogger (Log processing) is received and then discarded there: it is counted above as not stored."
 msgstr ""
 
 #: includes/admin/tabs/class-connection.php:44
@@ -2087,34 +2117,38 @@ msgstr ""
 msgid "Logs"
 msgstr ""
 
-#: includes/class-transport.php:112
+#: includes/class-transport.php:113
 #: includes/class-worker.php:121
 msgid "No API key is configured."
 msgstr ""
 
-#: includes/class-worker.php:417
+#: includes/class-worker.php:421
 msgid "No API key is configured. Add one and save the settings first."
 msgstr ""
 
-#: includes/class-worker.php:421
+#: includes/class-worker.php:425
 #: includes/dashboard/class-remote.php:57
 msgid "The endpoint is not usable."
 msgstr ""
 
-#: includes/class-worker.php:436
+#: includes/class-worker.php:440
 msgid "The test event could not be encoded."
 msgstr ""
 
-#: includes/class-worker.php:445
+#: includes/class-worker.php:451
+msgid "ZipLogger received the test event, but a drop rule in your ZipLogger workspace discarded it, so it will not appear in Search. The connection itself works. Check Log processing in ZipLogger if that is not what you want."
+msgstr ""
+
+#: includes/class-worker.php:453
 msgid "ZipLogger accepted the test event."
 msgstr ""
 
-#: includes/class-worker.php:448
+#: includes/class-worker.php:456
 msgid "ZipLogger rejected the API key. Check that it is an ingestion key, that it has not been revoked, and that you copied all of it."
 msgstr ""
 
 #. translators: %s: sanitized error detail.
-#: includes/class-worker.php:451
+#: includes/class-worker.php:459
 #, php-format
 msgid "The test event was not delivered: %s"
 msgstr ""

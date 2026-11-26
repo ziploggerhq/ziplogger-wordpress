@@ -4,7 +4,7 @@ Tags: error monitoring, logging, analytics, session replay, woocommerce
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,14 @@ Yes. Activate it on single sites, or for the whole network: the sites that exist
 
 It does not capture PHP errors when the request never reaches PHP (a page served by a full-page cache), does not read product analytics or replays back into WordPress (the dashboard links into ZipLogger for those), and cannot recall data already sent. See `docs/LIMITATIONS.md` in the public source repository (https://github.com/ziploggerhq/ziplogger-wordpress).
 
+= Where is the documentation? =
+
+At https://ziplogger.dev/docs/ : the setup guide, what to do when the key or endpoint changes, reliable delivery on low-traffic sites and answers to common questions. https://ziplogger.dev/demo/ is a demo shop that shows what each module records at every step of a visit.
+
+= A log was delivered but I cannot find it in ZipLogger. Why? =
+
+If you created a drop rule in ZipLogger (Log processing), logs that match it are received and then discarded there, on purpose: they are not stored and not billed. The Diagnostics tab counts them next to Delivered as "not stored", and "Send test event" tells you when a rule dropped the test event. Error and fatal logs are never dropped by such a rule.
+
 == Screenshots ==
 
 1. Overview: delivery health at a glance, and the latest server errors read back from your ZipLogger workspace (with an optional read key).
@@ -116,10 +124,18 @@ It does not capture PHP errors when the request never reaches PHP (a page served
 
 == Changelog ==
 
+= 1.0.1 =
+* Logs that a drop rule in your ZipLogger workspace discards are now counted: Diagnostics and the Overview show them as "not stored" next to Delivered, and "Send test event" says so when a rule dropped the test event. WP-CLI: `wp ziplogger status` has the count and `wp ziplogger test` warns the same way.
+* Documentation moved to https://ziplogger.dev/docs/ : linked from the settings screen and from the Plugins screen, together with the demo shop.
+* Plugin URI now points to https://ziplogger.dev/plugin/.
+
 = 1.0.0 =
 * First release: server logs, browser monitoring, analytics, session replay, tracing, WooCommerce events and a dashboard, all opt-in.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Shows logs discarded by a ZipLogger drop rule, and links the documentation at ziplogger.dev. No settings change.
 
 = 1.0.0 =
 First release.

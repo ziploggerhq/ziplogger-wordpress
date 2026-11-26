@@ -71,6 +71,23 @@ final class Settings_Page {
 		add_action( 'admin_post_ziplogger_test_read', array( $this, 'handle_test_read' ) );
 		\ZipLogger\WordPress\Dashboard\Ajax::register();
 		add_filter( 'plugin_action_links_' . plugin_basename( ZIPLOGGER_FILE ), array( $this, 'action_links' ) );
+		add_filter( 'plugin_row_meta', array( $this, 'row_meta' ), 10, 2 );
+	}
+
+	/**
+	 * "Documentation" and "Demo shop" links under the plugin's description on the Plugins screen.
+	 *
+	 * @param string[] $links Existing links.
+	 * @param string   $file  Plugin file the row is for.
+	 * @return string[]
+	 */
+	public function row_meta( $links, $file ) {
+		if ( plugin_basename( ZIPLOGGER_FILE ) !== $file ) {
+			return $links;
+		}
+		$links[] = '<a href="' . esc_url( Tabs\Common::DOCS_URL ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Documentation', 'ziplogger-error-monitoring-session-replay' ) . '</a>';
+		$links[] = '<a href="' . esc_url( Tabs\Common::DEMO_URL ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Demo shop', 'ziplogger-error-monitoring-session-replay' ) . '</a>';
+		return $links;
 	}
 
 	/**
@@ -392,7 +409,10 @@ final class Settings_Page {
 		$result = ( new Worker() )->send_test_event();
 
 		$notices = array();
-		if ( $result['ok'] ) {
+		if ( $result['ok'] && ! empty( $result['dropped'] ) ) {
+			// Delivered, then discarded by the workspace's own drop rule: true, but not what "accepted" suggests.
+			$notices[] = array( 'warning', $result['message'] );
+		} elseif ( $result['ok'] ) {
 			$notices[] = array(
 				'success',
 				sprintf(
@@ -585,6 +605,7 @@ final class Settings_Page {
 			);
 		}
 		echo '</nav>';
+		Tabs\Common::docs_line();
 
 		echo '<div class="ziplogger-panel">';
 		switch ( $tab ) {

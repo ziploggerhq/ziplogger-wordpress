@@ -18,7 +18,8 @@ defined( 'ABSPATH' ) || exit;
  * Contract facts this class relies on (from the backend's LogEndpoints, EventEndpoints and
  * OtlpEndpoints, and IngestRequestFlow):
  *
- *  logs    202 {"accepted":N,"rejected":0}   everything admitted.
+ *  logs    202 {"accepted":N,"rejected":0}   everything admitted. An optional "dropped":D says D of the N
+ *          were discarded by a drop rule of the workspace: handled, nothing to retry, but not stored.
  *          429 {"accepted":N,"rejected":M} + Retry-After   a PREFIX was admitted; a retry with the same key
  *          and the same body ingests only the remainder. 422 key bound to a different body; 409 in flight.
  *  events  202 {"accepted","rejected","identified","quota"}   the request was PROCESSED. "rejected" counts
@@ -271,7 +272,10 @@ final class Transport {
 				$retry
 			);
 		}
-		return new Delivery_Result( Delivery_Result::SUCCESS, $status, 'accepted', '', $accepted, $rejected );
+		$result = new Delivery_Result( Delivery_Result::SUCCESS, $status, 'accepted', '', $accepted, $rejected );
+		// "dropped" (ZipLogger log drop rules): received, counted in "accepted", deliberately not stored.
+		$result->dropped = isset( $json['dropped'] ) && is_numeric( $json['dropped'] ) ? max( 0, min( $accepted, (int) $json['dropped'] ) ) : 0;
+		return $result;
 	}
 
 	/**

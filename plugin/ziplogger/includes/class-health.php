@@ -63,6 +63,7 @@ final class Health {
 				'sent_events'     => $tables_ok ? $meta->get_num( $meta->sk( Meta_Store::SENT_EVENTS, $signal ) ) : 0,
 				'sent_batches'    => $tables_ok ? $meta->get_num( $meta->sk( Meta_Store::SENT_BATCHES, $signal ) ) : 0,
 				'server_rejected' => $tables_ok ? $meta->get_num( $meta->sk( Meta_Store::SERVER_REJECTED, $signal ) ) : 0,
+				'server_dropped'  => $tables_ok ? $meta->get_num( $meta->sk( Meta_Store::SERVER_DROPPED, $signal ) ) : 0,
 				'drops'           => isset( $drops_by[ $signal ] ) ? $drops_by[ $signal ] : array_fill_keys( Meta_Store::DROP_REASONS, 0 ),
 				'overdue'         => $overdue,
 			);

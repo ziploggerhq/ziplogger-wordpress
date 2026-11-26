@@ -80,7 +80,9 @@ final class Common {
 			echo '<tr>';
 			echo '<th scope="row">' . esc_html( Signal::label( $signal ) ) . '</th>';
 			echo '<td>' . esc_html( number_format_i18n( $s['pending'] ) ) . '</td>';
-			echo '<td>' . esc_html( number_format_i18n( $s['sent_events'] ) ) . ( $s['server_rejected'] > 0 ? ' <span class="description">' . esc_html( sprintf( /* translators: %s: number */ __( '(%s refused by ZipLogger validation)', 'ziplogger-error-monitoring-session-replay' ), number_format_i18n( $s['server_rejected'] ) ) ) . '</span>' : '' ) . '</td>';
+			$server_dropped = isset( $s['server_dropped'] ) ? (int) $s['server_dropped'] : 0;
+			echo '<td>' . esc_html( number_format_i18n( $s['sent_events'] ) ) . ( $s['server_rejected'] > 0 ? ' <span class="description">' . esc_html( sprintf( /* translators: %s: number */ __( '(%s refused by ZipLogger validation)', 'ziplogger-error-monitoring-session-replay' ), number_format_i18n( $s['server_rejected'] ) ) ) . '</span>' : '' )
+				. ( $server_dropped > 0 ? ' <span class="description">' . esc_html( sprintf( /* translators: %s: number */ __( '(%s not stored: dropped by a rule in your ZipLogger workspace)', 'ziplogger-error-monitoring-session-replay' ), number_format_i18n( $server_dropped ) ) ) . '</span>' : '' ) . '</td>';
 			echo '<td>' . ( $s['last_success'] ? esc_html( Settings_Page::ago( $s['last_success'], $h['now'] ) ) : esc_html__( 'None yet', 'ziplogger-error-monitoring-session-replay' ) ) . '</td>';
 			echo '<td>' . esc_html( $dropped ? implode( '; ', $dropped ) : '0' ) . '</td>';
 			echo '<td>' . ( '' !== $error ? esc_html( $error ) : esc_html__( 'None', 'ziplogger-error-monitoring-session-replay' ) ) . '</td>';
@@ -192,12 +194,35 @@ final class Common {
 	}
 
 	/**
+	 * Where the plugin's documentation lives.
+	 */
+	const DOCS_URL = 'https://ziplogger.dev/docs/';
+	const SITE_URL = 'https://ziplogger.dev/';
+	const DEMO_URL = 'https://ziplogger.dev/demo/';
+
+	/**
+	 * One line pointing at the documentation site, shown under the tabs.
+	 *
+	 * @return void
+	 */
+	public static function docs_line() {
+		echo '<p class="description ziplogger-docs">';
+		printf(
+			/* translators: 1: link to the documentation, 2: link to the demo shop. */
+			esc_html__( 'Setup guide, troubleshooting and answers to common questions: %1$s. To see what each module records in a shop: %2$s.', 'ziplogger-error-monitoring-session-replay' ),
+			'<a href="' . esc_url( self::DOCS_URL ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'ziplogger.dev documentation', 'ziplogger-error-monitoring-session-replay' ) . '<span class="screen-reader-text"> ' . esc_html__( '(opens in a new tab)', 'ziplogger-error-monitoring-session-replay' ) . '</span></a>',
+			'<a href="' . esc_url( self::DEMO_URL ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'the demo shop', 'ziplogger-error-monitoring-session-replay' ) . '<span class="screen-reader-text"> ' . esc_html__( '(opens in a new tab)', 'ziplogger-error-monitoring-session-replay' ) . '</span></a>'
+		);
+		echo '</p>';
+	}
+
+	/**
 	 * Explanatory footnote about delivery guarantees.
 	 *
 	 * @return void
 	 */
 	public static function guarantee_note() {
-		echo '<p class="description">' . esc_html__( 'Delivery is at-least-once, not exactly-once: a batch retried after a timeout carries the same idempotency key so ZipLogger can recognise it, but a rare duplicate or loss is possible when the site or server dies at the wrong moment. "Accepted" means ZipLogger received the event; it can take a short while to be searchable.', 'ziplogger-error-monitoring-session-replay' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Delivery is at-least-once, not exactly-once: a batch retried after a timeout carries the same idempotency key so ZipLogger can recognise it, but a rare duplicate or loss is possible when the site or server dies at the wrong moment. "Accepted" means ZipLogger received the event; it can take a short while to be searchable. A log that matches a drop rule you created in ZipLogger (Log processing) is received and then discarded there: it is counted above as not stored.', 'ziplogger-error-monitoring-session-replay' ) . '</p>';
 	}
 
 	/**

@@ -236,6 +236,10 @@ final class Worker {
 					// Events the backend refused on validation: final, so counted rather than retried.
 					$m->incr( $m->sk( Meta_Store::SERVER_REJECTED, $signal ), (int) $result->rejected );
 				}
+				if ( $result->dropped > 0 ) {
+					// Discarded by a drop rule of the ZipLogger workspace: delivered, but not stored there.
+					$m->incr( $m->sk( Meta_Store::SERVER_DROPPED, $signal ), (int) $result->dropped );
+				}
 				$m->set_num( $m->sk( Meta_Store::LAST_SUCCESS, $signal ), $now );
 				$m->clear_gate( $signal );
 				$report['events_sent'] += $batch->count;
@@ -408,7 +412,7 @@ final class Worker {
 	/**
 	 * Send one test event immediately, bypassing the queue. This is a deliberate administrator action.
 	 *
-	 * @return array{ok:bool,message:string,status:int,accepted:int|null}
+	 * @return array{ok:bool,message:string,status:int,accepted:int|null,dropped:int}
 	 */
 	public function send_test_event() {
 		$api_key = Settings::api_key();
@@ -442,6 +446,10 @@ final class Worker {
 		if ( $result->is_success() ) {
 			$this->meta->clear_gate( Signal::LOGS );
 			$this->meta->set_num( Meta_Store::LAST_SUCCESS, Clock::time() );
+			if ( $result->dropped > 0 ) {
+				// The connection works, but the administrator will not find the event: say why.
+				return $this->test_outcome( true, __( 'ZipLogger received the test event, but a drop rule in your ZipLogger workspace discarded it, so it will not appear in Search. The connection itself works. Check Log processing in ZipLogger if that is not what you want.', 'ziplogger-error-monitoring-session-replay' ), $result->status, $result->accepted, $result->dropped );
+			}
 			return $this->test_outcome( true, __( 'ZipLogger accepted the test event.', 'ziplogger-error-monitoring-session-replay' ), $result->status, $result->accepted );
 		}
 		if ( Delivery_Result::AUTH === $result->outcome ) {
@@ -458,14 +466,16 @@ final class Worker {
 	 * @param string   $message  Message.
 	 * @param int      $status   HTTP status.
 	 * @param int|null $accepted Accepted count.
+	 * @param int      $dropped  How many of the accepted events a workspace drop rule discarded.
 	 * @return array
 	 */
-	private function test_outcome( $ok, $message, $status, $accepted ) {
+	private function test_outcome( $ok, $message, $status, $accepted, $dropped = 0 ) {
 		$out = array(
 			'ok'       => $ok,
 			'message'  => $message,
 			'status'   => (int) $status,
 			'accepted' => $accepted,
+			'dropped'  => (int) $dropped,
 		);
 		$this->meta->set_json(
 			Meta_Store::LAST_TEST,

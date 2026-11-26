@@ -408,6 +408,43 @@ class Test_Admin extends ZL_TestCase {
 	// Actions.
 	// ---------------------------------------------------------------------------------------------
 
+	public function test_the_test_action_warns_when_a_workspace_drop_rule_discarded_the_event() {
+		$this->enable();
+		$this->login();
+		$this->responses = array( self::response( 202, array( 'accepted' => 1, 'rejected' => 0, 'dropped' => 1 ) ) );
+		$this->submit( 'handle_test', array( 'tab' => 'connection' ), 'ziplogger_test' );
+		$this->assertSame( 'warning', $this->notices()[0][0] );
+		$this->assertStringContainsString( 'drop rule', $this->notice_text() );
+		$this->assertStringContainsString( 'connection itself works', $this->notice_text() );
+	}
+
+	public function test_delivered_logs_a_drop_rule_discarded_are_shown_as_not_stored() {
+		$this->enable();
+		$this->login();
+		$this->assertStringNotContainsString( 'not stored: dropped by a rule', $this->render_tab( 'diagnostics' ) );
+		$meta = new Meta_Store();
+		$meta->incr( Meta_Store::SENT_EVENTS, 9 );
+		$meta->incr( Meta_Store::SERVER_DROPPED, 4 );
+		$html = $this->render_tab( 'diagnostics' );
+		$this->assertStringContainsString( '(4 not stored: dropped by a rule in your ZipLogger workspace)', $html );
+	}
+
+	public function test_the_settings_screen_and_the_plugins_screen_link_the_documentation_site() {
+		$this->login();
+		foreach ( array( 'overview', 'connection', 'diagnostics' ) as $tab ) {
+			$html = $this->render_tab( $tab );
+			$this->assertStringContainsString( 'href="https://ziplogger.dev/docs/"', $html, $tab );
+			$this->assertStringContainsString( 'href="https://ziplogger.dev/demo/"', $html, $tab );
+		}
+
+		$own   = $this->page->row_meta( array( 'Version 1' ), plugin_basename( ZIPLOGGER_FILE ) );
+		$other = $this->page->row_meta( array( 'Version 1' ), 'akismet/akismet.php' );
+		$this->assertCount( 3, $own );
+		$this->assertStringContainsString( 'https://ziplogger.dev/docs/', $own[1] );
+		$this->assertStringContainsString( 'https://ziplogger.dev/demo/', $own[2] );
+		$this->assertSame( array( 'Version 1' ), $other, 'Other plugins keep their own row.' );
+	}
+
 	public function test_the_test_action_reports_the_servers_answer_and_stays_on_its_tab() {
 		$this->enable();
 		$this->login();
